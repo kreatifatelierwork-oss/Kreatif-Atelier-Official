@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ── Brand tokens ─────────────────────────────────────────── */
+:root {
+  --ink: #0b0f1a;
+  --navy: #14213d;
+  --gold: #c9a45c;
+  --gold-bright: #e8c98a;
+  --bronze: #8c6a3f;
+  --cream: #f3ebdd;
+  --crimson: #7a1e2b;
+
+  --cream-muted: rgb(243 235 221 / 0.72);
+  --cream-faint: rgb(243 235 221 / 0.5);
+  --line: rgb(201 164 92 / 0.22);
+  --panel: rgb(20 33 61 / 0.38);
+
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --nav-h: 4.5rem;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-navy: var(--navy);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-bronze: var(--bronze);
+  --color-cream: var(--cream);
+  --color-cream-muted: var(--cream-muted);
+  --color-cream-faint: var(--cream-faint);
+  --color-crimson: var(--crimson);
+  --color-line: var(--line);
+  --color-panel: var(--panel);
+
+  --font-display: var(--font-cormorant);
+  --font-price: var(--font-rupee), var(--font-cormorant);
+  --font-sans: var(--font-manrope);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  background: var(--ink);
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* Visible focus for every interactive element */
+:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Atmosphere (static backdrop; the WebGL canvas sits above this later) ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60vmax 45vmax at 50% 28%, rgb(201 164 92 / 0.1), transparent 60%),
+    radial-gradient(70vmax 60vmax at 85% 100%, rgb(20 33 61 / 0.7), transparent 70%),
+    radial-gradient(60vmax 50vmax at 0% 60%, rgb(20 33 61 / 0.55), transparent 70%),
+    var(--ink);
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Type helpers ─────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+
+.emph {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.gold-text {
+  background: linear-gradient(100deg, var(--bronze) 0%, var(--gold) 28%, var(--gold-bright) 50%, var(--gold) 72%, var(--bronze) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Panels ───────────────────────────────────────────────── */
+.panel {
+  background: linear-gradient(160deg, rgb(20 33 61 / 0.55), rgb(11 15 26 / 0.6));
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

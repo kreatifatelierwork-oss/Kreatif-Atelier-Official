@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+.env*
+!.env.example
+.vercel
+.claude/settings.local.json
+.claude/.cc-writes
+.pnpm-store/
