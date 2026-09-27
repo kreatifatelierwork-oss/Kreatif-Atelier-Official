@@ -31,7 +31,7 @@ const organizationJsonLd = {
 
 export default function Home() {
   return (
-    <div id={SITE_ROOT_ID}>
+    <div id={SITE_ROOT_ID} className="relative z-10">
       <Nav />
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />

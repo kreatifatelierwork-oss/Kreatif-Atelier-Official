@@ -31,7 +31,14 @@ export function Hero() {
       aria-labelledby="home-heading"
       className="relative flex min-h-svh flex-col px-[var(--gutter)] pt-[calc(var(--nav-h)+2rem)] pb-8"
     >
-      <div className="mx-auto flex w-full max-w-[1400px] flex-1 flex-col">
+      {/* Where the 3D sculpture sits (read by the canvas; the loader appears here too).
+          Desktop: the open top-right of the hero. Mobile: a flexible gap in the column below. */}
+      <div
+        data-hero-anchor
+        aria-hidden="true"
+        className="pointer-events-none absolute top-[7%] right-[1%] hidden h-[54%] w-[36%] md:block"
+      />
+      <div className="relative mx-auto flex w-full max-w-[1400px] flex-1 flex-col">
         <p className="eyebrow flex items-center justify-center gap-3 text-cream-muted md:justify-start">
           {hero.eyebrow.map((part, i) => (
             <span key={part} className="flex items-center gap-3">
@@ -41,10 +48,12 @@ export function Hero() {
           ))}
         </p>
 
+        <div data-hero-anchor aria-hidden="true" className="pointer-events-none relative my-4 min-h-44 flex-1 md:hidden" />
+
         {/* Wordmark: line one hugs the left, line two the right, leaving the centre for the sculpture. */}
         <h1
           id="home-heading"
-          className="display gold-text my-auto flex flex-col py-10 text-center text-[clamp(3.6rem,14.5vw,13.5rem)] leading-[0.86] font-medium tracking-[0.06em] uppercase md:text-left"
+          className="display gold-text flex flex-col py-6 md:py-10 [filter:drop-shadow(0_6px_28px_rgb(11_15_26/0.9))] md:my-auto text-center text-[clamp(3.6rem,14.5vw,13.5rem)] leading-[0.86] font-medium tracking-[0.06em] uppercase md:text-left"
         >
           <span>{hero.wordmark[0]}</span>{" "}
           <span className="md:self-end md:pr-[0.02em]">{hero.wordmark[1]}</span>
