@@ -1,6 +1,29 @@
 import { hero } from "@/content/site";
 import { Star } from "@/components/ui/Star";
 
+/**
+ * ∞ isn't in Cormorant or Manrope, so it's drawn to sit with the figures beside it:
+ * about Cormorant's x-height tall, centred on the math axis, stroke matched to the 400 weight.
+ */
+function InfinityGlyph() {
+  return (
+    <svg
+      viewBox="0 0 78 40"
+      aria-hidden="true"
+      focusable="false"
+      className="inline-block h-[0.4em] w-[0.78em] overflow-visible align-[0.01em]"
+    >
+      <path
+        d="M39 20C33 10 27 6 19 6 10 6 4 12 4 20s6 14 15 14c8 0 14-4 20-14s12-14 20-14c9 0 15 6 15 14s-6 14-15 14c-8 0-14-4-20-14z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="4.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function Hero() {
   return (
     <section
@@ -48,7 +71,16 @@ export function Hero() {
             {hero.stats.map((stat) => (
               <div key={stat.label} className="flex flex-col-reverse items-center gap-1 text-center md:items-start md:text-left">
                 <dt className="eyebrow text-[0.62rem] leading-snug text-cream-faint">{stat.label}</dt>
-                <dd className="display text-[2.4rem] leading-none text-gold-bright">{stat.value}</dd>
+                <dd className="display text-[2.4rem] leading-none text-gold-bright">
+                  {"srValue" in stat ? (
+                    <>
+                      <InfinityGlyph />
+                      <span className="sr-only">{stat.srValue}</span>
+                    </>
+                  ) : (
+                    stat.value
+                  )}
+                </dd>
               </div>
             ))}
           </dl>

@@ -45,7 +45,8 @@ export const hero = {
   stats: [
     { value: "6+", label: "Core Services" },
     { value: "4", label: "Divisions" },
-    { value: "∞", label: "Creative Vision" },
+    /** Drawn as an inline SVG (neither font has ∞); `srValue` is what screen readers hear. */
+    { value: "∞", srValue: "Infinite", label: "Creative Vision" },
   ],
   scrollCue: "Scroll",
 } as const;
