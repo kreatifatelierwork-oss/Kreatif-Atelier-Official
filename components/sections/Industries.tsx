@@ -13,6 +13,7 @@ export function Industries() {
         {industries.map((industry) => (
           <li
             key={industry}
+            data-reveal
             className="flex items-center gap-2.5 rounded-full border border-line bg-ink/60 px-5 py-2.5 text-[0.92rem] text-cream transition-colors hover:border-gold/70 hover:text-gold-bright"
           >
             <Star className="text-[0.65rem] text-gold" />

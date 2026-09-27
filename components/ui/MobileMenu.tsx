@@ -1,6 +1,7 @@
 "use client";
 
 import { nav, site } from "@/content/site";
+import { scrollToHash } from "@/lib/scroll/lenis";
 import { Dialog } from "./Dialog";
 import { Star } from "./Star";
 
@@ -9,14 +10,11 @@ type Props = { open: boolean; onClose: () => void };
 const links = [...nav.items, nav.cta];
 
 export function MobileMenu({ open, onClose }: Props) {
-  // Close first (restores scrolling), then jump to the section on the next frame.
+  // Close first (restores scrolling and focus), then travel to the section on the next frame.
   const go = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
     onClose();
-    requestAnimationFrame(() => {
-      document.querySelector(href)?.scrollIntoView();
-      history.replaceState(null, "", href);
-    });
+    requestAnimationFrame(() => scrollToHash(href));
   };
 
   return (

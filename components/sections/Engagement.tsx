@@ -12,6 +12,7 @@ export function Engagement() {
         {tiers.map((tier) => (
           <li
             key={tier.name}
+            data-reveal
             className={`panel relative flex flex-col p-8 md:p-10 ${
               tier.featured
                 ? "border-gold/70 bg-gradient-to-b from-navy/80 to-ink/80 shadow-[0_0_80px_-30px_var(--gold)] lg:-my-5 lg:py-14"

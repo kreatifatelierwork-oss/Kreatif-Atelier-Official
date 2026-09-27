@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Pinned-section layout (Services, Process). Keep in sync with config.pin.query in lib/config.ts. */
+@custom-variant pin (@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference));
+
 /* ── Brand tokens ─────────────────────────────────────────── */
 :root {
   --ink: #0b0f1a;
@@ -62,6 +65,11 @@ body {
 ::selection {
   background: var(--gold);
   color: var(--ink);
+}
+
+/* Anchor targets get focus programmatically (tabindex="-1"); no ring on whole sections. */
+[tabindex="-1"]:focus {
+  outline: none;
 }
 
 /* Visible focus for every interactive element */
@@ -131,6 +139,12 @@ body {
   background: linear-gradient(160deg, rgb(20 33 61 / 0.55), rgb(11 15 26 / 0.6));
   border: 1px solid var(--line);
   border-radius: 2px;
+}
+
+/* SplitText line masks (headline reveals): room for italic overhangs and descenders, layout unchanged. */
+.reveal-line-mask {
+  padding: 0.06em 0.12em 0.18em;
+  margin: -0.06em -0.12em -0.18em;
 }
 
 .hairline {

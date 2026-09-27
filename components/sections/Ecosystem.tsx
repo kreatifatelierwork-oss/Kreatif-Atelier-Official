@@ -12,7 +12,7 @@ export function Ecosystem() {
 
       <ul className="mt-20 grid gap-5 md:grid-cols-2">
         {divisions.map((division, i) => (
-          <li key={division.slug}>
+          <li key={division.slug} data-reveal>
             <article className="panel flex h-full flex-col p-8 md:p-10">
               <p className="eyebrow flex items-center gap-2 text-[0.65rem] text-gold">
                 <Star /> {String(i + 1).padStart(2, "0")}

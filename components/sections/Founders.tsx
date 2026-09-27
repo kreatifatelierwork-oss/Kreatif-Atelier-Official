@@ -42,7 +42,7 @@ export function Founders() {
 
       <ul className="mt-20 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
         {founders.map((founder) => (
-          <li key={founder.slug}>
+          <li key={founder.slug} data-reveal>
             <article className="group relative h-full border border-line bg-ink/70 transition-colors duration-500 focus-within:border-gold/70 hover:border-gold/70">
               <Portrait founder={founder} sizes="(min-width: 1024px) 25vw, 50vw" />
               <div className="relative -mt-16 p-4 transition-opacity duration-500 sm:-mt-20 sm:p-6 lg:group-focus-within:opacity-0 lg:group-hover:opacity-0">

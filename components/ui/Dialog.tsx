@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { ui } from "@/content/site";
+import { getLenis } from "@/lib/scroll/lenis";
 
 /** Id of the wrapper around all page content; it is made `inert` while a dialog is open. */
 export const SITE_ROOT_ID = "site-root";
@@ -37,6 +38,7 @@ export function Dialog({ open, onClose, labelledBy, children, variant = "panel" 
 
     root?.setAttribute("inert", "");
     document.documentElement.style.overflow = "hidden";
+    getLenis()?.stop();
     const frame = requestAnimationFrame(() => {
       panelRef.current?.querySelector<HTMLElement>("[data-autofocus]")?.focus();
     });
@@ -51,6 +53,7 @@ export function Dialog({ open, onClose, labelledBy, children, variant = "panel" 
       document.removeEventListener("keydown", onKeyDown);
       root?.removeAttribute("inert");
       document.documentElement.style.overflow = "";
+      getLenis()?.start();
       returnFocusTo?.focus({ preventScroll: true });
     };
   }, [open]);

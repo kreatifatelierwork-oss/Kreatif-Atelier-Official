@@ -139,5 +139,8 @@ Full-spectrum creative agency, Hyderabad. Four divisions. Six service pillars.
 
 ## Commands
 - `pnpm dev` — local dev at http://localhost:3000
-- `pnpm build` — static export to `/out`
-- `pnpm lint`
+- `pnpm build` — static export to `/out` (runs `next build --webpack`; keep webpack for now)
+- `pnpm lint` · `pnpm typecheck`
+- `pnpm start` — serve `/out` locally with compression (use this, not a plain file server, for Lighthouse)
+- `pnpm images <dir>` — rebuild founder portraits from PNGs in `<dir>` (or from the live site with no arg)
+- Append `?debug` to any URL for the live scroll readout (progress, active section, pins, fps)

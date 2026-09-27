@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { nav, site } from "@/content/site";
+import { config } from "@/lib/config";
+import { useScrollStore } from "@/lib/scroll/store";
 import { MobileMenu } from "./MobileMenu";
 import { Star } from "./Star";
 
 export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const solid = useScrollStore((s) => s.scrollY > config.scroll.navSolidAfter);
+  const active = useScrollStore((s) => s.activeSection);
 
   return (
     <>
@@ -17,7 +21,11 @@ export function Nav() {
         {nav.skipLink}
       </a>
 
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-gold/10 bg-ink/75 backdrop-blur-md">
+      <header
+        className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${
+          solid ? "border-gold/10 bg-ink/75 backdrop-blur-md" : "border-transparent bg-transparent"
+        }`}
+      >
         <div className="mx-auto flex h-[var(--nav-h)] max-w-[1400px] items-center justify-between px-[var(--gutter)]">
           <a
             href="#home"
@@ -34,7 +42,8 @@ export function Nav() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="eyebrow text-[0.68rem] text-cream-muted transition-colors hover:text-gold-bright"
+                    aria-current={active === item.href.slice(1) ? "true" : undefined}
+                    className="eyebrow relative text-[0.68rem] text-cream-muted transition-colors after:absolute after:inset-x-0 after:-bottom-2 after:h-px after:origin-left after:scale-x-0 after:bg-gold after:transition-transform after:duration-500 hover:text-gold-bright aria-[current=true]:text-gold-bright aria-[current=true]:after:scale-x-100"
                   >
                     {item.label}
                   </a>
@@ -43,6 +52,7 @@ export function Nav() {
               <li>
                 <a
                   href={nav.cta.href}
+                  aria-current={active === nav.cta.href.slice(1) ? "true" : undefined}
                   className="eyebrow inline-flex items-center gap-2 border border-gold/60 px-5 py-2.5 text-[0.68rem] text-gold-bright transition-colors hover:bg-gold hover:text-ink"
                 >
                   {nav.cta.label}

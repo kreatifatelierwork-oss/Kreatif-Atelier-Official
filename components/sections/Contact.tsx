@@ -9,15 +9,16 @@ export function Contact() {
   return (
     <Section id={contact.id} className="pb-[clamp(4rem,10vh,7rem)]">
       <div className="mx-auto max-w-4xl text-center">
-        <p className="eyebrow flex items-center justify-center gap-3 text-gold">
+        <p data-reveal className="eyebrow flex items-center justify-center gap-3 text-gold">
           <Star /> {contact.marker} <Star />
         </p>
-        <h2 id={`${contact.id}-heading`} className="display mt-6 text-[clamp(2.8rem,7vw,6rem)] text-cream">
+        <h2 id={`${contact.id}-heading`} data-reveal-lines className="display mt-6 text-[clamp(2.8rem,7vw,6rem)] text-cream">
           {contact.headline.lead} <span className="emph block">{contact.headline.emphasis}</span>
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-[1.05rem] leading-relaxed text-cream-muted">{contact.body}</p>
+        <p data-reveal className="mx-auto mt-8 max-w-2xl text-[1.05rem] leading-relaxed text-cream-muted">{contact.body}</p>
 
         <a
+          data-reveal
           href={mailtoHref(contact.cta.subject)}
           className="eyebrow mt-12 inline-flex items-center gap-3 bg-gradient-to-r from-gold via-gold-bright to-gold px-6 py-5 text-[0.7rem] font-semibold tracking-[0.16em] sm:px-8 md:tracking-[0.28em] text-ink shadow-[0_18px_60px_-18px_var(--gold)] transition-[filter,transform] hover:brightness-110 md:px-11"
         >
@@ -27,7 +28,7 @@ export function Contact() {
       </div>
 
       <dl className="mx-auto mt-24 grid max-w-5xl gap-10 border-t border-line pt-12 text-center md:grid-cols-3">
-        <div>
+        <div data-reveal>
           <dt className="eyebrow text-[0.62rem] text-gold">{details.locationLabel}</dt>
           <dd className="display mt-3 text-[1.35rem] leading-snug text-cream">
             {details.location[0]}
@@ -35,7 +36,7 @@ export function Contact() {
             <span className="text-cream-muted">{details.location[1]}</span>
           </dd>
         </div>
-        <div>
+        <div data-reveal>
           <dt className="eyebrow text-[0.62rem] text-gold">{details.emailLabel}</dt>
           <dd className="display mt-3 text-[1.35rem] text-cream">
             <a href={mailtoHref()} className="underline decoration-gold/40 underline-offset-4 hover:text-gold-bright">
@@ -43,7 +44,7 @@ export function Contact() {
             </a>
           </dd>
         </div>
-        <div>
+        <div data-reveal>
           <dt className="eyebrow text-[0.62rem] text-gold">{details.socialLabel}</dt>
           <dd className="display mt-3 text-[1.35rem] leading-snug text-cream">
             {site.handle}

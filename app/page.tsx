@@ -9,6 +9,7 @@ import { Industries } from "@/components/sections/Industries";
 import { Process } from "@/components/sections/Process";
 import { Services } from "@/components/sections/Services";
 import { WhyUs } from "@/components/sections/WhyUs";
+import { BackToTop } from "@/components/ui/BackToTop";
 import { SITE_ROOT_ID } from "@/components/ui/Dialog";
 import { Nav } from "@/components/ui/Nav";
 import { site } from "@/content/site";
@@ -45,6 +46,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <BackToTop />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
