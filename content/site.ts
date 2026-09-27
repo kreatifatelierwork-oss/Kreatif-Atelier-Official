@@ -38,7 +38,8 @@ export const hero = {
   id: "home",
   /** Live site: "Hyderabad · Est. 2024 · Creative Enterprise" — "Est." withheld until the year is confirmed. */
   eyebrow: ["Hyderabad", "Creative Enterprise"],
-  wordmark: ["KREATIF", "ATELIER"],
+  /** Set in uppercase via CSS so screen readers read words, not letters. */
+  wordmark: ["Kreatif", "Atelier"],
   positioning: ["Where Strategy Meets Story.", "Where Story Becomes Legacy."],
   brandLine: ["Bold", "Radiant", "Timeless"],
   stats: [
