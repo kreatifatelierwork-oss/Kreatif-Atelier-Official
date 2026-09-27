@@ -22,7 +22,7 @@ export function SectionHeading({ intro, align = "left", compactWhenPinned = fals
         <Star className="text-[0.9em]" />
       </p>
       {intro.kicker && (
-        <p data-reveal className="eyebrow mt-5 text-cream-faint">
+        <p data-reveal className={`eyebrow mt-5 text-cream-faint ${compactWhenPinned ? "pin-short:mt-3" : ""}`}>
           {intro.kicker}
         </p>
       )}
@@ -30,7 +30,9 @@ export function SectionHeading({ intro, align = "left", compactWhenPinned = fals
         id={headingId}
         data-reveal-lines
         className={`display mt-6 text-[clamp(2.6rem,6.2vw,5.5rem)] text-cream ${
-          compactWhenPinned ? "pin:text-[clamp(2.6rem,4.2vw,4.4rem)]" : ""
+          compactWhenPinned
+            ? "pin:text-[clamp(2.6rem,4.2vw,4.4rem)] pin-short:mt-4 pin-short:text-[clamp(2.1rem,3.3vw,3rem)]"
+            : ""
         }`}
       >
         {intro.headline.lead} <span className="emph block">{intro.headline.emphasis}</span>
@@ -38,7 +40,9 @@ export function SectionHeading({ intro, align = "left", compactWhenPinned = fals
       {intro.intro && (
         <p
           data-reveal
-          className={`mt-7 max-w-2xl text-[1.05rem] leading-relaxed text-cream-muted ${centered ? "mx-auto" : ""}`}
+          className={`mt-7 max-w-2xl text-[1.05rem] leading-relaxed text-cream-muted ${centered ? "mx-auto" : ""} ${
+            compactWhenPinned ? "pin-short:mt-4 pin-short:text-[0.92rem]" : ""
+          }`}
         >
           {intro.intro}
         </p>

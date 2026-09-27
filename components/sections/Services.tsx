@@ -79,11 +79,11 @@ export function Services() {
     <Section
       ref={sectionRef}
       id={servicesIntro.id}
-      className="pin:flex pin:h-svh pin:items-center pin:pt-[calc(var(--nav-h)+1.5rem)] pin:pb-10"
+      className="pin:flex pin:h-svh pin:items-center pin:pt-[calc(var(--nav-h)+1.5rem)] pin:pb-10 pin-short:pt-[calc(var(--nav-h)+0.75rem)] pin-short:pb-5"
       innerClassName="pin:grid pin:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] pin:items-center pin:gap-12"
     >
       <SectionHeading intro={servicesIntro} compactWhenPinned>
-        <div aria-hidden="true" className="mt-10 hidden h-px w-full max-w-xs bg-line pin:block">
+        <div aria-hidden="true" className="mt-10 hidden h-px w-full max-w-xs bg-line pin:block pin-short:mt-6">
           <span ref={barRef} className="block h-full origin-left scale-x-0 bg-gold" />
         </div>
       </SectionHeading>
@@ -98,18 +98,22 @@ export function Services() {
         >
           {services.map((service) => (
             <li key={service.slug} data-reveal className="pin:w-[clamp(19rem,25vw,23rem)]">
-              <article className="panel group relative flex h-full flex-col p-8 transition-colors duration-500 focus-within:border-gold/70 hover:border-gold/70 md:p-9">
-                <p className="display text-[3.2rem] leading-none text-gold/70 transition-colors group-hover:text-gold-bright">
+              <article className="panel group relative flex h-full flex-col p-8 transition-colors duration-500 focus-within:border-gold/70 hover:border-gold/70 md:p-9 pin-short:p-6">
+                <p className="display text-[3.2rem] leading-none text-gold/70 transition-colors group-hover:text-gold-bright pin-short:text-[2.4rem]">
                   {service.number}
                 </p>
-                <h3 className="display mt-6 text-[1.9rem] leading-tight text-cream">{service.title}</h3>
-                <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-cream-muted">{service.blurb}</p>
-                <Tags tags={service.cardTags} className="mt-7" />
+                <h3 className="display mt-6 text-[1.9rem] leading-tight text-cream pin-short:mt-3 pin-short:text-[1.55rem]">
+                  {service.title}
+                </h3>
+                <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-cream-muted pin-short:mt-3 pin-short:text-[0.86rem] pin-short:leading-[1.55]">
+                  {service.blurb}
+                </p>
+                <Tags tags={service.cardTags} className="mt-7 pin-short:mt-4" />
                 <button
                   type="button"
                   aria-haspopup="dialog"
                   onClick={() => setOpenSlug(service.slug)}
-                  className="eyebrow mt-8 flex items-center gap-2 self-start text-[0.68rem] text-gold transition-colors after:absolute after:inset-0 after:content-[''] hover:text-gold-bright"
+                  className="eyebrow mt-8 flex items-center gap-2 self-start pin-short:mt-5 text-[0.68rem] text-gold transition-colors after:absolute after:inset-0 after:content-[''] hover:text-gold-bright"
                 >
                   {servicesIntro.cardCta}
                   <span className="sr-only">: {service.title}</span>

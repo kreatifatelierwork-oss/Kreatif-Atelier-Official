@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
-/* Pinned-section layout (Services, Process). Keep in sync with config.pin.query in lib/config.ts. */
-@custom-variant pin (@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference));
+/* Pinned-section layout (Services, Process). Keep in sync with config.pin.query in lib/config.ts.
+   `pin-short` tightens the pinned layout for short laptop screens (e.g. 1366×768 → ~620–700px visible). */
+@custom-variant pin (@media (min-width: 1024px) and (min-height: 620px) and (prefers-reduced-motion: no-preference));
+@custom-variant pin-short (@media (min-width: 1024px) and (min-height: 620px) and (max-height: 759.98px) and (prefers-reduced-motion: no-preference));
 
 /* ── Brand tokens ─────────────────────────────────────────── */
 :root {

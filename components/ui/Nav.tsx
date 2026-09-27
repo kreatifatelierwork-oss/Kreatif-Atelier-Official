@@ -30,14 +30,14 @@ export function Nav() {
           <a
             href="#home"
             aria-label={nav.homeLabel}
-            className="display flex items-center gap-2.5 text-[1.05rem] font-medium tracking-[0.32em] text-cream uppercase transition-colors hover:text-gold-bright"
+            className="display flex items-center gap-2.5 text-[1.05rem] font-medium tracking-[0.24em] whitespace-nowrap text-cream uppercase xl:tracking-[0.32em] transition-colors hover:text-gold-bright"
           >
             <Star className="text-gold" />
             <span aria-hidden="true">{site.name}</span>
           </a>
 
           <nav aria-label={nav.primaryLabel} className="hidden lg:block">
-            <ul className="flex items-center gap-9">
+            <ul className="flex items-center gap-6 xl:gap-9">
               {nav.items.map((item) => (
                 <li key={item.href}>
                   <a
@@ -53,7 +53,7 @@ export function Nav() {
                 <a
                   href={nav.cta.href}
                   aria-current={active === nav.cta.href.slice(1) ? "true" : undefined}
-                  className="eyebrow inline-flex items-center gap-2 border border-gold/60 px-5 py-2.5 text-[0.68rem] text-gold-bright transition-colors hover:bg-gold hover:text-ink"
+                  className="eyebrow inline-flex items-center gap-2 border border-gold/60 px-4 py-2.5 whitespace-nowrap xl:px-5 text-[0.68rem] text-gold-bright transition-colors hover:bg-gold hover:text-ink"
                 >
                   {nav.cta.label}
                 </a>

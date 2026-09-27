@@ -34,9 +34,10 @@ export const config = {
   pin: {
     /**
      * When the Services / Process sections pin. Must match the `pin:` variant in globals.css.
-     * Pins need room: wide and tall enough, and no reduced-motion preference.
+     * Pins need room: wide and tall enough (a tighter layout applies from 620–759px tall),
+     * and no reduced-motion preference.
      */
-    query: "(min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)",
+    query: "(min-width: 1024px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)",
     /** Scroll distance per px of horizontal card travel in Services (1 = one-to-one). */
     servicesScrollRatio: 1.15,
     /** Scroll distance per Process step, in viewport heights. */
