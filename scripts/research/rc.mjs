@@ -6,6 +6,7 @@
 // Steps (array of arrays):
 //   ["open", url]                       navigate (creates the tab if none matches)
 //   ["mobile"] | ["desktop", w, h]      emulate a 390×844 touch phone (this invocation only) / set viewport
+//   ["reduced"]                         emulate prefers-reduced-motion: reduce (this invocation only)
 //   ["wait", ms]
 //   ["shot", file, fullPage?]           PNG screenshot
 //   ["wheel", dy, times?, gapMs?]       mouse-wheel scrolling at the viewport centre
@@ -49,6 +50,9 @@ for (const [cmd, ...a] of steps) {
           userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
           platform: "iPhone",
         });
+        break;
+      case "reduced":
+        await cdp.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
         break;
       case "desktop":
         vw = a[0] ?? 1440; vh = a[1] ?? 900;

@@ -117,6 +117,40 @@ export const config = {
   },
 } as const;
 
+/** Stage 2 concept prototypes (/concepts?concept=1|2|3). Rough by design — feel and motion only. */
+export const conceptConfig = {
+  orrery: {
+    loaderMinMs: 2600,
+    /** Ring radii (inner → outer) and tilts give the armillary look. */
+    rings: [
+      { radius: 1.25, tilt: [0.42, 0, 0.12], speed: 0.16, bodies: 6 },
+      { radius: 1.95, tilt: [-0.28, 0, -0.18], speed: -0.09, bodies: 4 },
+      { radius: 2.65, tilt: [0.62, 0, 0.3], speed: 0.05, bodies: 5 },
+    ],
+    rimRadius: 3.2,
+    camera: { fov: 32, position: [0, 1.4, 12] as [number, number, number] },
+    /** Before entering, the instrument sits right of the title (world units); centred once in motion. */
+    introOffsetX: 3.1,
+    /** Wheel "winds" the mechanism: radians per wheel pixel, and how quickly the winding settles. */
+    windPerPixel: 0.0035,
+    windDamping: 2.6,
+    focusDistance: 1.35,
+  },
+  production: {
+    loaderMinMs: 3200,
+    letterbox: 0.118, // share of viewport height per bar (≈ 2.39:1 at 16:9)
+    beamColor: "#FFD9A6",
+  },
+  thread: {
+    loaderMinMs: 2400,
+    holdMs: 1400,
+    /** Rope simulation: segments, rest length (world units), and pull stiffness. */
+    segments: 64,
+    segmentLength: 0.05,
+    stiffness: 0.55,
+  },
+} as const;
+
 /** The three hero sculpture studies — switch with ?sculpture=1|2|3. */
 export type SculptureVariant = {
   name: string;

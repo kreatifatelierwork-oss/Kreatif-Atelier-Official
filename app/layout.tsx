@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "lenis/dist/lenis.css";
-import { ExperienceLoader } from "@/components/three/ExperienceLoader";
 import { DebugHud } from "@/components/ui/DebugHud";
 import { site } from "@/content/site";
-import { ScrollSystem } from "@/lib/scroll/ScrollSystem";
 import { cormorant, manrope, rupee } from "./fonts";
 import "./globals.css";
 
@@ -40,8 +38,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div className="backdrop" aria-hidden="true" />
         {children}
         <div className="grain" aria-hidden="true" />
-        <ScrollSystem />
-        <ExperienceLoader />
         <DebugHud />
       </body>
     </html>

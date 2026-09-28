@@ -156,6 +156,13 @@ body {
 }
 }
 
+/* Concept 2 prototype: film-strip sprocket edges travelling while the leader counts down. */
+@keyframes filmstrip {
+  to {
+    background-position-y: 44px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -13,3 +13,6 @@ next-env.d.ts
 
 # Reference-site screenshots stay local (third-party imagery); the written research is committed.
 docs/research/**/*.png
+
+# Raw prototype captures stay local; the contact sheets in docs/concepts/*.png are committed.
+docs/concepts/shots/
