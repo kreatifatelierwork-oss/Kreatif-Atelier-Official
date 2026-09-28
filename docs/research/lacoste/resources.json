@@ -1,0 +1,332 @@
+[
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/main.47e034a4526f9beb.js",
+  "type": "other",
+  "kb": 13,
+  "ms": 120
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/vendor.9fe35287526f9beb.css",
+  "type": "link",
+  "kb": 10,
+  "ms": 109
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/webgl.a9816380526f9beb.js",
+  "type": "other",
+  "kb": 151,
+  "ms": 302
+ },
+ {
+  "url": "https://sdk.privacy-center.org/c4b94491-7507-4531-9592-bb109817d4ab/loader.js?target_type=notice&target=aCG3Ge6w",
+  "type": "script",
+  "kb": 0,
+  "ms": 1154
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/manifest.webmanifest?v=b63dcca5",
+  "type": "link",
+  "kb": 1,
+  "ms": 181
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/vendor.6be70aa8526f9beb.js",
+  "type": "script",
+  "kb": 88,
+  "ms": 183
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/main.bde6de19526f9beb.css",
+  "type": "link",
+  "kb": 7,
+  "ms": 69
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/mona-sans-regular.713fcaa7526f9beb.woff2",
+  "type": "css",
+  "kb": 21,
+  "ms": 103
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/noise-darkest_512.d2118db8526f9beb.png",
+  "type": "css",
+  "kb": 149,
+  "ms": 112
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/mona-sans-medium.c9b12174526f9beb.woff2",
+  "type": "css",
+  "kb": 21,
+  "ms": 93
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/PhysicsWorker.cc067449526f9beb.js",
+  "type": "script",
+  "kb": 6,
+  "ms": 70
+ },
+ {
+  "url": "https://sdk.privacy-center.org/sdk/13bf66eed2f46cd960f33ddb63c29bac69702a05/modern/sdk.13bf66eed2f46cd960f33ddb63c29bac69702a05.js",
+  "type": "script",
+  "kb": 0,
+  "ms": 529
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/sprites.2b4a6611526f9beb.json",
+  "type": "xmlhttprequest",
+  "kb": 1,
+  "ms": 168
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/leveldesign.3584a385526f9beb.dat",
+  "type": "xmlhttprequest",
+  "kb": 2,
+  "ms": 180
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/model.a91ccef3526f9beb.glb",
+  "type": "fetch",
+  "kb": 1080,
+  "ms": 360
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/sprites.cb470a98526f9beb.jpg",
+  "type": "img",
+  "kb": 44,
+  "ms": 356
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/noise.bc6d9141526f9beb.png",
+  "type": "img",
+  "kb": 83,
+  "ms": 448
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/floor-color.4a6fe46d526f9beb.jpg",
+  "type": "img",
+  "kb": 517,
+  "ms": 876
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/ground.4a21dcf0526f9beb.png",
+  "type": "img",
+  "kb": 7164,
+  "ms": 3124
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/floor-height.e8f84b88526f9beb.jpg",
+  "type": "img",
+  "kb": 494,
+  "ms": 863
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/floor-normal.068212cd526f9beb.jpg",
+  "type": "img",
+  "kb": 585,
+  "ms": 917
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/floor-roughness.647961b0526f9beb.jpg",
+  "type": "img",
+  "kb": 615,
+  "ms": 935
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/groundSDF.3b712345526f9beb.png",
+  "type": "img",
+  "kb": 8,
+  "ms": 361
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/sponsorLacoste.af9ef25f526f9beb.png",
+  "type": "img",
+  "kb": 24,
+  "ms": 382
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/lacosteSDF.6b047f16526f9beb.png",
+  "type": "img",
+  "kb": 142,
+  "ms": 506
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/stadiumRoughness-v2.66efc130526f9beb.png",
+  "type": "img",
+  "kb": 9737,
+  "ms": 3571
+ },
+ {
+  "url": "https://sdk.privacy-center.org/sdk/13bf66eed2f46cd960f33ddb63c29bac69702a05/modern/src_sdk_core_modules_integrations_sdk-integrations_providers_gcm_gcm_js.13bf66eed2f46cd960f33ddb63c29bac69702a05.js",
+  "type": "script",
+  "kb": 0,
+  "ms": 189
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/draco/draco_decoder.js",
+  "type": "fetch",
+  "kb": 106,
+  "ms": 108
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 3,
+  "ms": 68
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/icon_192.png?v=b63dcca5",
+  "type": "other",
+  "kb": 39,
+  "ms": 74
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 101
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_dark.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 3,
+  "ms": 68
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 2
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 2
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_dark.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 0
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/ambLoop.54048db0526f9beb.m4a",
+  "type": "xmlhttprequest",
+  "kb": 2119,
+  "ms": 731
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/assets/audiosprites.b61cc6ba526f9beb.m4a",
+  "type": "xmlhttprequest",
+  "kb": 386,
+  "ms": 295
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_dark.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_dark.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 2
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 3
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_dark.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 2
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 4
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 3
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_dark.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 3
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 1
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/icons/favicon_light.svg?v=b63dcca5",
+  "type": "other",
+  "kb": 2,
+  "ms": 9
+ },
+ {
+  "url": "https://members-play.lacoste.com/ace-breaker-rg/favicon.ico?v=b63dcca5",
+  "type": "other",
+  "kb": 0,
+  "ms": 1
+ }
+]

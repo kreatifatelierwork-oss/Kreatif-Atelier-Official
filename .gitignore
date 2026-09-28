@@ -10,3 +10,6 @@ next-env.d.ts
 .claude/settings.local.json
 .claude/.cc-writes
 .pnpm-store/
+
+# Reference-site screenshots stay local (third-party imagery); the written research is committed.
+docs/research/**/*.png

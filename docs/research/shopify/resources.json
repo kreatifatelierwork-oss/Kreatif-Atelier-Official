@@ -1,0 +1,788 @@
+[
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/tailwind-vOc3OfBK.css",
+  "type": "link",
+  "kb": 19,
+  "ms": 5
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/fonts-latin-Hwnc9bw-.css",
+  "type": "link",
+  "kb": 0,
+  "ms": 7
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0711/3431/4719/files/5949cd393a8375a896fd0a9b74307666.woff2?v=1738959228",
+  "type": "link",
+  "kb": 66,
+  "ms": 7
+ },
+ {
+  "url": "https://cdn.shopify.com/b/shopify-brochure2-assets/9cfbc7721dcccb956b85f632f175962a.woff2",
+  "type": "link",
+  "kb": 34,
+  "ms": 5
+ },
+ {
+  "url": "https://cdn.shopify.com/b/shopify-brochure2-assets/b0f3be75aaf69a9c184619c9091d33b1.woff2",
+  "type": "link",
+  "kb": 21,
+  "ms": 6
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/manifest-669eb4e5.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 6
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/rolldown-runtime-aKtaBQYM.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 7
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/entry.client-YtwYAMnd.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 7
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/react-Dvkprh6u.js",
+  "type": "other",
+  "kb": 3,
+  "ms": 7
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/react-dom-D0LIiji2.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 9
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/chunk-62JRHF6Z-BKYZPfh6.js",
+  "type": "other",
+  "kb": 37,
+  "ms": 8
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/client-CnNVSQEV.js",
+  "type": "other",
+  "kb": 50,
+  "ms": 10
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/jsx-runtime-DKdBMi_L.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 9
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/preload-helper-B1ZlS6HI.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 12
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/production-BUp_uTpM.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 9
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/scheduler-DqIm7aYh.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/chunk-5MM2A4YW-DFO2Eo6J.js",
+  "type": "other",
+  "kb": 14,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/chunk-T3U33ZZ5-BudId7g_.js",
+  "type": "other",
+  "kb": 3,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/root-CzNdUrV7.js",
+  "type": "other",
+  "kb": 21,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useIsShopifyMerchantStore-DbJsgDUs.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 12
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/constants-B_dPN1Ep.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/safeLazy-9BL36byX.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/BrowserSpecsListener-ZikkqexF.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 12
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/react-_Rk6hbya.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 16
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/reportError-BIRbFzMk.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 12
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/shallow-D10MTZ8f.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 14
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/vanilla-DZJGj1NY.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 14
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useBrowserSpecsStore-KSBuyu5W.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 16
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useReducedMotion-CtCrcO7s.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/constants-CQcMVZ2M.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 14
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/classnames-R0nST0CP.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 16
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/Button-B60ocoYv.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 16
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/lenisManager-BuYlhEBR.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 17
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/Media-BU-KYqkD.js",
+  "type": "other",
+  "kb": 11,
+  "ms": 13
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/tailwind-config-Df-ObWL6.js",
+  "type": "other",
+  "kb": 8,
+  "ms": 16
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/(_locale).editions.spring2026-BHllVl8z.js",
+  "type": "other",
+  "kb": 57,
+  "ms": 16
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/middleware-D_nWYfbo.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 17
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/clamp-DM1hWUcE.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 17
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useAssetLoadingStore-BjdwlLYn.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 17
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/sectionModels-CqSyktdl.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 17
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useSectionRegistry-BcvkvUON.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 18
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useTierStore-edsQsT8s.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 18
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/dpr-CfAtMFij.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 18
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useMountedSectionElements-D9OHwL9w.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 18
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useSectionStore-Sy0UOQiX.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 18
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useDriveActivation-bgDBaHtn.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 19
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/SceneDataContext-BXyXjH22.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 19
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useStickyMountGate-DmTxtK8v.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 20
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useSceneReveal-CKrn7fP1.js",
+  "type": "other",
+  "kb": 7,
+  "ms": 21
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/react-three-fiber.esm-Dxg-PL46.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 22
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/three.core-DVcoLpfz.js",
+  "type": "other",
+  "kb": 88,
+  "ms": 30
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/events-760a1017.esm-DCPtHAo6.js",
+  "type": "other",
+  "kb": 123,
+  "ms": 31
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/SheetContext-sekuEx_H.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 22
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/componentTelemetry-BHGR3cLK.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 22
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/sharedZeroTexture-C5JcVREk.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 24
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/SectionFluidVelocityContext-sekuEx_H.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 25
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/POSConstants-DDVeyt7I.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 25
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/layers-Cvg6N2JU.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 25
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/POS-BPpJ18uW.js",
+  "type": "other",
+  "kb": 5,
+  "ms": 25
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/subscribeWithInitial-Ckw6yogw.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 26
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/dist-4Ign8GoJ.js",
+  "type": "other",
+  "kb": 26,
+  "ms": 26
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/extends-CvVTau-c.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 25
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/Gltf-yU3CSC93.js",
+  "type": "other",
+  "kb": 19,
+  "ms": 27
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/OrbitControls-C3_f9Wka.js",
+  "type": "other",
+  "kb": 4,
+  "ms": 27
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useTheatreObject-H4ZAcMv1.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 27
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/Environment-Wa--bW_7.js",
+  "type": "other",
+  "kb": 16,
+  "ms": 27
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/HeroRingObject-Co7PP3aB.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 30
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/heroRingTheatreControls-Cya-WCRd.js",
+  "type": "other",
+  "kb": 9,
+  "ms": 30
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useElementVisibility-DXKP96Fa.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 32
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/TierResolver-CtT1IpKi.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 34
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/deploy-urls-C_mnVA4y.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 33
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/presets-BdwQB_Rb.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 32
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useTheatreDebugStore-wm7Y6xYi.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 33
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useTheatreSectionHeight-BiKzbPmf.js",
+  "type": "other",
+  "kb": 3,
+  "ms": 33
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/FluidField-npf2G_DS.js",
+  "type": "other",
+  "kb": 7,
+  "ms": 34
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/SectionScene-DPF-BSrI.js",
+  "type": "other",
+  "kb": 20,
+  "ms": 34
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/sceneTimeScale-DgHP24AK.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 35
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/ScenePresetsContext-CSn8bGed.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 35
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/cameraAnimations-dhQqw_sV.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 35
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/Environment-BI2t8yPn.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 37
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/dist-D4DOwfAL.js",
+  "type": "other",
+  "kb": 6,
+  "ms": 37
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/useCanvasPointer-CKM2sIQX.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 35
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/reducedMotion-CT1n0ezQ.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 37
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/SdfRegistry-BVxir59S.js",
+  "type": "other",
+  "kb": 22,
+  "ms": 37
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/colorAndNoise-DY6zB3P7.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 38
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/ktx2-loader-7Y-IX7SR.js",
+  "type": "other",
+  "kb": 22,
+  "ms": 38
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/pointerNdc-C2qFNexH.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 38
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/externalPointer-CwD6cY1y.js",
+  "type": "other",
+  "kb": 0,
+  "ms": 38
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/EnvironmentObject-BcDw_ZFE.js",
+  "type": "other",
+  "kb": 2,
+  "ms": 38
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/AssetSdf-BrECqyB9.js",
+  "type": "other",
+  "kb": 1,
+  "ms": 38
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/renderScaleResolve-qdey1xp-.js",
+  "type": "other",
+  "kb": 5,
+  "ms": 38
+ },
+ {
+  "url": "https://www.shopify.com/services/auth/session",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 200
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0647/5176/3550/files/hero-prod-2026-06-23T06-22-06.json?v=1787912456",
+  "type": "fetch",
+  "kb": 4,
+  "ms": 1
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/logConsoleArt-Beu3jIuM.js",
+  "type": "script",
+  "kb": 1,
+  "ms": 1
+ },
+ {
+  "url": "https://www.shopify.com/.well-known/dux?v2",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 389
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0647/5176/3550/files/agentic-mobile-optimized.webp?v=1782413240",
+  "type": "img",
+  "kb": 43,
+  "ms": 72
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0647/5176/3550/files/hero-mobile-optimized.webp?v=1782413209",
+  "type": "img",
+  "kb": 152,
+  "ms": 478
+ },
+ {
+  "url": "https://www.shopify.com/.well-known/dux?v2",
+  "type": "beacon",
+  "kb": 0,
+  "ms": 478
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/ActiveConsentCompact-Z2BWK77P-DOnU-wEs.js",
+  "type": "script",
+  "kb": 13,
+  "ms": 1
+ },
+ {
+  "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KW6FGBL7&dl=dataLayer",
+  "type": "script",
+  "kb": 0,
+  "ms": 5
+ },
+ {
+  "url": "https://www.googletagmanager.com/gtag/js?id=G-W6NECZNE63&cx=c&gtm=4e69n1",
+  "type": "script",
+  "kb": 0,
+  "ms": 6
+ },
+ {
+  "url": "https://connect.facebook.net/en_US/fbevents.js",
+  "type": "script",
+  "kb": 109,
+  "ms": 4
+ },
+ {
+  "url": "https://connect.facebook.net/signals/config/1904241839800487?v=2.9.408&r=stable&domain=www.shopify.com&im=1&hme=f9ad993bedcdbb3fffd47532e189463ba18afe816a0bd364070ce559e4a6ac26&ex_m=117%2C239%2C169%2C27%2C81%2C82%2C160%2C77%2C76%2C11%2C179%2C101%2C20%2C152%2C140%2C46%2C84%2C89%2C148%2C174%2C181%2C8%2C4%2C5%2C7%2C6%2C3%2C102%2C114%2C32%2C17%2C31%2C18%2C33%2C34%2C35%2C37%2C55%2C161%2C86%2C125%2C22%2C24%2C51%2C47%2C49%2C48%2C94%2C103%2C107%2C123%2C159%2C162%2C53%2C124%2C29%2C26%2C132%2C78%2C43%2C164%2C163%2C165%2C156%2C154%2C30%2C42%2C66%2C122%2C176%2C79%2C21%2C127%2C92%2C75%2C23%2C96%2C97%2C129%2C95%2C150%2C149%2C153%2C108%2C175%2C178%2C41%2C56%2C126%2C54%2C183%2C109%2C182%2C208%2C253%2C83%2C267%2C266%2C265%2C14%2C25%2C28%2C40%2C62%2C116%2C68%2C10%2C72%2C110%2C111%2C112%2C118%2C143%2C38%2C36%2C145%2C146%2C147%2C142%2C141%2C170%2C85%2C173%2C171%2C172%2C57%2C67%2C136%2C19%2C177%2C52%2C316%2C317%2C318%2C315%2C331%2C356%2C246%2C235%2C69%2C236%2C234%2C359%2C350%2C59%2C247%2C120%2C144%2C91%2C134%2C61%2C133%2C139%2C138%2C65%2C73%2C71%2C166%2C87%2C88%2C128%2C44%2C39%2C60%2C63%2C113%2C180%2C1%2C137%2C16%2C135%2C12%2C2%2C64%2C104%2C15%2C74%2C70%2C131%2C100%2C99%2C185%2C186%2C105%2C106%2C9%2C115%2C184%2C58%2C157%2C98%2C90%2C80%2C130%2C119%2C167%2C50%2C158%2C0%2C93%2C151%2C155%2C168%2C45%2C121%2C13%2C187",
+  "type": "script",
+  "kb": 59,
+  "ms": 421
+ },
+ {
+  "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/827000963/?random=1790591293937&cv=11&fst=1790591293937&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&u_w=390&u_h=844&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&rcb=17&frm=0&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1597075489.1790591059&_tu=JA&data=event%3Dgtag.config%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bpage_path%3D%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&ept=9&rfmt=3&fmt=4",
+  "type": "script",
+  "kb": 3,
+  "ms": 267
+ },
+ {
+  "url": "https://www.google.com/rmkt/collect/827000963/?random=1790591293937&cv=11&fst=1790591293937&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&u_w=390&u_h=844&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&rcb=17&frm=0&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1597075489.1790591059&_tu=JA&data=event%3Dgtag.config%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bpage_path%3D%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&ept=68&gcp=5",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 174
+ },
+ {
+  "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&apvc=1&auid=1597075489.1790591059&dt=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&tid=AW-827000963&en=page_view&dl=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&scrsrc=www.googletagmanager.com&rnd=2129610601.1790591294&navt=n&npa=0&ep.continent_code=no-geo-location-code&ep.country_code=no-geo-location-code&epn.unix_timestamp=1790591293860&ep.page_hostname=www.shopify.com&ep.page_hostname_path=www.shopify.com%2Feditions%2Fspring2026&ep.page_path=%2Feditions%2Fspring2026&ep.firing_tag=GA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config&ep.container_id=GTM-KW6FGBL7&ep.fb_event_id=d6fb7732-6e0a-440e-964d-9be7a0aa23ab&ep.fb_event_id_v2=1790591866551_17905920642402&ep.allow_custom_scripts=true&ep.shopify_y=064ab8ec-4097-47dd-aeb0-2095a54314b4&ep.shopify_s=d6fb7732-6e0a-440e-964d-9be7a0aa23ab&ep.user_token=064ab8ec-4097-47dd-aeb0-2095a54314b4&_tu=JA&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&tft=1790591293955&tfd=2788&tids=AW-827000963&fmt=8",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 169
+ },
+ {
+  "url": "https://ad.doubleclick.net/ccm/s/collect?auid=1597075489.1790591059&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xecxf1&fmt=8",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 373
+ },
+ {
+  "url": "https://gtm.shopify.com/g/collect?v=2&tid=G-W6NECZNE63&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xf1&_p=1790591293811&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=1292640949&_eu=AAAAAGQ&cid=1531703172.1790591059&frm=0&pscdl=noapi&rcb=17&sr=390x844&uaa=&uab=&uafvl=&uam=&uamb=0&uap=&uapv=&uaw=0&ul=en-us&ur=IN-RJ&sst.etld=google.co.in&sst.tft=1790591293811&sst.lpc=158519416&sst.navt=n&sst.ude=0&sst.sw_exp=1&gaf=2&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&dp=%2Feditions%2Fspring2026&sid=1790591058&sct=1&seg=1&dl=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&dt=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&_tu=JA&en=page_view&gap.sstd=5&ep.continent_code=no-geo-location-code&ep.country_code=no-geo-location-code&epn.unix_timestamp=1790591293860&ep.page_query_string=&ep.page_hostname=www.shopify.com&ep.page_hostname_path=www.shopify.com%2Feditions%2Fspring2026&ep.firing_tag=GA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config&ep.container_id=GTM-KW6FGBL7&ep.fb_event_id=d6fb7732-6e0a-440e-964d-9be7a0aa23ab&ep.fb_event_id_v2=1790591866551_17905920642402&ep.allow_custom_scripts=true&ep.shopify_y=064ab8ec-4097-47dd-aeb0-2095a54314b4&ep.shopify_s=d6fb7732-6e0a-440e-964d-9be7a0aa23ab&ep.dom_referrer=&ep.page_fragment=&ep.user_token=064ab8ec-4097-47dd-aeb0-2095a54314b4&tfd=2801&richsstsse",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 830
+ },
+ {
+  "url": "https://www.shopify.com/.well-known/dux?v2",
+  "type": "beacon",
+  "kb": 0,
+  "ms": 446
+ },
+ {
+  "url": "https://cdn.shopify.com/oxygen-v2/51271/91735/189252/4515338/assets/content-AUM22KXZ-CcBWFeAM.js",
+  "type": "script",
+  "kb": 1,
+  "ms": 2
+ },
+ {
+  "url": "https://www.google.com/pagead/1p-user-list/827000963/?random=1790591293937&cv=11&fst=1790589600000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&u_w=390&u_h=844&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&rcb=17&frm=0&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1597075489.1790591059&_tu=JA&data=event%3Dgtag.config%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bpage_path%3D%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&ept=9&rfmt=3&fmt=3&is_vtc=1&cid=CAQS-gEAQM4h3LMs9hKIy-qy00731ugl1Zk_08P5tVcAKIdvrpfnlpd2Z0DKrA0FEk4c8BYygoGpic48lPtRtG65plfGg7AZdLbyXaWuSbuHAhmqOQYltHO5meM8vSM45BqXCwyvf4vXlMnEhr2CKsYC8LKv5hQ1vyyyAhC8rKKP5UoMqyGT0ea02BduR3KhsQ8HivmMN8cbOa1t0rKnaj5LmRRzBz2RynF8p_UlgT1UpbsTVVzUZklZaMPZhF-GxU3MkDUqHO3ZXZrh1jT7v3sspE4eqiaFyJBS0zxE91rrTAGc72XVjVtKpSZuaiP4Fiymh0k2Lkgi0XGMLsJE&random=2080240912&rmt_tld=0&ipr=y",
+  "type": "img",
+  "kb": 0,
+  "ms": 125
+ },
+ {
+  "url": "https://www.google.co.in/pagead/1p-user-list/827000963/?random=1790591293937&cv=11&fst=1790589600000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je69n1v877474166z89237247647za20gzb9237247647zd9237247647xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&u_w=390&u_h=844&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&rcb=17&frm=0&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1597075489.1790591059&_tu=JA&data=event%3Dgtag.config%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bpage_path%3D%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&ept=9&rfmt=3&fmt=3&is_vtc=1&cid=CAQS-gEAQM4h3LMs9hKIy-qy00731ugl1Zk_08P5tVcAKIdvrpfnlpd2Z0DKrA0FEk4c8BYygoGpic48lPtRtG65plfGg7AZdLbyXaWuSbuHAhmqOQYltHO5meM8vSM45BqXCwyvf4vXlMnEhr2CKsYC8LKv5hQ1vyyyAhC8rKKP5UoMqyGT0ea02BduR3KhsQ8HivmMN8cbOa1t0rKnaj5LmRRzBz2RynF8p_UlgT1UpbsTVVzUZklZaMPZhF-GxU3MkDUqHO3ZXZrh1jT7v3sspE4eqiaFyJBS0zxE91rrTAGc72XVjVtKpSZuaiP4Fiymh0k2Lkgi0XGMLsJE&random=2080240912&rmt_tld=1&ipr=y",
+  "type": "img",
+  "kb": 0,
+  "ms": 314
+ },
+ {
+  "url": "https://www.facebook.com/tr/?id=1904241839800487&ev=Editions%20-%20Pageview&dl=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&rl=&if=false&ts=1790591294341&iw=false&sw=390&sh=844&v=2.9.408&r=stable&a=tmSimo-GTM-WebTemplate&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1790591059359.198555067909888125&ler=empty&cdl=API_unavailable&pmd[locale]=en&pmd[description]=Sell%20face%20to%20face%2C%20online%2C%20in%20social%20channels%2C%20and%20AI%20chats%20with%20150%2B%20updates%20to%20Shopify.%20The%20only%20platform%20you%20need%20to%20sell%20everywhere.%20&plt=1453.0999999642372&imft=1&tz=330&it=1790591293906&coo=false&tm=2&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=ct3&expv2[6]=hf1&expv2[7]=sd1&expv2[8]=sp1&expv2[9]=ek1&expv2[10]=pc1&expv2[11]=gs1&expv2[12]=zs1&expv2[13]=cp1&expv2[14]=es1&expv2[15]=ac1&expv2[16]=so1&expv2[17]=wc1&expv2[18]=la1&expv2[19]=sf1&expv2[20]=da1&expv2[21]=io1&expv2[22]=ae1&expv2[23]=sx1&expv2[24]=if1&expv2[25]=fd1&expv2[26]=bg1&expv2[27]=mg1&expv2[28]=kl1&expv2[29]=sg1&expv2[30]=mk1&expv2[31]=sn1&expv2[32]=ec1&expv2[33]=mp1&expv2[34]=ps1&expv2[35]=fx1&expv2[36]=vt1&expv2[37]=dp1&expv2[38]=fw1&expv2[39]=cn1&expv2[40]=tz1&expv2[41]=pe1&expv2[42]=ee1&expv2[43]=bu1&expv2[44]=ta1&expv2[45]=mt1&expv2[46]=ot1&expv2[47]=hv1&expv2[48]=ep1&rqm=GET",
+  "type": "img",
+  "kb": 0,
+  "ms": 306
+ },
+ {
+  "url": "https://www.google.com/measurement/conversion/?random=1497998287&fmt=8&cv=12&fst=1790591294410&tid=G-B7X5MKCR35&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&tag_exp=115938466~115938469~117215456~118869188~118897920~118897930~120213116~120362506~120385423~120469145~120469153&gap.sstd=5&rcb=17&dma=0&npa=0&s3p=1&gacid=S74gNVlbPwxgAENMTu0slX%2Fqv61AtTtOovMYbiuuUJA%3D.1790591059&pscdl=noapi&auid=1597075489.1790591059&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&en=page_view",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 253
+ },
+ {
+  "url": "https://www.google.com/rmkt/collect/974897256/?random=521064010&fst=1790591294425&cv=10&fmt=8&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&auid=1597075489.1790591059&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&pscdl=noapi&_is_sw=f15s0te&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&gcp=5",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 144
+ },
+ {
+  "url": "https://www.googleadservices.com/pagead/conversion/10903211823/?random=1513619363&fst=1790591294430&cv=10&fmt=7&label=fgIyCI7XsqAcEK-eh88o&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&auid=1597075489.1790591059&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&pscdl=noapi&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&data=event%3Dpage_view%3Bpage_path%3D%2Feditions%2Fspring2026%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&bttype=purchase&value=0&uip=122.183.45.0&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&s3p=1&_is_sw=f15s0te",
+  "type": "fetch",
+  "kb": 2,
+  "ms": 364
+ },
+ {
+  "url": "https://www.googleadservices.com/pagead/conversion/10903211823/?random=2136007796&fst=1790591294436&cv=10&fmt=7&label=8CJbCMPXrPgDEK-eh88o&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&auid=1597075489.1790591059&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&pscdl=noapi&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&data=event%3Dpage_view%3Bpage_path%3D%2Feditions%2Fspring2026%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&bttype=purchase&value=0&uip=122.183.45.0&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&s3p=1&_is_sw=f15s0te",
+  "type": "fetch",
+  "kb": 2,
+  "ms": 364
+ },
+ {
+  "url": "https://www.googleadservices.com/pagead/conversion/10903211823/?random=1570239473&fst=1790591294439&cv=10&fmt=7&label=nQVgCPjSh7kcEK-eh88o&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&auid=1597075489.1790591059&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&pscdl=noapi&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&data=event%3Dpage_view%3Bpage_path%3D%2Feditions%2Fspring2026%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&bttype=purchase&value=0&uip=122.183.45.0&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&s3p=1&_is_sw=f15s0te",
+  "type": "fetch",
+  "kb": 2,
+  "ms": 364
+ },
+ {
+  "url": "https://www.google.co.in/ads/ga-audiences?v=1&t=sr&slf_rd=1&_r=4&dma=0&npa=0&gcd=13l3l3l3l1l1&tid=G-B7X5MKCR35&cid=S74gNVlbPwxgAENMTu0slX%2Fqv61AtTtOovMYbiuuUJA%3D.1790591059&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&tag_exp=115938466~115938469~117215456~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_is_sw=f15s0te&_tu=JA&gap.sstd=5&aip=1&z=351411142",
+  "type": "img",
+  "kb": 0,
+  "ms": 120
+ },
+ {
+  "url": "https://analytics.google.com/g/s/collect?dma=0&npa=0&gcd=13l3l3l3l1l1&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&tag_exp=115938466~115938469~117215456~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_is_sw=f15s0te&_tu=JA&gap.sstd=5&_gsid=B7X5MKCR35O04IL1FcAC3TEGzfndyYDQ",
+  "type": "img",
+  "kb": 0,
+  "ms": 361
+ },
+ {
+  "url": "https://ad.doubleclick.net/activity;src=9321158;type=shopi0;cat=shopi0;ord=1482553332;gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1;dc_pre=1;rcb=17;dma=0;npa=0;gcd=13l3l3l3l1l1;uaa=;uab=;uafvl=;uamb=0;uam=;uap=;uapv=;uaw=0;pscdl=noapi;auiddc=1597075489.1790591059;tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153;_tu=JA;gap.sstd=5;s3p=1;_is_sw=f15s0te;~oref=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026?",
+  "type": "img",
+  "kb": 0,
+  "ms": 882
+ },
+ {
+  "url": "https://gtm.shopify.com/_/set_cookie?val=X6%2BsYanxKOLdFTAUWqSzvwXm%2FjQnfR2QvYVOYoJ0XNdTi3TeUt8w142ttgv86wgW9JF%2FK0%2Fpa7RrbEXxlrj4a%2F0gSrYKSoDJbL576Gvr8K6EPkDbyhah74qCMu7k09TGk9I3EPk9ZYfkaq5pyzetNq7QNw%2F%2BM%2BP1va%2FRSFt1GjvegxlucC7rI8H9Gd5AYdOHPoz97Ya2UpQSvwtlaFyb9lRCa2NGkcv9FGCIPxXhBA%3D%3D&path=%2F",
+  "type": "img",
+  "kb": 0,
+  "ms": 1211
+ },
+ {
+  "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/974897256/?random=521064010&fst=1790591294425&cv=10&fmt=3&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&auid=1597075489.1790591059&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&pscdl=noapi&_is_sw=f15s0te&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5",
+  "type": "img",
+  "kb": 0,
+  "ms": 364
+ },
+ {
+  "url": "https://c.bing.com/c.gif?vid=064ab8ec-4097-47dd-aeb0-2095a54314b4&Red3=BACID_12021367",
+  "type": "img",
+  "kb": 0,
+  "ms": 621
+ },
+ {
+  "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/10903211823/?random=1892570133&fst=1790591294430&cv=10&fmt=8&label=fgIyCI7XsqAcEK-eh88o&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&auid=1597075489.1790591059&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&pscdl=noapi&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&data=event%3Dpage_view%3Bpage_path%3D%2Feditions%2Fspring2026%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&value=0&uip=122.183.45.0&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&s3p=1&_is_sw=f15s0te&ct_cookie_present=false&crd=CLTesQII8t-xAgit4bECCK_hsQIIobixAgixwbECCLDBsQIIscOxAgiKxbECCMLJsQII1-ixAgi0xrECCNvcsQIIh9uxAgjTxbECCOvMsQII7c6xAgjVz7ECCPTasQII4uqxAgjo7rECCJLrsQIIyeOxAgiX1LECCMnbsQIIzeaxAgiO57ECCKbdsQIIsN6xAgiA27ECCM3hsQIiAQIwAQ&cerd=ChCCsL4tueu-Ldftvi2d6bc4&eitems=ChEI8KDo1QYQ1Kf25bDnmYKKARIdAPXj7l7-UIiaRr3FdIFYaq5aF3bnddObJL7vzXc&fsk=ChEI8KDo1QYQt7y-w47yy5G-ARIsAC1behrlTzNa8GBwGzI_Q26fXc82MLMbhfqil7P8gMviagTLtOPla9Zo5DkaAkA4&pscrd=IhMIubvEsIiRlwMVm-VzAR2cECtPOhhodHRwczovL3d3dy5zaG9waWZ5LmNvbS9CV0NoRUk4S0RvMVFZUW5kek13NDdFNWE2UUFSSXNBRnlCMjh2NTNXazYxb3dnM0J4RjA1dlVEY0QxaWtKR1lkMkw2WWw3ZGpjeU8xMWl5b1FrT0o1aUN4SXoMCAliCAgAEAAYACAA",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 518
+ },
+ {
+  "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/10903211823/?random=315276448&fst=1790591294436&cv=10&fmt=8&label=8CJbCMPXrPgDEK-eh88o&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&auid=1597075489.1790591059&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&pscdl=noapi&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&data=event%3Dpage_view%3Bpage_path%3D%2Feditions%2Fspring2026%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&value=0&uip=122.183.45.0&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&s3p=1&_is_sw=f15s0te&ct_cookie_present=false&crd=CLTesQII8t-xAgit4bECCK_hsQIIobixAgixwbECCLDBsQIIscOxAgiKxbECCMLJsQII1-ixAgi0xrECCNvcsQIIh9uxAgjTxbECCOvMsQII7c6xAgjVz7ECCPTasQII4uqxAgjo7rECCJLrsQIIyeOxAgiX1LECCMnbsQIIzeaxAgiO57ECCKbdsQIIsN6xAgiA27ECCM3hsQIiAQI&cerd=ChSV5L4tyOy-LfPsvi3Y7b4tnem3OA&eitems=ChEI8KDo1QYQ1Kf25bDnmYKKARIdAPXj7l5iVIttRT_9Qp7o8iKMoo5sezLvp1qCItw&fsk=ChEI8KDo1QYQt7y-w47yy5G-ARIsAC1behq10-9cmK7wR5FjFx1cPtRaPmOrWUydr4npJhivt9m9Bg5BatxHirEaAif8&pscrd=IhMI17LEsIiRlwMVwA1UCR2NtQ6WOhhodHRwczovL3d3dy5zaG9waWZ5LmNvbS9CV0NoRUk4S0RvMVFZUW5kek13NDdFNWE2UUFSSXNBRnlCMjh1VW83X29oRzFzNVlYTVdpVHFOUU5ZNklfcl81bVJhUUVXeTZUV1RPa1JHM0ltVV9LcUdQRXoMCAliCAgAEAAYACAA",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 517
+ },
+ {
+  "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/10903211823/?random=2109083855&fst=1790591294439&cv=10&fmt=8&label=nQVgCPjSh7kcEK-eh88o&bg=ffffff&guid=ON&u_w=390&u_h=844&gtm=45j91e69m1v877474166z89237247647z9862613069za20gzb9237247647zd9237247647xf1&auid=1597075489.1790591059&rcb=17&dma=0&npa=0&gcd=13l3l3l3l1l1&uaa=&uab=&uafvl=&uamb=0&uam=&uap=&uapv=&uaw=0&pscdl=noapi&url=https%3A%2F%2Fwww.shopify.com%2Feditions%2Fspring2026&tiba=Shopify%20Editions%20%7C%20Spring%20%E2%80%9926&data=event%3Dpage_view%3Bpage_path%3D%2Feditions%2Fspring2026%3Bcontinent_code%3Dno-geo-location-code%3Bcountry_code%3Dno-geo-location-code%3Bunix_timestamp%3D1790591293860%3Bpage_query_string%3D%3Bpage_hostname%3Dwww.shopify.com%3Bpage_hostname_path%3Dwww.shopify.com%2Feditions%2Fspring2026%3Bfiring_tag%3DGA4%20(G-W6NECZNE63)%20-%20Measurement%20-%20ALL%20-%20Config%3Bcontainer_id%3DGTM-KW6FGBL7%3Bfb_event_id%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bfb_event_id_v2%3D1790591866551_17905920642402%3Ballow_custom_scripts%3Dtrue%3Bshopify_y%3D064ab8ec-4097-47dd-aeb0-2095a54314b4%3Bshopify_s%3Dd6fb7732-6e0a-440e-964d-9be7a0aa23ab%3Bdom_referrer%3D%3Bpage_fragment%3D%3Buser_token%3D064ab8ec-4097-47dd-aeb0-2095a54314b4&value=0&uip=122.183.45.0&tag_exp=115938466~115938469~117215456~118897920~118897930~120213116~120385423~120469145~120469153&_tu=JA&gap.sstd=5&s3p=1&_is_sw=f15s0te&ct_cookie_present=false&crd=CLTesQII8t-xAgit4bECCK_hsQIIobixAgixwbECCLDBsQIIscOxAgiKxbECCMLJsQII1-ixAgi0xrECCNvcsQIIh9uxAgjTxbECCOvMsQII7c6xAgjVz7ECCPTasQII4uqxAgjo7rECCJLrsQIIyeOxAgiX1LECCMnbsQIIzeaxAgiO57ECCKbdsQIIsN6xAgiA27ECCM3hsQIiAQI&cerd=ChTZib4tgrC-Lbnrvi3Y7b4tnem3OA&eitems=ChEI8KDo1QYQ1Kf25bDnmYKKARIdAPXj7l6rnftQnSP2MzqpBb1LSM_Y0sQF018Dke8&fsk=ChEI8KDo1QYQt7y-w47yy5G-ARIsAC1behoWJbJbXWMFf8ZQymp-Q6qeUte0cUaHhyXnZHFF9tQgPfx3u74tbtkaAvZT&pscrd=IhMI_sPEsIiRlwMVxrXYBR1hsjFsOhhodHRwczovL3d3dy5zaG9waWZ5LmNvbS9CV0NoRUk4S0RvMVFZUW5kek13NDdFNWE2UUFSSXNBRnlCMjhzV0xGZEE5RDlwdTJUM0RlcmR4RDFFSFJiczNBdzZ4cW9Ccmc3Zzk4WGR2aDBBRlVqZjFMRXoMCAliCAgAEAAYACAA",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 516
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0647/5176/3550/files/fav-180.png?v=1780498479",
+  "type": "img",
+  "kb": 9,
+  "ms": 2
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0951/3130/4218/files/favicon_256.png?v=1760634627",
+  "type": "img",
+  "kb": 7,
+  "ms": 2
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0921/8919/6588/files/Summer2025.svg?v=1760667315",
+  "type": "img",
+  "kb": 1,
+  "ms": 3
+ },
+ {
+  "url": "https://cdn.shopify.com/s/files/1/0702/3204/7829/files/Editions-Winter-25-compressed.svg?v=1733331674",
+  "type": "img",
+  "kb": 1,
+  "ms": 3
+ }
+]

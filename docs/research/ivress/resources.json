@@ -1,0 +1,470 @@
+[
+ {
+  "url": "https://www.googletagmanager.com/gtag/js?id=G-EGD5PTCBQR",
+  "type": "script",
+  "kb": 0,
+  "ms": 821
+ },
+ {
+  "url": "https://brand.ivress.co.jp/_astro/index.DwO6Foij.css",
+  "type": "link",
+  "kb": 9,
+  "ms": 71
+ },
+ {
+  "url": "https://brand.ivress.co.jp/ui/loader.png",
+  "type": "img",
+  "kb": 35,
+  "ms": 89
+ },
+ {
+  "url": "https://brand.ivress.co.jp/_astro/CommonScripts.astro_astro_type_script_index_0_lang.lnE5Pcs2.js",
+  "type": "script",
+  "kb": 25,
+  "ms": 192
+ },
+ {
+  "url": "https://use.typekit.net/wzh6tsr.js",
+  "type": "script",
+  "kb": 59,
+  "ms": 1769
+ },
+ {
+  "url": "https://brand.ivress.co.jp/icons/site.webmanifest",
+  "type": "link",
+  "kb": 1,
+  "ms": 964
+ },
+ {
+  "url": "https://fonts.googleapis.com/css2?family=Cardo&family=Josefin+Sans&display=swap",
+  "type": "css",
+  "kb": 1,
+  "ms": 437
+ },
+ {
+  "url": "https://brand.ivress.co.jp/_astro/vendor.Cx1SL1k6.js",
+  "type": "script",
+  "kb": 701,
+  "ms": 342
+ },
+ {
+  "url": "https://brand.ivress.co.jp/fonts/basilia_compress_d.woff2",
+  "type": "css",
+  "kb": 10,
+  "ms": 201
+ },
+ {
+  "url": "https://brand.ivress.co.jp/ui/instagram.svg",
+  "type": "img",
+  "kb": 1,
+  "ms": 135
+ },
+ {
+  "url": "https://brand.ivress.co.jp/ui/facebook.svg",
+  "type": "img",
+  "kb": 1,
+  "ms": 136
+ },
+ {
+  "url": "https://brand.ivress.co.jp/ui/external.svg",
+  "type": "img",
+  "kb": 1,
+  "ms": 136
+ },
+ {
+  "url": "https://brand.ivress.co.jp/ui/x.svg",
+  "type": "img",
+  "kb": 1,
+  "ms": 136
+ },
+ {
+  "url": "https://brand.ivress.co.jp/ui/arrow.svg",
+  "type": "img",
+  "kb": 0,
+  "ms": 136
+ },
+ {
+  "url": "https://brand.ivress.co.jp/_astro/renderer.Dk_eIqLY.js",
+  "type": "script",
+  "kb": 9,
+  "ms": 155
+ },
+ {
+  "url": "https://brand.ivress.co.jp/_astro/loader.BiFgeG7z.js",
+  "type": "script",
+  "kb": 15,
+  "ms": 171
+ },
+ {
+  "url": "https://brand.ivress.co.jp/_astro/site.DMvZoV3I.js",
+  "type": "script",
+  "kb": 31,
+  "ms": 100
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-EGD5PTCBQR&gtm=45je69n1v9249087294za200zd9249087294xf1&_p=1790586179398&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=762135610.1790586180&frm=0&ngs=1&pscdl=noapi&rcb=6&sr=800x600&uaa=arm&uab=64&uafvl=Chromium%3B154.0.8037.57%7CGoogle%2520Chrome%3B154.0.8037.57%7CNot%2520A(Brand%3B99.0.0.0&uam=&uamb=0&uap=macOS&uapv=27.0.0&uaw=0&ul=en-us&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120469145~120469153&sid=1790586180&sct=1&seg=0&dl=https%3A%2F%2Fbrand.ivress.co.jp%2F&dt=SPIN%20A%20TALE%20%E3%83%BC%20%E7%B4%A1%E3%81%90%E7%89%A9%E8%AA%9E%20%E3%83%BC%EF%BD%9C%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E3%82%A4%E3%83%B4%E3%83%AC%E3%82%B9%20%E3%83%96%E3%83%A9%E3%83%B3%E3%83%89%E3%82%B5%E3%82%A4%E3%83%88&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2299",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 402
+ },
+ {
+  "url": "https://p.typekit.net/p.gif?s=1&k=wzh6tsr&ht=tk&h=brand.ivress.co.jp&f=25372.26143&a=6207940&js=1.12.0&app=typekit&e=js&_=1790586181177",
+  "type": "xmlhttprequest",
+  "kb": 0,
+  "ms": 366
+ },
+ {
+  "url": "https://use.typekit.net/af/c4ab5e/00000000000000007735a667/31/m?features=ALL&v=4&chunks=15.77.144.271.274.284.293.299.302.305.307.309.324.326.344.348.351.360.365.367.371&order=0",
+  "type": "xmlhttprequest",
+  "kb": 734,
+  "ms": 855
+ },
+ {
+  "url": "https://use.typekit.net/af/5502da/000000000000000077586a5d/31/m?features=ALL&v=4&chunks=15.177.234.272.280.295.308.310.315.329.335.340.344.347.351.353.374.378.414.415.422.427.447.457.461&order=0",
+  "type": "xmlhttprequest",
+  "kb": 2289,
+  "ms": 1036
+ },
+ {
+  "url": "https://brand.ivress.co.jp/icons/site.webmanifest",
+  "type": "link",
+  "kb": 1,
+  "ms": 770
+ },
+ {
+  "url": "https://brand.ivress.co.jp/favicon.svg",
+  "type": "other",
+  "kb": 286,
+  "ms": 113
+ },
+ {
+  "url": "https://brand.ivress.co.jp/img/brick_normal.exr",
+  "type": "fetch",
+  "kb": 2135,
+  "ms": 1995
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene_2_bake/ivress_scene2_bake.json",
+  "type": "fetch",
+  "kb": 15,
+  "ms": 3644
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene_2_bake/ivress_scene2_bake_packed.exr",
+  "type": "fetch",
+  "kb": 1968,
+  "ms": 2187
+ },
+ {
+  "url": "https://brand.ivress.co.jp/img/concrete_normal.png",
+  "type": "img",
+  "kb": 2433,
+  "ms": 359
+ },
+ {
+  "url": "https://brand.ivress.co.jp/img/fog.png",
+  "type": "img",
+  "kb": 3192,
+  "ms": 455
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/start.opus",
+  "type": "xmlhttprequest",
+  "kb": 83,
+  "ms": 1228
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/whoosh-loop.opus",
+  "type": "xmlhttprequest",
+  "kb": 44,
+  "ms": 2041
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/chimes-particles-amb.opus",
+  "type": "xmlhttprequest",
+  "kb": 51,
+  "ms": 2041
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/chimes-particles-forest-amb.opus",
+  "type": "xmlhttprequest",
+  "kb": 63,
+  "ms": 2043
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/ui_in.opus",
+  "type": "xmlhttprequest",
+  "kb": 4,
+  "ms": 2043
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/whoosh-epee-loop.opus",
+  "type": "xmlhttprequest",
+  "kb": 45,
+  "ms": 2043
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/opus/ui_out.opus",
+  "type": "xmlhttprequest",
+  "kb": 3,
+  "ms": 2043
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/music/opus/part_01.opus",
+  "type": "xmlhttprequest",
+  "kb": 507,
+  "ms": 2059
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 98
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 97
+ },
+ {
+  "url": "https://brand.ivress.co.jp/img/scenes/scenes_array.ktx2",
+  "type": "fetch",
+  "kb": 1748,
+  "ms": 2267
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene3_ivress.glb",
+  "type": "fetch",
+  "kb": 357,
+  "ms": 2292
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene4_castle.glb",
+  "type": "fetch",
+  "kb": 226,
+  "ms": 2307
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene4_curve.glb",
+  "type": "fetch",
+  "kb": 583,
+  "ms": 2353
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene6_curve.glb",
+  "type": "fetch",
+  "kb": 150,
+  "ms": 2360
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene1_cam.glb",
+  "type": "fetch",
+  "kb": 25,
+  "ms": 2370
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene1.glb",
+  "type": "fetch",
+  "kb": 3857,
+  "ms": 3409
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene2_cam.glb",
+  "type": "fetch",
+  "kb": 27,
+  "ms": 2366
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene2.glb",
+  "type": "fetch",
+  "kb": 5954,
+  "ms": 4395
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene3.glb",
+  "type": "fetch",
+  "kb": 6168,
+  "ms": 4401
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene3_cam.glb",
+  "type": "fetch",
+  "kb": 20,
+  "ms": 2541
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene4_cam.glb",
+  "type": "fetch",
+  "kb": 13,
+  "ms": 2541
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene4.glb",
+  "type": "fetch",
+  "kb": 14104,
+  "ms": 6331
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene5_cam.glb",
+  "type": "fetch",
+  "kb": 12,
+  "ms": 2541
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene6_cam.glb",
+  "type": "fetch",
+  "kb": 13,
+  "ms": 2662
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene6.glb",
+  "type": "fetch",
+  "kb": 1962,
+  "ms": 2808
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene_2_bake/ivress_scene2_bake_clean.glb",
+  "type": "fetch",
+  "kb": 3221,
+  "ms": 4105
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene5.glb",
+  "type": "fetch",
+  "kb": 10050,
+  "ms": 6472
+ },
+ {
+  "url": "https://brand.ivress.co.jp/basis/basis_transcoder.js",
+  "type": "fetch",
+  "kb": 18,
+  "ms": 271
+ },
+ {
+  "url": "https://brand.ivress.co.jp/basis/basis_transcoder.wasm",
+  "type": "fetch",
+  "kb": 462,
+  "ms": 1840
+ },
+ {
+  "url": "https://brand.ivress.co.jp/icons/apple-touch-icon.png",
+  "type": "other",
+  "kb": 1,
+  "ms": 1824
+ },
+ {
+  "url": "https://brand.ivress.co.jp/draco/draco_wasm_wrapper.js",
+  "type": "fetch",
+  "kb": 12,
+  "ms": 328
+ },
+ {
+  "url": "https://brand.ivress.co.jp/draco/draco_decoder.wasm",
+  "type": "fetch",
+  "kb": 188,
+  "ms": 1578
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene_2_bake/ivress_scene2_bake.json",
+  "type": "fetch",
+  "kb": 15,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/glb/scene_2_bake/ivress_scene2_bake_packed.exr",
+  "type": "fetch",
+  "kb": 1967,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/music/opus/part_02.opus",
+  "type": "xmlhttprequest",
+  "kb": 409,
+  "ms": 1474
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/music/opus/part_03.opus",
+  "type": "xmlhttprequest",
+  "kb": 460,
+  "ms": 1740
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 8
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://brand.ivress.co.jp/audio/sfx/mp3/impulse_response.mp3",
+  "type": "fetch",
+  "kb": 98,
+  "ms": 1
+ },
+ {
+  "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-EGD5PTCBQR&gtm=45je69n1v9249087294za200zd9249087294xf1&_p=1790586179398&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&cid=762135610.1790586180&frm=0&ngs=1&pscdl=noapi&rcb=6&sr=800x600&uaa=arm&uab=64&uafvl=Chromium%3B154.0.8037.57%7CGoogle%2520Chrome%3B154.0.8037.57%7CNot%2520A(Brand%3B99.0.0.0&uam=&uamb=0&uap=macOS&uapv=27.0.0&uaw=0&ul=en-us&_s=2&tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120469145~120469153&sid=1790589807&sct=2&seg=0&dl=https%3A%2F%2Fbrand.ivress.co.jp%2F&dt=SPIN%20A%20TALE%20%E3%83%BC%20%E7%B4%A1%E3%81%90%E7%89%A9%E8%AA%9E%20%E3%83%BC%EF%BD%9C%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E3%82%A4%E3%83%B4%E3%83%AC%E3%82%B9%20%E3%83%96%E3%83%A9%E3%83%B3%E3%83%89%E3%82%B5%E3%82%A4%E3%83%88&en=scroll&_ss=1&epn.percent_scrolled=90&tfd=3629475",
+  "type": "fetch",
+  "kb": 0,
+  "ms": 327
+ }
+]
