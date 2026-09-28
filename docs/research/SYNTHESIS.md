@@ -75,6 +75,16 @@ wasteful (a 9.7 MB roughness PNG). We can match the craft while being accessible
 20. **Light that places things.** A soft spotlight glow behind the focal point and deep, soft shadows under anything
     that floats (panels, buttons, forms).
 
+**Journey principles from igloo.inc** (`igloo.md`):
+
+21. **A company as a place.** A holding company doesn't list its ventures — the visitor travels *through* them in one world.
+22. **One continuous shot.** A single camera on a spline carries every scene; nothing hard-cuts.
+23. **Haze is the transition.** Fog, bloom, blur and a little chromatic fringe dissolve one scene into the next and hide loading.
+24. **UI on the objects.** Labels and actions are annotations attached to the 3D thing they describe; the frame stays near-empty.
+25. **Reversible (and even looping) time.** Scrolling back plays the film backwards; the journey feels like a world, not a document.
+26. **Its gap is our opportunity:** igloo has no timeline and no way to jump — we pair its continuous journey with a
+    visible reel timeline and direct jumps, keep text as real HTML, and honour reduced motion.
+
 ---
 
 ## Part 2 — Techniques worth adapting (and how we'd build them)
@@ -105,6 +115,10 @@ wasteful (a 9.7 MB roughness PNG). We can match the craft while being accessible
 | 22 | **Macro/micro headline composition** | TURA | A `Headline` component: centred heavy headline + absolutely positioned eyebrow (≈ 23 % in from the left, above) and caption (from the centre line, below); fluid sizes with `clamp()`. |
 | 23 | **Fanned blur-depth carousel** | TURA | CSS 3D (perspective + `rotateY`) with `filter: blur() brightness()` on side cards, title overlapping the centre card, keyboard/swipe/click navigation, `aria-roledescription="carousel"`. |
 | 24 | **Spotlight glow + floating shadows** | TURA | Radial-gradient light layer (or additive sprite in 3D) behind the focal point; `0 40px 80px -20px` soft shadows on floating panels. |
+| 25 | **Continuous camera journey** | igloo | One Catmull-Rom camera path through all worlds; scroll/timeline maps to path distance; each world owns a segment; `lookAt` path is a second spline. |
+| 26 | **Haze transitions** | igloo | A full-screen haze pass (fog colour + depth-of-field + bloom lift) keyed to "between worlds" progress, so worlds condense out of luminous mist. |
+| 27 | **Object annotations** | igloo | DOM labels projected onto 3D anchors (real HTML, positioned per frame via refs) with thin leader lines; fade by distance. |
+| 28 | **Reel timeline + jumps over a continuous journey** | igloo + Production | The Production timeline (reels, playhead, timecode) drives the same path; clicking a reel eases the camera along the path to that world instead of cutting. |
 
 ---
 
