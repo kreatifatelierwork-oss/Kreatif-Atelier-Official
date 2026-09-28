@@ -62,6 +62,19 @@ sounds, copy or signature designs.
 downloads ~50 MB; Oryzo and Ivress hide real content inside canvas/scroll mechanics; Lacoste's textures are
 wasteful (a 9.7 MB roughness PNG). We can match the craft while being accessible, lighter and fully readable.
 
+**Layout principles from the TURA reference** (`tura-layout.md`, `reference-tura.jpg` — layout only, colours ignored):
+
+16. **One idea per screen.** Full-screen views, each with a single focal point and ~70 % negative space.
+17. **Macro / micro type.** A huge, heavy, centred headline (~16× the microtype) with tiny, wide-tracked uppercase
+    microtype placed on an asymmetric diagonal around it — eyebrow above-left, caption below-right.
+18. **A constant frame of edge furniture.** Wordmark (in type) top-left, two tiny links top-right, social stack on
+    the left edge, a vertical "SCROLL" cue on the right edge, and a section index (`.01 .02 .03`) sitting outside
+    the content — the frame never changes, only the stage does.
+19. **Depth by blur and dimming.** A fanned, perspective carousel: sharp centre card, recessed, dimmed and blurred
+    neighbours, the title overlapping the card's edge.
+20. **Light that places things.** A soft spotlight glow behind the focal point and deep, soft shadows under anything
+    that floats (panels, buttons, forms).
+
 ---
 
 ## Part 2 — Techniques worth adapting (and how we'd build them)
@@ -88,6 +101,10 @@ wasteful (a 9.7 MB roughness PNG). We can match the craft while being accessible
 | 18 | **Optional sound design with a visible toggle** | Ivress | Howler.js or WebAudio: one ambient bed, 4–6 SFX (hover tick, reveal whoosh, chime), one shared reverb; off by default; toggle shows an animated waveform; remembers preference. |
 | 19 | **Designed performance** | Oryzo, Ivress, Shopify | Procedural geometry and baked light where possible; KTX2 textures; per-chapter lazy loading; video for spectacle-only moments; DPR cap 1.5 on phones; `PerformanceMonitor` tiering; a static fallback. |
 | 20 | **An ending that pays off** (reframe or loop) | Oryzo, Ivress | A final beat that turns the journey into the pitch ("if we can do this for…") or into something the visitor keeps. |
+| 21 | **Edge-furniture frame + section index** | TURA | One fixed `Frame` component: stacked wordmark (type only), two links, social stack, vertical SCROLL cue, `.01/.02/.03` index; constant insets from `lib/config.ts`; mobile rearrangement. |
+| 22 | **Macro/micro headline composition** | TURA | A `Headline` component: centred heavy headline + absolutely positioned eyebrow (≈ 23 % in from the left, above) and caption (from the centre line, below); fluid sizes with `clamp()`. |
+| 23 | **Fanned blur-depth carousel** | TURA | CSS 3D (perspective + `rotateY`) with `filter: blur() brightness()` on side cards, title overlapping the centre card, keyboard/swipe/click navigation, `aria-roledescription="carousel"`. |
+| 24 | **Spotlight glow + floating shadows** | TURA | Radial-gradient light layer (or additive sprite in 3D) behind the focal point; `0 40px 80px -20px` soft shadows on floating panels. |
 
 ---
 

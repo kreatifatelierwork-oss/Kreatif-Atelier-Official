@@ -8,6 +8,18 @@ export const conceptLab = {
   switcherLabel: "Concept",
   replay: "Replay intro",
   names: { 1: "The Orrery", 2: "The Production", 3: "The Golden Thread" },
+  type: { label: "Headlines", serif: "Serif", sans: "Sans" },
+} as const;
+
+/** The TURA-style frame ("edge furniture") shared by all three prototypes. */
+export const frame = {
+  wordmark: ["Kreatif", "Atelier"],
+  scroll: "Scroll",
+  contact: "Contact", // PROPOSED (short label for the mailto link)
+  sectionsLabel: "Sections",
+  social: { instagram: "Instagram", linkedin: "LinkedIn", email: "Email" },
+  prev: "Previous",
+  next: "Next",
 } as const;
 
 export const brand = {
@@ -23,6 +35,9 @@ export const orrery = {
   enter: "Set it in motion", // PROPOSED
   hint: "Drag to turn · Scroll to wind · Choose a body", // PROPOSED
   back: "Back to the orrery", // PROPOSED
+  sections: ["The Orrery", "The Houses"], // PROPOSED
+  housesLink: "The Houses", // PROPOSED
+  visitHouse: "Visit on the orrery", // PROPOSED
   rings: [
     { id: "craft", label: "The Craft", note: "Six services" }, // PROPOSED ring names
     { id: "houses", label: "The Houses", note: "Four divisions" },
@@ -37,6 +52,9 @@ export const production = {
   presents: "A Kreatif Atelier Production", // PROPOSED
   reels: ["The Brief", "The Craft", "The Crew", "The Cut", "The Premiere"], // PROPOSED reel names
   scrollHint: "Scroll to play", // PROPOSED
+  sections: ["The Brief", "The Crew"], // PROPOSED
+  crewLink: "The Crew", // PROPOSED
+  readBio: "Read the bio", // PROPOSED
 } as const;
 
 /** Concept 3 — The Golden Thread. */
@@ -47,4 +65,6 @@ export const thread = {
   drawHint: "Move to guide the thread · Scroll to follow it", // PROPOSED
   knots: ["Spark", "Who we are", "Six pillars", "Partnerships", "Visionaries", "Ecosystem", "Why us", "Process", "Industries", "Legacy"], // PROPOSED knot names
   legacyHint: "Every visit leaves a different inlay. Yours is being drawn.", // PROPOSED
+  sections: ["Spark", "Six pillars"], // PROPOSED
+  pillarsLink: "Six pillars", // PROPOSED
 } as const;

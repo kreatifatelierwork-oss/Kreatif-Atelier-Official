@@ -181,8 +181,8 @@ export function OrreryScene({ bodies, progress, entered, focused, hovered, reduc
     if (root.current) {
       const d = dragRef.current ?? { yaw: 0, pitch: 0 };
       easing.dampE(root.current.rotation, [d.pitch, d.yaw + (entered && !focused && !reducedMotion ? state.clock.elapsedTime * 0.02 : 0), 0], 0.35, dt);
-      const offset = entered || state.size.width < 768 ? 0 : C.introOffsetX;
-      easing.damp3(root.current.position, [offset, 0, 0], reducedMotion ? 0 : 0.9, dt);
+      const offset = entered ? 0 : C.introOffsetY;
+      easing.damp3(root.current.position, [0, offset, 0], reducedMotion ? 0 : 0.9, dt);
     }
 
     // Camera: wide view, or a flight to the chosen body with a focus pull.

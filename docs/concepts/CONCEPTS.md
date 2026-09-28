@@ -196,3 +196,65 @@ every asset used gets logged in `docs/ASSETS.md`.
 | 3 | **Bidri reference photos** (art direction only, not shipped) | Museum open collections (e.g. search "Bidriware" on Wikimedia Commons, V&A collections) | Any → `docs/reference/` (not deployed) | Built from memory of the craft |
 | 3 | **Draw / engrave sounds** | Freesound CC0 "metal scrape soft", "chime small", "ink pen" | MP3/OGG ≤ 80 KB → `public/audio/` | Silent |
 | Any | **A display face with more ceremony** (optional) for chapter titles | Fontshare (free for commercial use): "Boska", "Zodiak"; or keep Cormorant | WOFF2 → self-hosted via `next/font/local` | Cormorant Garamond |
+
+---
+
+## Update — TURA layout language applied (all three concepts)
+
+Reference: `docs/research/reference-tura.jpg`, analysed in `docs/research/tura-layout.md` (layout only; its colours
+are ignored). Sheets: `docs/concepts/tura/` — before/after of each opening screen in both headline styles,
+the three carousels, and phone views.
+
+**What changed in every prototype** (the 3D and interactions of each concept are unchanged):
+- **Edge furniture** (`components/concepts/frame/Frame.tsx`): *KREATIF / ATELIER* stacked in plain type top-left
+  (never a mark), two tiny links top-right (the concept's second screen + Contact → the approved mailto), a social
+  stack on the left edge (Instagram/LinkedIn become links automatically once URLs are set; email is live), a vertical
+  SCROLL cue with a travelling line on the right edge, and the section index `.01 .02` bottom-left, outside the content.
+  Phones: a top bar (wordmark + links) and a bottom bar (index left, socials right).
+- **Macro/micro type** (`Headline.tsx`): a huge heavy centred headline with a wide-tracked eyebrow above-left and a
+  two-line caption below-right (the brand lines). Phones: eyebrow and caption centre above/below the headline.
+- **One focal point per screen** and a **soft spotlight glow** behind it (`Spotlight.tsx`); floating panels and pills
+  get deep, soft shadows.
+- Concept specifics: the Orrery's headline overlaps the instrument's lower edge; the Production puts the frame in its
+  letterbox bars (reel + timecode between wordmark and links, index beside the reel timeline); the Golden Thread
+  engraves the name in the TURA composition, keeps its knot map on the right edge in place of SCROLL, and the thread
+  now glides over the text without engraving it.
+
+**The fanned blur-depth carousel** (`FanCarousel.tsx`) — screen `.02` in each concept (link top-right or index `.02`):
+| Concept | Carousel | Card | Action |
+|---|---|---|---|
+| 1 · Orrery | The four divisions ("The Houses") | the division's world, painted in its orrery material | *Visit on the orrery* → flies to that division on the instrument |
+| 2 · Production | The founders ("The Crew", reel 03) | portrait, graded for the dark | *Read the bio* → bio dialog |
+| 3 · Golden Thread | The six services ("Six pillars") | black stone with an inlaid gold glyph | *Explore Service* → the full service detail overlay |
+Centre card sharp; neighbours rotated toward it in perspective, recessed, dimmed and blurred; the title overlaps the centre
+card's bottom edge; arrows, ←/→ keys, swipe and clicking a side card all navigate; reduced motion removes the transitions.
+
+## Typography test — `?type=serif` / `?type=sans`
+
+TURA's appeal leans heavily on Cera (a bold geometric sans). Free, commercially licensed candidates were rendered side by
+side against the reference:
+| Font | Source · licence | Verdict |
+|---|---|---|
+| **Outfit** (chosen for the test) | Google Fonts · SIL OFL | Closest to Cera's caps: round geometric O/C, wide E, pointed A, diagonal R leg, similar weight and width. (It was the live site's body font — here it would only set headlines.) |
+| Urbanist | Google Fonts · SIL OFL | Very close runner-up; slightly tighter and narrower — a good alternative if we'd rather not reuse Outfit. |
+| Satoshi | Fontshare · ITF Free Font Licence (commercial use allowed) | More grotesk than geometric (narrower E/R); elegant but less "Cera". |
+| (also tried) General Sans, Plus Jakarta Sans, Lexend | Fontshare / Google | Too heavy-grotesk, too condensed, or too wide/friendly respectively. |
+
+**Is buying Cera worth it?** Not at this stage. Outfit reproduces most of its character for free, and Cera is
+already a very common choice in tech branding, so it wouldn't make us more distinctive. It would be worth buying only if
+the sans direction is adopted as the brand's primary typeface across *everything* (web, decks, social, print), for its
+extra weights, italics and finer spacing. It's sold by TypeMates per style or as a family, with separate desktop and
+web licences — check typemates.com for current pricing before deciding.
+
+**Serif or sans?** The sans headlines feel bolder and more contemporary (closest to the TURA reference and to "Bold");
+the serif feels more heritage and editorial ("Timeless"). A strong combination for the full build: the geometric sans for
+the huge macro headlines, Cormorant italic for emphasis lines and quotes, Manrope for microtype and body.
+
+## Recommendation (restated after the TURA layer)
+
+Still **Concept 3 — The Golden Thread**, now framed in the TURA layout language and with sans macro headlines.
+The TURA frame suits it best: the calm edge furniture and single engraved focal point give the free-drawing interaction a
+clear stage, and the stone carousel of six inlaid pillars shows the sculptural 3D moments it can grow into. The Orrery
+benefited most visually from the TURA hero (the headline overlapping the instrument is the single most striking opening
+screen of the three) — so it remains the strong alternative if you want the biggest 3D spectacle, and its "headline over
+the object" composition is worth borrowing whichever concept wins.

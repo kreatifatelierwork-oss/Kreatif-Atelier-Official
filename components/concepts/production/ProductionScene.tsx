@@ -9,6 +9,7 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Lights } from "@/components/three/Lights";
 import { config, conceptConfig } from "@/lib/config";
+import { threeFonts } from "../fonts";
 
 type Props = {
   /** 0 before "Roll film"; ramps to 1 as the projector warms up. */
@@ -18,11 +19,10 @@ type Props = {
   /** Virtual playhead 0–1 (the reel's timeline). */
   playheadRef: React.RefObject<number>;
   headline: { lead: string; emphasis: string };
+  /** Headline face for the 3D type wall (follows ?type=serif|sans). */
+  typeStyle: "serif" | "sans";
   reducedMotion: boolean;
 };
-
-const FONT = "/fonts/cormorant-garamond-500.woff";
-const FONT_ITALIC = "/fonts/cormorant-garamond-400-italic.woff";
 /** Camera dolly: z at playhead 0 and where the type wall sits. */
 const START_Z = 9;
 const WALL_Z = -2;
@@ -122,7 +122,8 @@ function ProjectorBeam({ intensityRef }: { intensityRef: React.RefObject<number>
   );
 }
 
-export function ProductionScene({ beam, showWall, playheadRef, headline, reducedMotion }: Props) {
+export function ProductionScene({ beam, showWall, playheadRef, headline, typeStyle, reducedMotion }: Props) {
+  const sans = typeStyle === "sans";
   const dof = useRef<DepthOfFieldEffect>(null);
   const beamLevel = useRef(0);
   const wallLevel = useRef(0);
@@ -149,7 +150,7 @@ export function ProductionScene({ beam, showWall, playheadRef, headline, reduced
       const blur = dist > 7 ? 5 : dist < 1.4 ? 7 : 0.4;
       easing.damp(dof.current, "bokehScale", blur, reducedMotion ? 0 : 0.5, dt);
     }
-    wallLevel.current += ((showWall ? 1 : 0) - wallLevel.current) * Math.min(1, dt * (reducedMotion ? 30 : 1.2));
+    wallLevel.current += ((showWall ? 1 : 0) - wallLevel.current) * Math.min(1, dt * (reducedMotion ? 30 : showWall ? 1.2 : 5));
     if (words.current) {
       words.current.visible = wallLevel.current > 0.01;
       words.current.scale.setScalar(0.96 + wallLevel.current * 0.04);
@@ -175,12 +176,12 @@ export function ProductionScene({ beam, showWall, playheadRef, headline, reduced
 
       {/* The type wall the camera dollies through (real text lives in the DOM; this is aria-hidden scenery). */}
       <group ref={words} position={[0, 0.1, WALL_Z]}>
-        <Text font={FONT} fontSize={0.82} letterSpacing={0.02} anchorX="center" anchorY="bottom" position={[0, 0.05, 0]}>
+        <Text font={sans ? threeFonts.sans : threeFonts.serif} fontSize={sans ? 0.74 : 0.82} letterSpacing={sans ? 0.01 : 0.02} anchorX="center" anchorY="bottom" position={[0, 0.05, 0]}>
           {headline.lead.toUpperCase()}
           <meshStandardMaterial color={config.three.gold} metalness={0.85} roughness={0.28} emissive="#8C6A3F" emissiveIntensity={0.2} />
         </Text>
-        <Text font={FONT_ITALIC} fontSize={0.95} anchorX="center" anchorY="top" position={[0, -0.05, 0.25]}>
-          {headline.emphasis}
+        <Text font={sans ? threeFonts.sans : threeFonts.serifItalic} fontSize={sans ? 0.74 : 0.95} anchorX="center" anchorY="top" position={[0, -0.05, 0.25]}>
+          {sans ? headline.emphasis.toUpperCase() : headline.emphasis}
           <meshStandardMaterial color="#F3EBDD" metalness={0.2} roughness={0.5} emissive="#E8C98A" emissiveIntensity={0.2} />
         </Text>
       </group>

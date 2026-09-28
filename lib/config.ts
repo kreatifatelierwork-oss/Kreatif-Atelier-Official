@@ -119,6 +119,21 @@ export const config = {
 
 /** Stage 2 concept prototypes (/concepts?concept=1|2|3). Rough by design — feel and motion only. */
 export const conceptConfig = {
+  /** TURA-style frame and carousel (shared by all prototypes). */
+  frame: {
+    /** Inset of the edge furniture, as CSS lengths (desktop / phone). */
+    inset: "clamp(1.25rem, 3.6vw, 3.25rem)",
+    insetMobile: "1.1rem",
+  },
+  carousel: {
+    /** Side cards: rotation toward the centre (deg), recess (px), scale, blur (px), brightness. */
+    sideRotate: 26,
+    sideRecess: 160,
+    sideScale: 0.86,
+    sideBlur: 5,
+    sideBrightness: 0.42,
+    durationMs: 750,
+  },
   orrery: {
     loaderMinMs: 2600,
     /** Ring radii (inner → outer) and tilts give the armillary look. */
@@ -128,9 +143,9 @@ export const conceptConfig = {
       { radius: 2.65, tilt: [0.62, 0, 0.3], speed: 0.05, bodies: 5 },
     ],
     rimRadius: 3.2,
-    camera: { fov: 32, position: [0, 1.4, 12] as [number, number, number] },
-    /** Before entering, the instrument sits right of the title (world units); centred once in motion. */
-    introOffsetX: 3.1,
+    camera: { fov: 32, position: [0, 1.4, 14] as [number, number, number] },
+    /** Before entering, the instrument sits a little high so the headline can overlap its lower edge (world units). */
+    introOffsetY: 0.62,
     /** Wheel "winds" the mechanism: radians per wheel pixel, and how quickly the winding settles. */
     windPerPixel: 0.0035,
     windDamping: 2.6,
