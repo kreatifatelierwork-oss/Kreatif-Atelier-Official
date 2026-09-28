@@ -68,3 +68,21 @@ export const thread = {
   sections: ["Spark", "Six pillars"], // PROPOSED
   pillarsLink: "Six pillars", // PROPOSED
 } as const;
+
+/** Concept 4 — The Long Take (Orrery × Production). All UI wording here is PROPOSED. */
+export const longTake = {
+  name: "The Long Take",
+  loading: "Setting the scene", // PROPOSED
+  begin: "Begin", // PROPOSED
+  scrollHint: "Scroll to travel", // PROPOSED
+  swipeHint: "Swipe to travel", // PROPOSED
+  reelCore: "Core", // PROPOSED (reel 00)
+  reelFinale: "Ecosystem", // PROPOSED (reel 06)
+  jumpLabel: "Verticals", // PROPOSED (top-right link + jump menu title)
+  contact: "Contact",
+  holdToRaise: "Hold to raise", // PROPOSED (Aurelius interaction)
+  raised: "Raised", // PROPOSED
+  close: "Close",
+  reel: "Reel",
+  palette: { label: "Palette", a: "A · Light", b: "B · Glow" },
+} as const;

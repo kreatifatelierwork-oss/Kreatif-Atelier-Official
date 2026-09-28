@@ -117,6 +117,37 @@ export const config = {
   },
 } as const;
 
+/**
+ * Concept 4 — The Long Take. Each vertical is a world with its own signature colour.
+ * `a` = light-dominant (pale luminous base), `b` = light-accented (deep rich base lit by glowing colour).
+ */
+export const longTakeConfig = {
+  worlds: [
+    // index 0 = the core (holding company), 1–5 = verticals in chart order, 6 = finale
+    { key: "core", accent: "#C9A45C", a: { bg: "#F7F3EC", haze: "#FFF6E3" }, b: { bg: "#0D0B14", haze: "#3A2A12" } },
+    { key: "aurelius", accent: "#3D4BFF", a: { bg: "#EDEFFF", haze: "#DADFFF" }, b: { bg: "#070A33", haze: "#1C2394" } },
+    { key: "valora", accent: "#FF6A3D", a: { bg: "#FFF1EA", haze: "#FFDCCB" }, b: { bg: "#2B0C05", haze: "#8F2C12" } },
+    { key: "golden-guardian-productions", accent: "#E8307F", a: { bg: "#FFEEF5", haze: "#FFD2E4" }, b: { bg: "#2A0415", haze: "#8E1349" } },
+    { key: "rudra-yugen", accent: "#0FB5E4", a: { bg: "#E8F9FF", haze: "#C6EEFB" }, b: { bg: "#021E2B", haze: "#0B5F7C" } },
+    { key: "asraya", accent: "#23C27C", a: { bg: "#EBFBF2", haze: "#C9F1DB" }, b: { bg: "#03231A", haze: "#0D6B47" } },
+    { key: "finale", accent: "#C9A45C", a: { bg: "#FBF8F2", haze: "#FFF4DD" }, b: { bg: "#0B0A12", haze: "#2E2410" } },
+  ],
+  ink: { a: "#12152A", b: "#F7F3EC" },
+  /** World layout: verticals sit on a ring around the core (world units). */
+  ringRadius: 16,
+  /** Camera distance from a world, and height, when "inside" it. */
+  worldCamDistance: 12,
+  worldCamHeight: 2.4,
+  /** Wheel px per reel, touch px per reel, and how quickly the camera follows (s). */
+  wheelPerReel: 1100,
+  touchPerReel: 700,
+  follow: 0.55,
+  /** Reel film-time (s) for the timecode. */
+  reelSeconds: 42,
+  loaderMinMs: 2400,
+  openingMs: 5200,
+} as const;
+
 /** Stage 2 concept prototypes (/concepts?concept=1|2|3). Rough by design — feel and motion only. */
 export const conceptConfig = {
   /** TURA-style frame and carousel (shared by all prototypes). */
