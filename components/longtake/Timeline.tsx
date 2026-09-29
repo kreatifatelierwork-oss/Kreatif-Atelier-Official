@@ -20,11 +20,11 @@ export function Timeline({ reel, palette, onJump, playheadRef, tcRef }: Props) {
     <nav aria-label={`${longTake.reel}s`} className="pointer-events-auto absolute right-[var(--lt-inset)] bottom-[var(--lt-inset)] left-[var(--lt-inset)]">
       <div className="mb-3 flex items-baseline justify-between gap-4">
         <p className="micro text-[0.58rem]" aria-hidden="true">
-          <span className="opacity-50">{longTake.reel} {pad(reel)} / {pad(REELS - 1)}</span>
+          <span className="opacity-70">{longTake.reel} {pad(reel)} / {pad(REELS - 1)}</span>
           <span className="mx-2 opacity-25">—</span>
           <span style={{ color: palette === "a" && isVertical(reel) ? L.worlds[reel].accent : undefined }}>{reelName(reel)}</span>
         </p>
-        <p className="micro text-[0.58rem] opacity-50" aria-hidden="true">
+        <p className="micro text-[0.58rem] opacity-70" aria-hidden="true">
           <span className="max-md:hidden">TC </span><span ref={tcRef} className="tabular-nums">00:00:00:00</span>
         </p>
       </div>
@@ -34,7 +34,7 @@ export function Timeline({ reel, palette, onJump, playheadRef, tcRef }: Props) {
             <button type="button" onClick={() => onJump(k)} aria-current={k === reel ? "step" : undefined}
               aria-label={`${longTake.reel} ${pad(k)}: ${reelName(k)}`} className="group block w-full py-2 text-left">
               <span className="block h-[3px] rounded-full transition-opacity duration-500" style={{ background: L.worlds[k].accent, opacity: k === reel ? 1 : 0.28 }} />
-              <span className={`micro mt-2 block truncate text-[0.52rem] transition-opacity max-md:hidden ${k === reel ? "opacity-100" : "opacity-45 group-hover:opacity-80"}`}>
+              <span className={`micro mt-2 block truncate text-[0.56rem] transition-opacity max-md:hidden ${k === reel ? "opacity-100" : "opacity-70 group-hover:opacity-80"}`}>
                 {pad(k)} · {reelName(k)}
               </span>
             </button>

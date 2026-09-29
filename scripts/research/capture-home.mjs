@@ -44,6 +44,13 @@ async function run({ palette, width, height, mobile, reduced = false, fallback =
   await page.goto(`${base}/?palette=${palette}${fallback ? "&fallback" : ""}`);
   await sleep(4200); await shot(`${tag}-00a-loader`);
   await press(/begin/, 60, mobile);
+  // The stage mounts on Begin and compiles behind the white-out; wait until it has drawn.
+  if (!fallback) {
+    const t0 = Date.now();
+    await sleep(500); if (!quick && !reduced) await shot(`${tag}-00w-whiteout`);
+    await page.waitForFunction(() => !!document.querySelector("canvas") && !document.querySelector("[data-whiteout]"), null, { timeout: 30000 });
+    console.log(tag, "stage ready after", Date.now() - t0, "ms");
+  }
   if (!reduced && !fallback) { await sleep(2300); await shot(`${tag}-00b-opening`); await sleep(4300); } else await sleep(1400);
   await shot(`${tag}-00c-core`);
   const settle = reduced ? 900 : 3600;

@@ -48,7 +48,10 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
 
   const [mode, setMode] = useState<Mode>("pending");
   const [stageReady, setStageReady] = useState(false);
-  const progress = useLoadProgress(mode === "fallback" || stageReady, L.loaderMinMs, reducedMotion);
+  // Before Begin the loader only fetches the lighting file (real byte progress); the 3D stage mounts on Begin.
+  const [lightingReady, setLightingReady] = useState(false);
+  const fetchedRef = useRef<number | null>(null);
+  const progress = useLoadProgress(mode === "fallback" || lightingReady, L.loaderMinMs, reducedMotion, fetchedRef);
   const [phase, setPhase] = useState<Phase>("loading");
   const [reel, setReel] = useState(0);
   const [overlay, setOverlay] = useState<"none" | "menu" | "founders">("none");
@@ -91,6 +94,37 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
     return () => clearTimeout(id);
   }, []);
 
+  // Prefetch the studio HDRI into the HTTP cache while the loader plays (the stage reads it from there).
+  useEffect(() => {
+    if (mode !== "webgl") return;
+    const ctrl = new AbortController();
+    const finish = () => { fetchedRef.current = 1; setLightingReady(true); };
+    (async () => {
+      try {
+        const res = await fetch(L.environment.files.small, { signal: ctrl.signal });
+        const total = Number(res.headers.get("content-length")) || 0;
+        const reader = res.body?.getReader();
+        if (!reader || !total) { await res.arrayBuffer(); finish(); return; }
+        let got = 0;
+        for (;;) {
+          const { done: end, value } = await reader.read();
+          if (end) break;
+          got += value.byteLength;
+          fetchedRef.current = Math.min(1, got / total);
+        }
+        finish();
+      } catch (err) {
+        // A failed prefetch is not fatal: the stage loads the file itself.
+        if ((err as Error).name !== "AbortError") finish();
+      }
+    })();
+    return () => ctrl.abort();
+  }, [mode]);
+
+  const stageMounted = mode === "webgl" && (phase === "opening" || phase === "journey");
+  // Bright "inside the core's light" white-out that covers the stage while it compiles after Begin.
+  const whiteOut = stageMounted && !stageReady;
+
   const begin = () => {
     if (reducedMotion || mode === "fallback") { openingRef.current = 1; setPhase("journey"); return; }
     setPhase("opening");
@@ -107,9 +141,9 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
     lastInput.current = performance.now();
   }, [phase, overlayOpen]);
 
-  // Opening: pull back out of the core's light.
+  // Opening: pull back out of the core's light (once the stage has drawn its first frames).
   useEffect(() => {
-    if (phase !== "opening") return;
+    if (phase !== "opening" || !stageReady) return;
     let frame = 0;
     const start = performance.now();
     const tick = (now: number) => {
@@ -119,7 +153,7 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [phase]);
+  }, [phase, stageReady]);
 
   // HUD loop: timeline, text haze, settle, interactions, labels (fallback mode also drives the timeline here).
   useEffect(() => {
@@ -216,9 +250,9 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
       onPointerCancel={() => { touch.current = null; }}
     >
       {/* ── The 3D stage (or the CSS fallback for weak devices) ── */}
-      {mode === "webgl" && (
+      {stageMounted && (
         <Stage
-          palette={palette} reducedMotion={reducedMotion} mobile={mobile} visible={phase === "opening" || journeyOn}
+          palette={palette} reducedMotion={reducedMotion} mobile={mobile} visible={stageReady}
           targetRef={targetRef} sRef={sRef} openingRef={openingRef} presenceRef={presenceRef}
           playRef={playRef} hazeRef={hazeRef} anchorsRef={anchorsRef} onReady={() => setStageReady(true)}
         />
@@ -233,6 +267,14 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
       {/* Soft spotlight of the current world's colour behind the focal point. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 transition-[background] duration-[1200ms]"
         style={{ background: `radial-gradient(60vmax 50vmax at 50% 42%, ${accent}${palette === "a" ? "1c" : "30"} 0%, transparent 62%)`, mixBlendMode: palette === "a" ? "multiply" : "screen" }} />
+
+      <AnimatePresence>
+        {whiteOut && (
+          <motion.div key="whiteout" data-whiteout aria-hidden="true" className="pointer-events-none absolute inset-0 z-20"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? 0 : 0.9, ease: [0.4, 0, 0.2, 1] }}
+            style={{ background: `radial-gradient(80vmax 70vmax at 50% 45%, #FFF6E2 0%, #F6D9A0 38%, ${L.worlds[0][palette].bg} 100%)` }} />
+        )}
+      </AnimatePresence>
 
       {/* ── Loader ── */}
       <AnimatePresence>
@@ -251,7 +293,7 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
                 })}
                 <circle cx="60" cy="60" r={6 + progress * 6} fill="#F6D9A0" opacity={0.35 + progress * 0.5} />
               </svg>
-              <p className="micro mt-6 opacity-60" aria-live="polite">{longTake.loading} · <span className="tabular-nums">{Math.round(progress * 100)}%</span></p>
+              <p className="micro mt-6 opacity-70" aria-live="polite">{longTake.loading} · <span className="tabular-nums">{Math.round(progress * 100)}%</span></p>
               <div className="mt-6 h-12">
                 {phase === "ready" && (
                   <motion.button type="button" autoFocus onClick={begin} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="micro lt-pill rounded-full px-8 py-3.5">
@@ -266,10 +308,10 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
 
       <div inert={overlayOpen} className="absolute inset-0">
         {/* ── Reel text (visual; the same text is in the HTML outline below for assistive tech) ── */}
-        {(phase === "opening" || journeyOn) && (
+        {((phase === "opening" && stageReady) || journeyOn) && (
           <div ref={textRef} className="pointer-events-none absolute inset-0 z-10">
             <AnimatePresence mode="wait">
-              <motion.div key={phase === "opening" ? "open" : reel}
+              <motion.div key={phase === "opening" ? 0 : reel}
                 initial={{ opacity: 0, filter: "blur(10px)", y: 14 }} animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                 exit={{ opacity: 0, filter: "blur(8px)", y: -8 }}
                 transition={{ duration: reducedMotion ? 0 : 0.7, delay: phase === "opening" ? 2.4 : 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -300,8 +342,8 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
           <Interaction world={reel} playRef={playRef} fillRef={fillRef} done={done[reel]} reducedMotion={reducedMotion} key={reel} />
         )}
         {journeyOn && reel === 0 && mode === "webgl" && (
-          <p aria-hidden="true" className="micro pointer-events-none absolute inset-x-0 bottom-[calc(var(--lt-inset)+4.4rem)] text-center text-[0.56rem] opacity-50 max-md:bottom-[6.4rem]">
-            {mobile ? longTake.swipeHint : longTake.scrollHint} ↓ <span className="mx-2 opacity-40">·</span> {longTake.dragToTurn} ↔
+          <p aria-hidden="true" className="micro pointer-events-none absolute inset-x-0 bottom-[calc(var(--lt-inset)+4.4rem)] text-center text-[0.56rem] opacity-70 max-md:bottom-[6.4rem]">
+            {mobile ? longTake.swipeHint : longTake.scrollHint} ↓ <span className="mx-2 opacity-70">·</span> {longTake.dragToTurn} ↔
           </p>
         )}
 
@@ -364,22 +406,22 @@ function ReelText({ reel, done, showList, onFounders }: { reel: number; done: bo
   if (reel === 0) {
     return (
       <div aria-hidden="true">
-        <p className="micro opacity-60">{holding.motto.join("  |  ")}</p>
+        <p className="micro opacity-70">{holding.motto.join("  |  ")}</p>
         <p className="headline mt-5 text-[clamp(3rem,8.4vw,9rem)]">{holding.name}</p>
         <p className="micro mx-auto mt-6 max-w-[34rem] leading-[2] opacity-70">{holding.lines.ecosystem}</p>
-        <p className="micro mt-4 text-[0.56rem] opacity-45 max-md:hidden">{holding.pillars.join("  ·  ")}</p>
+        <p className="micro mt-4 text-[0.56rem] opacity-70 max-md:hidden">{holding.pillars.join("  ·  ")}</p>
       </div>
     );
   }
   if (reel === ECOSYSTEM) {
     return (
       <div aria-hidden="true" className="max-w-5xl">
-        <p className="micro text-[0.58rem] leading-[2.1] opacity-65">
-          <span className="opacity-60">{holding.labels.serves} — </span>{serves.join("  ·  ")}
+        <p className="micro text-[0.58rem] leading-[2.1] opacity-75">
+          <span className="opacity-70">{holding.labels.serves} — </span>{serves.join("  ·  ")}
         </p>
         <p className="headline mt-4 text-[clamp(1.7rem,3.3vw,3.7rem)]">{holding.lines.verticals}</p>
-        <p className="micro mt-4 text-[0.58rem] leading-[2.1] opacity-65">
-          <span className="opacity-60">{holding.labels.impact} — </span>{impact.join("  ·  ")}
+        <p className="micro mt-4 text-[0.58rem] leading-[2.1] opacity-75">
+          <span className="opacity-70">{holding.labels.impact} — </span>{impact.join("  ·  ")}
         </p>
       </div>
     );
@@ -387,14 +429,14 @@ function ReelText({ reel, done, showList, onFounders }: { reel: number; done: bo
   if (reel === CONTACT) {
     return (
       <div className="max-w-4xl">
-        <p aria-hidden="true" className="micro opacity-60">{holding.labels.vision}</p>
+        <p aria-hidden="true" className="micro opacity-70">{holding.labels.vision}</p>
         <p aria-hidden="true" className="headline mt-4 text-[clamp(2rem,5vw,5.4rem)]">{holding.lines.tomorrow}</p>
         <p aria-hidden="true" className="lt-statement mx-auto mt-5 max-w-[40rem] text-[clamp(1rem,1.5vw,1.3rem)] leading-snug opacity-80">{holding.vision}</p>
         <div className="pointer-events-auto mt-7 flex flex-wrap items-center justify-center gap-3">
           <a href={mailtoHref("Free Brand Audit Request")} className="micro lt-pill rounded-full px-7 py-3.5 max-md:px-5 max-md:py-2.5">{site.email}</a>
           <button type="button" onClick={onFounders} className="micro lt-pill rounded-full px-7 py-3.5 max-md:px-5 max-md:py-2.5" aria-haspopup="dialog">{longTake.founders}</button>
         </div>
-        <p aria-hidden="true" className="micro mt-5 text-[0.56rem] opacity-45">{site.handle}</p>
+        <p aria-hidden="true" className="micro mt-5 text-[0.56rem] opacity-70">{site.handle}</p>
       </div>
     );
   }
@@ -403,16 +445,16 @@ function ReelText({ reel, done, showList, onFounders }: { reel: number; done: bo
   return (
     <div aria-hidden="true">
       <p className="micro opacity-70">
-        <span className="opacity-60">{pad(reel)} / 05 — </span>
+        <span className="opacity-70">{pad(reel)} / 05 — </span>
         <span style={{ color: "var(--lt-accent)" }}>{v.tagline.join("  ·  ")}</span>
       </p>
       <p className={`headline mt-4 ${long ? "text-[clamp(2.1rem,5.4vw,6rem)]" : "text-[clamp(3rem,8.6vw,9.4rem)]"}`}>{v.name}</p>
-      <p className="micro mx-auto mt-5 max-w-[30rem] leading-[2] transition-[color,opacity] duration-700"
+      <p className="micro mx-auto mt-5 max-w-[44rem] leading-[2] transition-[color,opacity] duration-700 max-md:max-w-[30rem]"
         style={{ color: done[reel] ? "var(--lt-accent)" : undefined, opacity: done[reel] ? 1 : 0.7 }}>
         {v.value}
       </p>
       <ul className={`mx-auto mt-5 max-w-[24rem] grid-cols-2 gap-x-4 gap-y-1.5 text-left text-[0.74rem] leading-snug max-md:grid max-md:max-w-[20rem] max-md:text-[0.72rem] ${showList ? "grid" : "hidden"}`}>
-        {v.whatWeDo.map((w, i) => <li key={w}><span className="opacity-40">{pad(i + 1)} </span>{w}</li>)}
+        {v.whatWeDo.map((w, i) => <li key={w}><span className="opacity-70">{pad(i + 1)} </span>{w}</li>)}
       </ul>
     </div>
   );

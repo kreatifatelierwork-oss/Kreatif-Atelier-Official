@@ -52,6 +52,8 @@ text dissolving). **No hard cuts** except in reduced motion.
 ## Architecture rules
 - Home = `app/page.tsx` → `components/longtake/*`. The DOM shell (all real text, headings, timeline, menus) is
   server-rendered; the 3D stage is `dynamic(..., { ssr: false })`.
+- The stage mounts only on Begin (it compiles behind the opening white-out). Before that the loader only
+  prefetches the 1K HDRI with real byte progress. This is what keeps mobile Lighthouse ≥ 90; don't mount it earlier.
 - The timeline position `s` (0–7, a ref) is the single source of truth; the camera, colours, haze and text read it.
   Never read `window.scrollY` in `useFrame`. Per-frame values go through refs, not React state.
 - Camera path, world placement, colours, speeds, interaction timings: `lib/config.ts` (`longTakeConfig`) and
