@@ -1,5 +1,11 @@
 # The Long Take — build plan
 
+> **Stage 5 (2026-09-29): proposal.** The user asked for a bigger story than "a holding company and its verticals".
+> After a 30-site 3D survey (`docs/research/SURVEY-3D.md`) and a creativity rubric (`docs/research/CREATIVITY.md`),
+> the proposal is **"The Making of a Legacy"** (`docs/concepts/THE-MAKING-OF.md`). It is not built. Stages 3–4 below
+> are kept for reference. The House of Light etc. (Stage 4) is superseded if the proposal is approved; note that
+> Cartier's Watches & Wonders already uses an alcove/rooms structure close to it.
+
 - **Stage 4 (this section, 2026-09-29):** the world is open again. The brief is to drop the solar-system/orbital idea
   unless it can be genuinely stunning as a place, and to rethink everything around the new world: reels, navigation and
   interactions.

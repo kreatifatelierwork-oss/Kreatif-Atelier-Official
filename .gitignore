@@ -22,3 +22,6 @@ docs/research/igloo/*.png
 
 # Home captures stay local
 docs/concepts/shots/home/
+
+# 3D survey captures and scraped facts stay local (third-party content); the write-up is committed.
+docs/research/survey/
