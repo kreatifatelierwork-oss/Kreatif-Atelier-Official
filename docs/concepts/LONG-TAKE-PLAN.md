@@ -159,8 +159,126 @@ next. The transition is **flying through the beam**, a flare of the next colour.
 
 ---
 
+## Idea 4 — Morning Dew (worlds inside drops of water)
+
+**The world:**
+- Macro scale at sunrise. You are a few millimetres tall, gliding along a single silk thread strung between blades of
+  grass. Everything beyond is soft gold and green bokeh.
+- Strung along the thread are dewdrops, each catching the sunrise, and **every drop holds a whole world**. It plays
+  with scale the way Oryzo's macro views do, but as a place rather than a product shot.
+
+**The core:** the largest drop, glowing gold, is Kreatif Atelier. The opening: the first ray of sun touches the thread,
+and the drops light up one by one along it.
+
+**The route:** along the thread from drop to drop. The transition is the **dive**: the camera plunges into the next
+drop, the world bends through its lens (curved horizon, rainbow fringe at the edge), and you surface *inside* that
+vertical's world. Leaving is the reverse: out through the skin of the drop and back onto the glittering thread.
+
+**Inside each drop (all use real optics of water, which makes the interactions feel natural):**
+- **Aurelius (indigo):** inside, a dusk-indigo world where crystal terraces grow upward in a spiral. *Hold to grow*:
+  the spire climbs toward the top of the drop and catches the sun.
+- **Valora (coral):** two coral droplets sit apart on the thread. *Drag one toward the other*; as they touch, surface
+  tension snaps them into one. Bridging made physical, and a genuinely satisfying moment.
+- **Golden Guardian Productions (magenta):** a real drop is a lens that projects an inverted image. *Hold to focus*: the
+  drop throws a moving magenta picture onto the leaf behind it, a cinema made by a drop of water. A film can drop in
+  later.
+- **Rudra Yugen (cyan):** the drop is super-cooled. *Tap to seed* it, and frost crystals branch out in fractal lattices
+  until the whole drop becomes a cyan ice jewel. Invention spreading from one spark; frost, not flame.
+- **Asraya (jade):** a drop resting on a broad leaf, trembling with ripples. *Breathe*: each breath calms the surface
+  until it becomes a perfect mirror of the sky.
+
+**Ecosystem:** pull all the way back. The thread crosses the meadow with the five coloured drops and a thousand tiny
+ones, and sunlight runs along it connecting them all. The thread *is* the ecosystem.
+
+**Contact:** sun fully up, everything gold. The founders appear as round, lens-like portraits in drops, and the email
+is on the core drop.
+
+**Navigation:** the thread itself. A fine line along the bottom of the frame carries five coloured beads, with a bead
+of light for "you are here". Click a bead to glide there.
+
+**Palettes:** A = sunrise meadow (pale gold, green bokeh); B = moonlit, with the drops glowing from within.
+
+**Strengths:**
+- The most visually spectacular of all five ideas: bokeh, refraction and sunrise are instantly beautiful.
+- Endlessly surprising scale shifts.
+- Every interaction is real physics (merging, focusing, freezing, stilling).
+- Wholly original as a company journey.
+
+**Risks:**
+- Nature macro only works with very good light and focus. On phones the depth of field is faked with bokeh sprites,
+  which is cheap.
+- The drop refraction is a lightweight screen distortion, not true glass.
+- It must avoid reading as a spider web: a single thread, no web pattern, no creatures.
+- It could lean "nature documentary" if the worlds inside the drops aren't stylised enough.
+
+---
+
+## Idea 5 — The Glassworks (one molten idea, five vessels)
+
+**The world:**
+- A vast, bright glass studio: white walls, tall north windows, sunbeams with drifting dust, and at one end the mouth
+  of a furnace glowing like a small sun.
+- Here the company's own motto becomes the story: **Ideas** (molten glass, glowing and unformed), **People** (the
+  craft that shapes it), **Impact** (the finished object that catches light).
+- It's an atelier in the oldest sense, a workshop of makers.
+
+**The core:** a single gather of molten gold glass on the end of a long pipe: the idea, Kreatif Atelier.
+
+**The route:** the camera follows the glowing gather from station to station. It is divided, and each part becomes one
+vertical's vessel in its colour.
+- **The transition is heat:** the frame passes through shimmering heat haze and the orange glow of molten glass, then
+  cools into the next colour.
+- No hands or people are shown (they'd be uncanny). The tools move on their own, like a studio at work.
+
+**Each vertical is a technique:**
+- **Aurelius (indigo), blowing:** *hold to blow*; the indigo vessel swells and rises into a tall twisting spiral, and
+  drag turns the pipe to set the twist. Growth, built to last.
+- **Valora (coral), pulling cane:** *drag across the gap*; a coral glass cane stretches from one stand to the other
+  into a long glowing bridge.
+- **Golden Guardian Productions (magenta), the lens:** *hold* to blow a magenta bubble thin and perfect. It becomes a
+  lens that gathers the window's sunlight and projects a moving image on the white wall.
+- **Rudra Yugen (cyan), cutting:** *tap to cut* facets into a cyan block. Every cut throws new refractions around the
+  room until it blazes like a crystal.
+- **Asraya (jade), the bowl:** *breathe*; the jade bowl opens slowly on the turning pipe and settles, filled with still
+  water.
+
+**Ecosystem (the hero image):** the five finished vessels stand in the tall window. Sunlight streams through them and
+paints five colours across the white floor, overlapping at the centre into warm white-gold: "Multiple verticals. One
+vision."
+
+**Contact:** back at the furnace, glowing again, a fresh gather waiting. The founders' portraits hang in the studio.
+
+**Navigation:** a rail of five colour chips along the bottom frame, one per vessel, filling in as each is made. They
+are deliberately not vessel silhouettes, so nothing reads as an icon.
+
+**Palettes:** A = the daylight studio; B = night, lit only by the furnace and the glowing glass.
+
+**Strengths:**
+- The strongest brand story: it dramatises "Ideas | People | Impact" literally.
+- Material honesty (molten glow, real coloured glass, sunbeams) and a stunning finale image.
+- Each interaction *is* the craft.
+
+**Risks:**
+- Convincing glass is the hardest material here. On phones it's faked with reflections, rim light and thickness
+  tinting.
+- The studio needs a restrained, stylised look, or it drifts toward realism and gets expensive.
+- It overlaps with the House of Light in being "the atelier as a place", so choose one of the two.
+
+---
+
+## Comparing the five
+| | Most striking visual | Story fit | Build risk | Phone cost |
+|---|---|---|---|---|
+| 1 House of Light | coloured light flooding plaster rooms | "Atelier" = the studio; one light, five colours | medium (lighting craft) | low |
+| 2 Paper Atelier | backlit paper spreads folding up | charming, founders fit best | low | very low |
+| 3 Prism Flats | one beam split across a white desert | strongest metaphor | medium–high | medium |
+| 4 Morning Dew | worlds inside sunrise dewdrops | ecosystem as a single thread | medium | medium |
+| 5 Glassworks | five vessels painting the floor with light | "Ideas \| People \| Impact" made literal | high (glass) | medium |
+
+---
+
 ## Recommendation
-**Idea 1, The House of Light.** It is the most ownable (it *is* an atelier), the most premium, the most distinctive
+**Idea 1, The House of Light** (after ideas 4 and 5 were added, it remains the pick for ownability and reliability; Morning Dew is the most spectacular and Glassworks the best brand story). It is the most ownable (it *is* an atelier), the most premium, the most distinctive
 next to the research sites, and the most reliable to build at quality and speed on phones.
 
 If you pick it, the build goes in phases, committing after each:
