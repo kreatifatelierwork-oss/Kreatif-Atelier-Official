@@ -37,3 +37,12 @@ export const rupee = localFont({
   adjustFontFallback: false,
   declarations: [{ prop: "unicode-range", value: "U+20B9" }],
 });
+
+/** Geometric sans for The Long Take's headlines (SIL OFL). */
+export const outfit = localFont({
+  src: "../node_modules/@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2",
+  weight: "100 900",
+  variable: "--font-outfit",
+  display: "swap",
+  fallback: ["Manrope", "system-ui", "sans-serif"],
+});

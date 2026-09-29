@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "lenis/dist/lenis.css";
 import { DebugHud } from "@/components/ui/DebugHud";
 import { site } from "@/content/site";
-import { cormorant, manrope, rupee } from "./fonts";
+import { cormorant, manrope, outfit, rupee } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0F1A",
-  colorScheme: "dark",
+  themeColor: "#F7F3EC",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable} ${rupee.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${manrope.variable} ${outfit.variable} ${rupee.variable}`}>
       <body>
         <div className="backdrop" aria-hidden="true" />
         {children}

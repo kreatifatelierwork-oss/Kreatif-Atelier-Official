@@ -13,7 +13,7 @@ const concepts = {
   1: dynamic<ConceptProps>(() => import("./orrery/OrreryConcept"), { ssr: false }),
   2: dynamic<ConceptProps>(() => import("./production/ProductionConcept"), { ssr: false }),
   3: dynamic<ConceptProps>(() => import("./thread/ThreadConcept"), { ssr: false }),
-  4: dynamic<ConceptProps>(() => import("./longtake/LongTakeConcept"), { ssr: false }),
+  4: dynamic<ConceptProps>(() => import("@/components/longtake/LongTake").then((m) => ({ default: ({ palette }: ConceptProps) => <m.LongTake paletteOverride={palette} /> })), { ssr: false }),
 } as const;
 
 /** Prototype switcher: /concepts?concept=1|2|3&type=serif|sans */

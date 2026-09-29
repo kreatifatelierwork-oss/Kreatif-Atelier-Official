@@ -123,29 +123,50 @@ export const config = {
  */
 export const longTakeConfig = {
   worlds: [
-    // index 0 = the core (holding company), 1–5 = verticals in chart order, 6 = finale
+    // 0 core · 1–5 verticals (chart order) · 6 ecosystem · 7 contact
     { key: "core", accent: "#C9A45C", a: { bg: "#F7F3EC", haze: "#FFF6E3" }, b: { bg: "#0D0B14", haze: "#3A2A12" } },
     { key: "aurelius", accent: "#3D4BFF", a: { bg: "#EDEFFF", haze: "#DADFFF" }, b: { bg: "#070A33", haze: "#1C2394" } },
     { key: "valora", accent: "#FF6A3D", a: { bg: "#FFF1EA", haze: "#FFDCCB" }, b: { bg: "#2B0C05", haze: "#8F2C12" } },
     { key: "golden-guardian-productions", accent: "#E8307F", a: { bg: "#FFEEF5", haze: "#FFD2E4" }, b: { bg: "#2A0415", haze: "#8E1349" } },
     { key: "rudra-yugen", accent: "#0FB5E4", a: { bg: "#E8F9FF", haze: "#C6EEFB" }, b: { bg: "#021E2B", haze: "#0B5F7C" } },
     { key: "asraya", accent: "#23C27C", a: { bg: "#EBFBF2", haze: "#C9F1DB" }, b: { bg: "#03231A", haze: "#0D6B47" } },
-    { key: "finale", accent: "#C9A45C", a: { bg: "#FBF8F2", haze: "#FFF4DD" }, b: { bg: "#0B0A12", haze: "#2E2410" } },
+    { key: "ecosystem", accent: "#C9A45C", a: { bg: "#FBF8F2", haze: "#FFF4DD" }, b: { bg: "#0B0A12", haze: "#2E2410" } },
+    { key: "contact", accent: "#D9A441", a: { bg: "#FFF7E8", haze: "#FFEFCF" }, b: { bg: "#150F07", haze: "#4A3312" } },
   ],
   ink: { a: "#12152A", b: "#F7F3EC" },
-  /** World layout: verticals sit on a ring around the core (world units). */
+  /** Verticals sit on a ring around the core (world units). */
   ringRadius: 16,
-  /** Camera distance from a world, and height, when "inside" it. */
+  /** Camera distance / height when holding on a world; phones pull back further (wider lens too). */
   worldCamDistance: 12,
   worldCamHeight: 2.4,
-  /** Wheel px per reel, touch px per reel, and how quickly the camera follows (s). */
+  mobileCamScale: 1.2,
+  /** Input: wheel px per reel, touch px per reel; how quickly the camera follows (s); max reels per second. */
   wheelPerReel: 1100,
   touchPerReel: 700,
   follow: 0.55,
-  /** Reel film-time (s) for the timecode. */
+  maxReelsPerSecond: 2.6,
+  /** Film time per reel (s), for the timecode. */
   reelSeconds: 42,
-  loaderMinMs: 2400,
+  loaderMinMs: 2200,
   openingMs: 5200,
+  /** Reflection environment (Poly Haven "Photo Studio 01", CC0). Never shown as a background. */
+  environment: {
+    files: { small: "/hdri/photo_studio_01_1k.hdr", large: "/hdri/photo_studio_01_2k.hdr" },
+    /** Cube-map resolution: lower = softer, more "premium" reflections. */
+    resolution: { desktop: 256, mobile: 128 },
+    intensity: { a: 1.05, b: 0.5 },
+  },
+  /** World interactions. */
+  play: {
+    raiseSeconds: 1.3,
+    bridgeTaps: 6,
+    rollSeconds: 3.2,
+    sparksToLight: 6,
+    breathSeconds: 3.4,
+    breathsToBalance: 3,
+    /** Drop a video in here (e.g. "/media/ggp/reel.mp4") and the aperture projects it instead of the procedural film. */
+    ggpVideo: null as string | null,
+  },
 } as const;
 
 /** Stage 2 concept prototypes (/concepts?concept=1|2|3). Rough by design — feel and motion only. */

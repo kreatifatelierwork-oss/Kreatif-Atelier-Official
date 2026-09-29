@@ -4,9 +4,9 @@ export const site = {
   name: "Kreatif Atelier",
   wordmark: "KREATIF ATELIER",
   url: "https://kreatifatelier.com",
-  title: "Kreatif Atelier — Bold. Radiant. Timeless.",
+  title: "Kreatif Atelier — Ideas | People | Impact",
   description:
-    "Kreatif Atelier — A full-spectrum creative agency in Hyderabad. Brand strategy, social media, performance marketing, production & PR.",
+    "Kreatif Atelier — a creative holding ecosystem for a better tomorrow. Multiple verticals. One vision. Exponential impact. Aurelius · Valora · Golden Guardian Productions · Rudra Yugen · Asraya.",
   locale: "en_IN",
   email: "hello@kreatifatelier.com",
   handle: "@kreatifatelier",

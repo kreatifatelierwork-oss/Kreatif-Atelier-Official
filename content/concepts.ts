@@ -85,4 +85,16 @@ export const longTake = {
   close: "Close",
   reel: "Reel",
   palette: { label: "Palette", a: "A · Light", b: "B · Glow" },
+  reelContact: "Contact", // PROPOSED (reel 07)
+  dragToTurn: "Drag to turn", // PROPOSED
+  founders: "Meet The Founders", // existing copy (old site's founders kicker)
+  foundersClose: "Close",
+  /** One playful interaction per vertical (index 1–5). All PROPOSED. */
+  play: {
+    1: { kind: "hold", idle: "Hold to raise", done: "Raised" },
+    2: { kind: "tap", idle: "Tap to bridge", done: "Bridged" },
+    3: { kind: "hold", idle: "Hold to roll", done: "Rolled" },
+    4: { kind: "tap", idle: "Tap to spark", done: "Lit" },
+    5: { kind: "hold", idle: "Hold to breathe", done: "Balanced", inhale: "Breathe in", exhale: "Breathe out" },
+  },
 } as const;
