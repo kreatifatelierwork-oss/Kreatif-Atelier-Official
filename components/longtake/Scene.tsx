@@ -101,9 +101,10 @@ export function Scene(props: SceneProps) {
     bg.lerp(hz, haze * 0.75);
     hazeRef.current = haze;
     fog.color.copy(bg);
-    // Holding on a world, its neighbours recede into its colour; overviews stay clear.
+    // Fog follows the framing: holding on a world its neighbours recede into its colour; overviews stay clear.
     const overview = Math.max(1 - Math.min(1, s), Math.max(0, 1 - Math.abs(s - ECOSYSTEM)));
-    const near = THREE.MathUtils.lerp(15, 36, overview), far = THREE.MathUtils.lerp(48, 110, overview);
+    const dist = cam.position.distanceTo(j.target);
+    const near = Math.max(15, dist * THREE.MathUtils.lerp(0.85, 1.05, overview)), far = near + THREE.MathUtils.lerp(33, 80, overview);
     fog.near = THREE.MathUtils.lerp(near, 3, haze);
     fog.far = THREE.MathUtils.lerp(far, 26, haze);
 

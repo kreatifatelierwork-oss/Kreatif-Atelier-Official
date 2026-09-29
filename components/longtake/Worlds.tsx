@@ -53,10 +53,10 @@ function Aurelius({ index, palette, animated, playRef }: Common) {
   useFrame((state) => {
     const raise = playRef.current?.raise ?? 0;
     const t = animated ? state.clock.elapsedTime : 4;
-    const step = 0.2 + raise * 0.12;
+    const step = 0.2 + raise * 0.04;
     slabs.current.forEach((m, i) => {
       if (!m) return;
-      const shown = i < 10 + Math.round(raise * (N - 10));
+      const shown = i < 10 + Math.round(raise * (N - 12));
       m.scale.setScalar(m.scale.x + ((shown ? 1 : 0.001) - m.scale.x) * 0.12);
       const a = i * 0.52 + t * 0.12;
       m.position.set(Math.cos(a) * 0.95, -1.7 + i * step, Math.sin(a) * 0.95);
@@ -385,7 +385,7 @@ function Cairn({ index, palette, animated, playRef }: Common) {
 /* ── 0 · The core — a small orrery of the five colours around a radiant sphere; light lines join the worlds ── */
 function Core({ palette, animated, finaleRef }: { palette: Palette; animated: boolean; finaleRef: React.RefObject<number> }) {
   const rings = useRef<(THREE.Mesh | null)[]>([]);
-  const spokes = useRef<THREE.LineSegments>(null);
+  const spokes = useRef<THREE.Group>(null);
   const halo = useRef<THREE.Sprite>(null);
   const gold = useGold();
   const glowTex = useMemo(() => {
@@ -400,22 +400,32 @@ function Core({ palette, animated, finaleRef }: { palette: Palette; animated: bo
     g.fillRect(0, 0, 128, 128);
     return new THREE.CanvasTexture(c);
   }, []);
-  const spokeGeo = useMemo(() => {
-    const pts: number[] = [];
+  // Light "spokes": core → each world, and world → next world — thin glowing tubes (visible at any distance).
+  const spokeMat = useMemo(
+    () => new THREE.MeshBasicMaterial({ color: palette === "b" ? GOLD : "#A8782C", transparent: true, opacity: 0.16, depthWrite: false, toneMapped: palette !== "b" }),
+    [palette],
+  );
+  const spokeMeshes = useMemo(() => {
+    const segs: [THREE.Vector3, THREE.Vector3][] = [];
     for (let i = 1; i <= 5; i++) {
-      const w = worldCentre(i), n = worldCentre(i === 5 ? 1 : i + 1);
-      pts.push(0, 0, 0, w.x, w.y, w.z, w.x, w.y, w.z, n.x, n.y, n.z);
+      segs.push([new THREE.Vector3(0, 0, 0), worldCentre(i)]);
+      segs.push([worldCentre(i), worldCentre(i === 5 ? 1 : i + 1)]);
     }
-    const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-    return g;
+    const up = new THREE.Vector3(0, 1, 0);
+    return segs.map(([a, b]) => {
+      const len = a.distanceTo(b);
+      const mid = a.clone().add(b).multiplyScalar(0.5);
+      const q = new THREE.Quaternion().setFromUnitVectors(up, b.clone().sub(a).normalize());
+      return { len, mid, q };
+    });
   }, []);
 
   useFrame((state) => {
     const t = animated ? state.clock.elapsedTime : 0;
     rings.current.forEach((m, i) => { if (m) m.rotation.set(0.6 + i * 0.35, t * (0.08 + i * 0.03) + i, 0.2 * i); });
     const fin = finaleRef.current ?? 0;
-    if (spokes.current) (spokes.current.material as THREE.LineBasicMaterial).opacity = 0.16 + fin * 0.74;
+    const first = spokes.current?.children[0] as THREE.Mesh | undefined;
+    if (first) (first.material as THREE.MeshBasicMaterial).opacity = 0.03 + fin * 0.87; // shared by every spoke
     if (halo.current) halo.current.scale.setScalar(5 + fin * 3 + (animated ? Math.sin(t) * 0.2 : 0));
   });
 
@@ -437,9 +447,13 @@ function Core({ palette, animated, finaleRef }: { palette: Palette; animated: bo
       <mesh material={gold} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[L.ringRadius, 0.035, 12, 400]} />
       </mesh>
-      <lineSegments ref={spokes} geometry={spokeGeo}>
-        <lineBasicMaterial color={GOLD} transparent opacity={0.16} depthWrite={false} />
-      </lineSegments>
+      <group ref={spokes}>
+        {spokeMeshes.map((s, i) => (
+          <mesh key={i} position={s.mid} quaternion={s.q} material={spokeMat}>
+            <cylinderGeometry args={[0.16, 0.16, s.len, 8, 1, true]} />
+          </mesh>
+        ))}
+      </group>
     </group>
   );
 }

@@ -80,7 +80,9 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
 
   // Decide how to render once the page is idle (after first paint).
   useEffect(() => {
-    const decide = () => setMode(detectQuality().tier === "fallback" ? "fallback" : "webgl");
+    // `?fallback` forces the CSS version (for testing what weak devices get).
+    const forced = new URLSearchParams(window.location.search).has("fallback");
+    const decide = () => setMode(forced || detectQuality().tier === "fallback" ? "fallback" : "webgl");
     if ("requestIdleCallback" in window) {
       const id = window.requestIdleCallback(decide, { timeout: 1200 });
       return () => window.cancelIdleCallback(id);
@@ -190,7 +192,8 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
     return () => window.removeEventListener("keydown", onKey);
   }, [overlayOpen, phase, jump]);
 
-  const textTop = reel === ECOSYSTEM || reel === CONTACT ? "top-[56%] max-md:top-[50%]" : "top-[60%] max-md:top-[56%]";
+  const textTop =
+    reel === CONTACT ? "top-[44%] max-md:top-[42%]" : reel === ECOSYSTEM ? "top-[66%] max-md:top-[58%]" : "top-[60%] max-md:top-[56%]";
 
   return (
     <div
@@ -293,7 +296,7 @@ export function LongTake({ paletteOverride }: { paletteOverride?: Palette } = {}
         )}
 
         {/* One playful interaction per world. */}
-        {journeyOn && isVertical(reel) && (
+        {journeyOn && isVertical(reel) && mode === "webgl" && (
           <Interaction world={reel} playRef={playRef} fillRef={fillRef} done={done[reel]} reducedMotion={reducedMotion} key={reel} />
         )}
         {journeyOn && reel === 0 && mode === "webgl" && (
@@ -374,8 +377,8 @@ function ReelText({ reel, done, showList, onFounders }: { reel: number; done: bo
         <p className="micro text-[0.58rem] leading-[2.1] opacity-65">
           <span className="opacity-60">{holding.labels.serves} — </span>{serves.join("  ·  ")}
         </p>
-        <p className="headline mt-5 text-[clamp(2rem,5.2vw,5.6rem)]">{holding.lines.verticals}</p>
-        <p className="micro mt-5 text-[0.58rem] leading-[2.1] opacity-65">
+        <p className="headline mt-4 text-[clamp(1.7rem,3.3vw,3.7rem)]">{holding.lines.verticals}</p>
+        <p className="micro mt-4 text-[0.58rem] leading-[2.1] opacity-65">
           <span className="opacity-60">{holding.labels.impact} — </span>{impact.join("  ·  ")}
         </p>
       </div>

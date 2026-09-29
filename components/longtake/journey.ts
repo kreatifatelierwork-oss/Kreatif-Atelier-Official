@@ -21,9 +21,13 @@ function stop(k: number, mobile: boolean): { pos: THREE.Vector3; target: THREE.V
   // 00 — the orrery seen low, like a horizon: worlds strung along it above the headline.
   if (k === 0) return { pos: new THREE.Vector3(0, 8.5, mobile ? 52 : 44), target: new THREE.Vector3(0, -2.6, 0) };
   // 06 — high above: the ring in the upper half with every world joined by light.
-  if (k === ECOSYSTEM) return { pos: new THREE.Vector3(0, mobile ? 62 : 52, 30), target: new THREE.Vector3(0, -24, 0) };
+  if (k === ECOSYSTEM) {
+    // A near top-down map of the ecosystem: the ring in the upper part of the frame, text below.
+    const h = mobile ? 92 : 100, zo = mobile ? 17 : 10;
+    return { pos: new THREE.Vector3(0, h, zo + 10), target: new THREE.Vector3(0, 0, zo) };
+  }
   // 07 — back down into the warm core: the take ends where it began.
-  if (k === CONTACT) return { pos: new THREE.Vector3(0, 1.6, mobile ? 11 : 8.5), target: new THREE.Vector3(0, -1.4, 0) };
+  if (k === CONTACT) return { pos: new THREE.Vector3(0, 2.2, mobile ? 19 : 14), target: new THREE.Vector3(0, mobile ? -4.2 : -3.2, 0) };
   const c = worldCentre(k);
   const out = c.clone().setY(0).normalize();
   const d = L.worldCamDistance * (mobile ? L.mobileCamScale : 1);

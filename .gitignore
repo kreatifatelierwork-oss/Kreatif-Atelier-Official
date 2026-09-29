@@ -19,3 +19,6 @@ docs/concepts/shots/
 
 # igloo captures
 docs/research/igloo/*.png
+
+# Home captures stay local
+docs/concepts/shots/home/
