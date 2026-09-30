@@ -154,3 +154,57 @@ fringed with a thin rainbow.
   paints ink behind the hero object and **inverts the colour of the headline** where it passes. The hero object
   looks-at the pointer with a two-stage damped response. The act-specific roles (Lens, launch, breathe) build on top
   of the same fluid.
+
+## Ink comparison 2 (2026-09-30): identical scripted strokes, frame by frame
+
+Tooling: `scripts/research/ink-paths.mjs` (13 shared strokes: slow/medium lines, flicks, circle, zig-zag, stop dead,
+jitter, long sweep, over text, over object, both screen edges), `ink-record.mjs` (60 fps CDP screencast, pointer
+events dispatched fire-and-forget at 240 Hz, like a real mouse; the page's received events are logged),
+`ink-measure.py` (per-stroke metrics), `ink-sheet.py` (side-by-side contact sheets). Captures are gitignored under
+`docs/research/buttermax/ink-*`. The lower strokes run right to left in x 0–420, y 470–808, because buttermax draws its
+product in front of the ink from x ≈ 430 and its cookie banner covers y ≥ 810.
+
+### buttermax, measured
+- **Onset:** the first ink shows ~85 ms after the pointer starts. It appears at the start of the path and grows along
+  it, so the brush trails the pointer (a smoothed brush point, ~45 ms behind at the leading edge).
+- **Width vs speed:** almost constant, 165 px thick at 317 and at 1000 px/s, ~120–145 px for flicks and the stop-dead
+  stroke. It only gets slightly thinner with speed.
+- **Continuity:** always one piece. Even a 240 px flick in 35 ms is a single continuous capsule. The whole path is covered at the end of every stroke.
+- **Edges:** hard and crisp, about 1 px of anti-aliasing. There is no visible colour rim on a plain background.
+- **Drift after stopping:** the ink keeps moving in the stroke direction. The centroid travels 140–240 px, and the
+  front rounds while the back thins into a pointed tail and drops droplets. Jitter (±4 px) barely drifts (10 px) but
+  still lays a round blob of ~100 px radius, so ink is laid per moving frame and not in proportion to speed.
+- **Fade:** area peaks 30–70 ms after the stop, then shrinks smoothly. It is about half gone at +400–600 ms and gone at
+  +700–1130 ms (slow strokes ~1.1 s, flicks ~0.7–0.8 s, jitter ~1.3 s).
+- **Screen edges:** the ink stops at the wall and fades there. It doesn't splash or bounce back.
+
+### Ours (checkpoint 1), same strokes: what is wrong
+- **Force about 5× too strong:** velocity was injected at ~5 × pointer speed (`force 5200` → cells/s). The ink shoots
+  ahead of the pointer, slams into the left wall, and tears into mushroom-shaped vortex pairs and thin crescents (4–8
+  pieces on circles and zig-zags vs 1).
+- **Dies too fast:** life after stopping was 50–300 ms vs 700–1130 ms. The dye is clamped at 1.25 with 0.955/frame decay, and it is also scattered by the excess force.
+- **Soft, coloured edges:** the edge band was 2–4 px (vs ~1), plus a multi-colour rim that also breaks C8.
+- **Jank sources in the code:**
+  - variable timestep (dt clamped to 1/30, so the fluid runs at the frame rate and behaves differently at 120 Hz);
+  - one capsule per frame from the last raw pointer position (no coalesced events, no brush smoothing);
+  - velocity smoothing tied to the event rate;
+  - a separate rAF loop from the R3F canvas;
+  - dye resolution fixed (512) rather than scaled to the viewport;
+  - an allocation per HUD tick (`new Uint8Array`).
+
+### Rebuild spec (next step, not yet built)
+- **Timing:**
+  - a fixed 1/60 s step with an accumulator (at most 4 steps a frame);
+  - display interpolated between the last two dye states, so 120 Hz is smooth;
+  - per-step constants exactly as buttermax: velocity 0.985, dye 0.95.
+- **Input and brush:**
+  - coalesced pointer events go into a preallocated ring buffer with timestamps;
+  - the brush point follows the interpolated raw path with exponential smoothing (τ ≈ 25–30 ms), sub-stepped 8× per step;
+  - each step splats one polyline capsule (up to 9 points in one pass).
+- **Force and ink:**
+  - velocity is injected at about 1× the brush speed, accumulated per step;
+  - dye is unclamped at a large amount, with a fixed threshold, so the fade shrinks from the edges over ~1 s.
+- **Display:** crisp threshold with fwidth anti-aliasing, a 1–1.5 px gold rim only (C8), and dye resolution scaled to the viewport (short side × DPR × 0.5).
+- **One shared rAF:** R3F set to `frameloop="never"` and advanced from the film loop. No allocations and no React state in the loop.
+- **Other changes:** the HUD readouts are replaced by one act bar (C2), and palette a becomes Luminous `#F4F5F7`.
+- **Acceptance:** re-run `ink-record.mjs` + `ink-measure.py` until the metrics above match.
