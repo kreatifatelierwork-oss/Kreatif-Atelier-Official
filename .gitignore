@@ -36,3 +36,7 @@ docs/concepts/film-checkpoint/
 design-sources/
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
+
+# Audit screenshots stay local.
+docs/design/audit-shots/
+.playwright-cli/
