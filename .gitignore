@@ -25,3 +25,6 @@ docs/concepts/shots/home/
 
 # 3D survey captures and scraped facts stay local (third-party content); the write-up is committed.
 docs/research/survey/
+
+# buttermax screencasts stay local (third-party imagery); buttermax.md is committed.
+docs/research/buttermax/

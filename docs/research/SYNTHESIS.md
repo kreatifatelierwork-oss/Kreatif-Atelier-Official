@@ -120,6 +120,27 @@ wasteful (a 9.7 MB roughness PNG). We can match the craft while being accessible
 | 27 | **Object annotations** | igloo | DOM labels projected onto 3D anchors (real HTML, positioned per frame via refs) with thin leader lines; fade by distance. |
 | 28 | **Reel timeline + jumps over a continuous journey** | igloo + Production | The Production timeline (reels, playhead, timecode) drives the same path; clicking a reel eases the camera along the path to that world instead of cutting. |
 
+**From buttermax.net** (`buttermax.md`, 2026-09-30; adopted as the model for our opening and base cursor):
+
+27. **An opening in three movements: glyph → dip → flood.**
+    1. A small loader glyph forms and holds.
+    2. It fades into a short, near-black dip.
+    3. A halftone-dot bloom grows from the centre, merges into bands and floods the screen with the page colour (0.5 s).
+    Meanwhile the page zooms forward from about 0.6 scale and un-rotates. Then the hero object rises and materialises
+    (0.35 s) and a word is hand-written on (0.85 s). The whole reveal from the first dots to rest takes about 2 s, the
+    same on every load; only the loader stretches with network time.
+28. **The cursor is a fluid, not a pointer graphic.**
+    - A real GPU fluid (capsule splats from the previous to the current position, no swirl, a long velocity tail,
+      fast ink fade, hard-edged display) paints ink that is pushed in the direction of travel, keeps drifting after
+      you stop, and is gone about 1 s later.
+    - The system cursor stays visible.
+    - **Colour is the reward:** where the ink covers the headline the letters flip colour (black → white), fringed
+      with a thin rainbow; over media the same ink becomes a greyscale halftone lens.
+29. **The hero object looks at you with weight.** A quick 0.25 s first move, then a 1.5–2 s damped settle, with no
+    overshoot. Hovering onto the object swaps it with a dissolve, and clicking it changes what it shows.
+30. **One fluid, many effects.** The same ink mask drives different treatments per layer (paint on the background,
+    inversion on type, a lens on media). That's how the site stays one consistent system.
+
 ---
 
 ## Part 3 — What NOT to do
