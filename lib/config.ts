@@ -294,3 +294,76 @@ export const sculptureVariants: Record<1 | 2 | 3, SculptureVariant> = {
     tilt: [-0.7, -0.15, 0.35], spin: 0.04, lightBoost: 1,
   },
 };
+
+/**
+ * Stage 5 — "The Making of a Legacy" (the film). Opening timings follow buttermax.net's measured rhythm
+ * (docs/research/buttermax.md), fitted to our story; the cursor ink is our own GPU fluid tuned to the same feel.
+ */
+export const filmConfig = {
+  palettes: {
+    /** a = pearl studio (default), b = ink studio. `dark` is the loader / dip colour. */
+    a: { page: "#F3EDE2", text: "#12152A", muted: "#5B5A63", gold: "#A8812F", goldBright: "#E3BF72", dark: "#0B0F1A" },
+    b: { page: "#10142A", text: "#F3EBDD", muted: "#A9A6B4", gold: "#C9A45C", goldBright: "#EACB8C", dark: "#04050A" },
+  },
+  /** The five houses' colours (chart order) — used for the flood's rim and the Idea's "ghost" colours. */
+  houses: ["#3D4BFF", "#FF6A3D", "#E8307F", "#0FB5E4", "#23C27C"],
+  opening: {
+    /** ✦ glyph build: whirl → dot → split → bridge (ms from first paint); the gate appears after `gateAt`. */
+    glyphMs: 1800,
+    gateAt: 1900,
+    /** After a choice: the glyph fades (dip), holds dark, then the flood starts (T0). */
+    dipMs: 350,
+    dipHoldMs: 150,
+    /** Flood transition 0→1. Screen is fully the page colour at ~0.60 s, dots gone by ~0.72 s (as measured). */
+    floodMs: 1000,
+    /** The page's zoom-forward runs a little quicker than the flood. */
+    zoomMs: 760,
+    /** The page zooms forward and straightens during the flood. */
+    pageFromScale: 0.6,
+    pageFromRotateDeg: -6,
+    /** Beats after T0 (ms). The Idea rises + materialises, then "Atelier" is written on. */
+    ideaRiseAt: 720,
+    ideaRiseMs: 400,
+    writeAt: 1070,
+    writeMs: 850,
+    hudAt: 1900,
+    /** Halftone lattice spacing as a fraction of the viewport height; flood rim width (0–1 of the field). */
+    dotSpacing: 1 / 15,
+    rimWidth: 0.16,
+  },
+  ink: {
+    /** Velocity grid and ink ("dye") texture sizes; pressure iterations. Phones get the smaller numbers. */
+    simRes: { desktop: 128, mobile: 80 },
+    dyeRes: { desktop: 512, mobile: 320 },
+    iterations: { desktop: 10, mobile: 6 },
+    /** Per-frame (60 fps) retention: velocity keeps flowing, ink fades faster. */
+    velocityKeep: 0.985,
+    dyeKeep: 0.955,
+    /** Brush radius (fraction of viewport height), force per px/s of pointer motion, ink added per splat. */
+    radius: 0.1,
+    force: 5200,
+    amount: 0.36,
+    /** Display threshold (hard edge) and how much the rim follows the ink's speed. */
+    edge: [0.2, 0.26] as [number, number],
+    rim: 0.9,
+    /** Reduced motion: a calm, faint ink. */
+    calm: { radius: 0.05, force: 900, amount: 0.35, strength: 0.28 },
+  },
+  idea: {
+    count: { desktop: 36000, mobile: 12000 },
+    /** Look-at range (degrees) and the two-stage follow: a fast share then a long, heavy tail. */
+    yaw: 20,
+    pitch: 10,
+    fastTau: 0.09,
+    slowTau: 0.65,
+    fastShare: 0.55,
+    /** Hovering onto the Idea changes its form with this dissolve (ms). */
+    swapMs: 900,
+    /** A new form needs the pointer to have been off the Idea for a moment, and a rest after the last change. */
+    swapCooldownMs: 4000,
+    swapReentryMs: 300,
+    /** Reduced motion: barely moves. */
+    calmYaw: 3,
+    calmPitch: 1.5,
+  },
+} as const;

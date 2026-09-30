@@ -6,6 +6,7 @@ commercial use (CC0, CC-BY with attribution, OFL for fonts, or explicit commerci
 | Asset | File(s) | Source | Licence | Notes |
 |---|---|---|---|---|
 | Cormorant Garamond (variable) | `node_modules/@fontsource-variable/cormorant-garamond` | Google Fonts via Fontsource | SIL OFL 1.1 | Display serif |
+| IBM Plex Mono 400/500 | `node_modules/@fontsource/ibm-plex-mono` | IBM via Fontsource | SIL OFL 1.1 | The film's technical readouts (HUD), approved 2026-09-30 |
 | Manrope (variable) | `node_modules/@fontsource-variable/manrope` | Google Fonts via Fontsource | SIL OFL 1.1 | Body / UI |
 | Outfit (variable + 700 WOFF) — headline sans test | `node_modules/@fontsource-variable/outfit`, `public/fonts/outfit-700.woff` | Google Fonts via Fontsource | SIL OFL 1.1 | Free stand-in for Cera (geometric sans) in the `?type=sans` test |
 | Cormorant Garamond 500 / 400 italic WOFF (3D text) | `public/fonts/cormorant-garamond-*.woff` | Google Fonts via Fontsource | SIL OFL 1.1 | For troika 3D text (needs WOFF, not WOFF2) |

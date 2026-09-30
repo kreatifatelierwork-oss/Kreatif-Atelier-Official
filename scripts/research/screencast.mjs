@@ -8,7 +8,7 @@
 // --actions  : JSON array of steps, each [atMs, cmd, ...args] relative to navigation start:
 //              ["move", x, y, durMs?, steps?]  ["path", [[x,y],...], durMs]  ["down"] ["up"] ["click", x, y]
 //              ["wheel", dy]  ["leave"] ["enter", x, y]  ["tap", x, y]  ["swipe", x1,y1,x2,y2, durMs]
-//              ["touchpath", [[x,y],...], durMs]  ["key", key]  ["mark", label]
+//              ["touchpath", [[x,y],...], durMs]  ["key", key]  ["mark", label]  ["clicksel", cssSelector]
 // --reuse    : don't navigate; record the page already open at <url> (match by prefix)
 import { mkdir, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
@@ -99,6 +99,11 @@ async function run(step) {
       await touch("touchEnd", []); break;
     }
     case "key": await page.keyboard.press(a[0]); break;
+    case "clicksel": {
+      const box = await page.locator(a[0]).first().boundingBox();
+      if (box) { const x = box.x + box.width / 2, y = box.y + box.height / 2; if (mobile) { await touch("touchStart", [[x, y]]); await sleep(50); await touch("touchEnd", []); } else await page.mouse.click(x, y); mx = x; my = y; }
+      break;
+    }
     case "mark": break;
   }
 }

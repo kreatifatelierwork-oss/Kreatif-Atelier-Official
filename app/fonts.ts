@@ -46,3 +46,14 @@ export const outfit = localFont({
   display: "swap",
   fallback: ["Manrope", "system-ui", "sans-serif"],
 });
+
+/** Monospace for the film's technical readouts (IBM Plex Mono, SIL OFL). */
+export const plexMono = localFont({
+  src: [
+    { path: "../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2", weight: "500", style: "normal" },
+  ],
+  variable: "--font-mono",
+  display: "swap",
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+});
