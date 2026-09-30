@@ -36,48 +36,56 @@ These materials define what "premium" means for this project. Read the relevant 
 - **Visual checks:** use **Playwright CLI** (`playwright-cli`, skill in `.claude/skills/playwright-cli`) for all
   visual checks, screenshots, video recordings and traces, at 1440 and 390, both palettes, and with reduced motion.
 
-## What this project is
-The website for **Kreatif Atelier, a creative holding company** ("Ideas | People | Impact") and its five verticals.
-It is built as **The Long Take**: one continuous, cinematic 3D camera shot through a luminous orrery. The holding
-company is the radiant **core**; the five verticals are **worlds** on a golden ring around it, each with its own
-signature colour and sculpture. The site plays like a film in **eight reels** with a timeline, and every reel is
-reachable directly.
+## Design decisions (user, 2026-09-30): answers to the audit conflicts C1–C8
+- **C1 Theme:** **LIGHT is the default**: a clean, neutral, luminous light, never cream-and-brass. Dark "Cinema" is the
+  alternate theme. Light, accented and vibrant, with the restraint the sources demand.
+- **C2 Readouts:** no fake readouts at all. One act bar with the act name and the real film time.
+- **C3 Punctuation:** punctuation-only changes to ported copy: a comma or colon for long dashes, hyphens in price
+  ranges ("₹25-35K"). Every word and every price stays identical.
+- **C4 TURA:** no edge labels or tiny microtype. Keep a top bar and the act bar.
+- **C5 Vertical colours:** each vertical's colour is **vivid and dominant inside its own world/place** (its light,
+  atmosphere and materials), so moving between verticals feels like moving between worlds. **Outside** its world,
+  gold is the only accent (buttons, links, highlights). One vivid colour per scene, never several competing.
+- **C6 Fonts:** Outfit (display), Cormorant Garamond (voice), IBM Plex Mono (utility). Manrope is retired.
+- **C7 Glow:** one light source per scene; no halos on everything.
+- **C8 Edges:** the opening flood rim and the ink cursor's edge are **gold only**, no rainbow.
 
-Branch: all redesign work lives on **`redesign-v2`**. `main` holds the previous (superseded) build — leave it untouched.
-Build plan: `docs/concepts/LONG-TAKE-PLAN.md`. Concept: `docs/concepts/LONG-TAKE.md`. Research: `docs/research/`.
+## What this project is
+The website for **Kreatif Atelier, a creative holding company** ("Ideas | People | Impact"), its beliefs, how it
+works and what it makes possible, with its five verticals as chapters inside that bigger story.
+- **The current direction** is proposed in `docs/concepts/THE-MAKING-OF-v3.md` (one unified idea: the film *is* a world
+  you travel through). It is not built until approved.
+- **Decisions** are collected in `docs/DECISIONS-SO-FAR.md`.
+- **Built so far on `redesign-v2`:**
+  - the home page is still "The Long Take" (orrery, superseded);
+  - `/film` holds the opening sequence + cursor checkpoint.
+- `main` holds the old build and stays untouched.
 
 ## The structure (source of truth: `content/verticals.ts`, transcribed exactly from the company chart)
-- **Kreatif Atelier** — a creative holding company. "A creative holding ecosystem for a better tomorrow."
-  "Multiple verticals. One vision. Exponential impact." "Disciplines today. A brighter tomorrow."
-  Vision, pillars (Creativity · Education · Production · Wellbeing · Technology), "Our ecosystem serves", "Impact".
-- Five verticals (name — tagline — signature colour — sculpture):
-  1. **Aurelius** — Brands. Strategy. Growth. — royal indigo — a rising spiral of slabs
-  2. **Valora** — People. Skills. Opportunities. — sunrise coral — an arch built from many tiles (a bridge)
-  3. **Golden Guardian Productions** — Stories. Visuals. Impact. — cinema magenta — an iris aperture + projection
-  4. **Rudra Yugen** — Innovation. Culture. Futures. — electric cyan — a glowing lattice around a glass core
-  5. **Asraya** — People. Balance. Wellbeing. — fresh jade — a balanced cairn over ripples
-- The old "four divisions" (incl. Zenith Chapter) are gone. Old services/pricing/process are not part of the journey.
-
-## The journey (reels)
-00 Core → 01 Aurelius → 02 Valora → 03 Golden Guardian Productions → 04 Rudra Yugen → 05 Asraya → 06 Ecosystem → 07 Contact.
-Each vertical reel: name huge (headline), tagline as microtype eyebrow, value line as caption, the four "what we do"
-items as labels attached to the sculpture, and one playful interaction (raise / bridge / roll / spark / breathe).
-Transitions: the camera swings out on a wide arc through haze of the next world's colour (fog + depth of field +
-text dissolving). **No hard cuts** except in reduced motion.
+- **Kreatif Atelier:** a creative holding company.
+  - Lines: "A creative holding ecosystem for a better tomorrow." "Multiple verticals. One vision. Exponential
+    impact." "Disciplines today. A brighter tomorrow."
+  - Also: the vision, the pillars (Creativity · Education · Production · Wellbeing · Technology), "Our ecosystem
+    serves" and "Impact".
+- **The five verticals** (name, tagline, signature colour):
+  1. **Aurelius**: Brands. Strategy. Growth. Royal indigo `#3D4BFF`.
+  2. **Valora**: People. Skills. Opportunities. Sunrise coral `#FF6A3D`.
+  3. **Golden Guardian Productions**: Stories. Visuals. Impact. Cinema magenta `#E8307F`.
+  4. **Rudra Yugen**: Innovation. Culture. Futures. Electric cyan `#0FB5E4`.
+  5. **Asraya**: People. Balance. Wellbeing. Fresh jade `#23C27C`.
+- **Live-site content still in use, word for word:** about and philosophy, the six services, pricing (exactly as
+  is), the founders (with cut-outs), why us, process, industries and contact.
 
 ## Visual direction
-- **Light, radiant, vibrant.** Two palettes, `?palette=a|b`: **A (default)** pale luminous skies tinted by each world,
-  vivid glossy sculptures; **B** deep world hues lit by glowing colour. Gold = the connecting metal/light (ring, core,
-  accents), not the whole palette. Colours live in `lib/config.ts` → `longTakeConfig.worlds`.
-- Blur, depth of field, frosted glass and bloom — always bright (colour haze), never moody darkness.
-- Lighting: Poly Haven "Photo Studio 01" HDRI (`public/hdri/`) as **reflection environment only, never visible**, plus
-  Lightformer highlights. 1K version for phones.
-- Layout language (from the TURA reference): framed edge furniture (KREATIF / ATELIER in type top-left, two links
-  top-right, motto on the left edge, Scroll cue on the right edge, reel timeline as the section index along the bottom),
-  one focal point per screen, huge headline + tiny wide-tracked microtype.
-- Type: Outfit (headlines), Manrope (microtype/body), Cormorant Garamond italic (statements). All self-hosted.
-- Sculptures are original, procedural, abstract. They must never read as logos. Do not reproduce the chart's monogram
-  or its per-vertical icons (column, swan, clapperboard, flame, lotus).
+Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions above.
+- **Palette:** luminous neutral light by default and Cinema dark as the alternate. Gold is the only UI accent;
+  vertical colours are dominant inside their own worlds (C5).
+- **Type:** three roles, never mixed in one line.
+- **Imagery:** one subject per scene, one light source per scene, no fake UI, no labels on imagery.
+- **Lighting:** the Poly Haven "Photo Studio 01" HDRI (`public/hdri/`) is a reflection environment only, never
+  visible.
+- **Symbols:** sculptures and symbols are original, procedural and abstract. They must never read as logos. Never
+  reproduce the chart's monogram or its per-vertical icons (column, swan, clapperboard, flame, lotus).
 
 ## Tech stack (do not swap without asking)
 - Next.js (App Router, TypeScript), `output: 'export'` (static), webpack build
@@ -106,7 +114,8 @@ text dissolving). **No hard cuts** except in reduced motion.
 - `prefers-reduced-motion`: cuts + crossfades, still sculptures, holds become presses. Keyboard reachable, visible focus.
 - Phones: DPR ≤ 1.5, no depth of field, simplified effects, touch versions of every interaction.
 - Weak devices / no WebGL: CSS fallback with the same reels, text and navigation.
-- Commercially licensed assets only, logged in `docs/ASSETS.md`. No sound or video in the current build.
+- Commercially licensed assets only, logged in `docs/ASSETS.md`. Sound: a generated score only, silent until the visitor
+  chooses "Enter with sound", with a mute toggle always visible. No video yet.
 
 ## Workflow rules for Claude
 - Work in phases; after each: `pnpm build`, fix type/lint errors, check at 1440 and 390 (headless Chrome with WebGL via

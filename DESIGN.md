@@ -1,40 +1,53 @@
 ---
 version: 1.0-draft
 name: Kreatif-Atelier-The-Making-of-a-Legacy
-description: A brand-film website for a creative holding company. One continuous, scrubbable 3D film in which a single gold Idea changes form across seven acts, framed by near-invisible chrome. Ink canvas, one gold accent, five house colours used only as identity markers, a strict three-role type trinity (Outfit display, Cormorant Garamond voice, IBM Plex Mono utility), sharp media and pill actions, generous darkness, heavy damped motion. No logo, no mark, no fake technical labels.
+description: A brand-film website for a creative holding company. One continuous, scrubbable 3D film in which a single gold Idea changes form across seven acts, framed by near-invisible chrome. A clean, neutral, luminous light canvas by default (dark "Cinema" as the alternate), gold as the only UI accent, and each vertical's colour vivid and dominant inside its own world, a strict three-role type trinity (Outfit display, Cormorant Garamond voice, IBM Plex Mono utility), sharp media and pill actions, generous space, heavy damped motion. No logo, no mark, no fake technical labels.
 
 colors:
-  # Theme "Cinema" (dark). Recommended default; see AUDIT C1.
-  canvas: "#0B0F1A"
-  canvas-deep: "#070A12"
-  surface: "#121726"
-  surface-raised: "#18203A"
-  hairline: "rgba(243, 235, 221, 0.14)"
-  hairline-strong: "rgba(243, 235, 221, 0.28)"
-  ink-on-dark: "#F3EBDD"
-  body-on-dark: "#D9D3C7"
-  muted-on-dark: "#9D9AA3"
+  # Theme "Luminous" (light). DEFAULT (user decision C1): clean, neutral, luminous; never cream or brass.
+  canvas: "#F4F5F7"
+  canvas-deep: "#E9EBEF"
+  surface: "#FBFBFC"
+  surface-raised: "#EEF0F3"
+  ink: "#0B0F1A"
+  body: "#2A2E38"
+  muted: "#5A5E6A"
+  hairline: "rgba(11, 15, 26, 0.12)"
+  hairline-strong: "rgba(11, 15, 26, 0.24)"
   primary: "#C9A45C"
-  primary-bright: "#E8C98A"
+  primary-bright: "#DDB978"
   primary-pressed: "#B38E45"
   on-primary: "#0B0F1A"
-  focus: "#E8C98A"
-  # Theme "Daylight" (light alternate). Neutral porcelain, never cream; gold is decoration only on light.
-  daylight-canvas: "#EFEFEC"
-  daylight-surface: "#E6E6E2"
-  daylight-ink: "#0B0F1A"
-  daylight-body: "#2A2E38"
-  daylight-muted: "#55565E"
-  daylight-hairline: "rgba(11, 15, 26, 0.12)"
-  daylight-primary-fill: "#0B0F1A"
-  daylight-on-primary: "#EFEFEC"
-  # House identity markers (never CTA, never text, never UI background).
-  house-aurelius: "#3D4BFF"
-  house-valora: "#FF6A3D"
-  house-ggp: "#E8307F"
-  house-rudra-yugen: "#0FB5E4"
-  house-asraya: "#23C27C"
-  # Founder portrait mount (the only light surface on the dark theme, like a print on a wall).
+  link-underline: "#C9A45C"
+  focus: "#0B0F1A"
+  # Theme "Cinema" (dark). The alternate.
+  cinema-canvas: "#0B0F1A"
+  cinema-canvas-deep: "#070A12"
+  cinema-surface: "#121726"
+  cinema-surface-raised: "#18203A"
+  cinema-ink: "#F3EBDD"
+  cinema-body: "#D9D3C7"
+  cinema-muted: "#9D9AA3"
+  cinema-hairline: "rgba(243, 235, 221, 0.14)"
+  cinema-hairline-strong: "rgba(243, 235, 221, 0.28)"
+  cinema-focus: "#E8C98A"
+  # Vertical world colours (user decision C5): vivid and dominant INSIDE their own world only.
+  aurelius: "#3D4BFF"
+  aurelius-atmosphere: "#E7E9FF"
+  aurelius-atmosphere-cinema: "#0A0E3A"
+  valora: "#FF6A3D"
+  valora-atmosphere: "#FFEDE6"
+  valora-atmosphere-cinema: "#2A0F07"
+  ggp: "#E8307F"
+  ggp-atmosphere: "#FDE7F0"
+  ggp-atmosphere-cinema: "#2A0717"
+  rudra-yugen: "#0FB5E4"
+  rudra-yugen-atmosphere: "#E1F6FD"
+  rudra-yugen-atmosphere-cinema: "#04202B"
+  asraya: "#23C27C"
+  asraya-atmosphere: "#E2F7ED"
+  asraya-atmosphere-cinema: "#042419"
+  # Founder portrait mount.
   mount: "#E4E1DA"
 
 typography:
@@ -168,7 +181,6 @@ components:
     backgroundColor: "{colors.surface}"
     rounded: "{rounded.none}"
     height: 560px
-    identityEdge: 3px
   industries-marquee:
     typography: "{typography.display-lg}"
     textColor: "{colors.ink-on-dark}"
@@ -200,11 +212,14 @@ outranks guesswork.
 IMPLEMENTATION_CLARITY 9, SPACING_GENEROSITY 9, UI_SIMPLICITY_DISCIPLINE 10.
 
 ## 1. Visual Theme & Atmosphere
-A screening room. The page is an ink-dark field (`{colors.canvas}` #0B0F1A, the brand's original ink) with one
-subject lit in gold: **the Idea**, a single form made of light that changes shape act by act and finally becomes
-solid gold. Everything else is quiet: cream type set with restraint, hairlines, a thin act scrubber, darkness as
-whitespace. It should feel like the opening titles of a well-made documentary and the calm of a gallery (Bugatti's
-austerity, Runway's cinema, Apple's reverence for the object), never like a tech dashboard.
+A luminous gallery (the default) that becomes a screening room in the dark "Cinema" alternate.
+- **The page:** a clean, neutral, light field (`{colors.canvas}` #F4F5F7) with one subject: **the Idea**, a single
+  gold form that changes shape and finally becomes solid gold.
+- **The vertical worlds:** each one floods the scene with its own vivid colour (its light, atmosphere and
+  materials, per C5). One colour per scene, and one light source per scene (C7).
+- **The rest:** ink type set with restraint, hairlines, a thin act bar, space as the material.
+- **The feel:** the opening titles of a well-made documentary and the calm of a gallery (Bugatti's austerity,
+  Runway's cinema, Apple's reverence for the object), never a tech dashboard.
 
 - **Density: gallery-airy (3).** One statement per screen.
 - **Variance: offset-asymmetric (7).** The subject is often off-centre and captions sit off-grid, but every frame
@@ -216,53 +231,70 @@ single motif (gate, section separators in the marquee, the CTA). There is no log
 kind, and no placeholder for one.
 
 ## 2. Color Palette & Roles
+**User decisions:**
+- C1: light is the default, as a clean, neutral, luminous light, never cream-and-brass; dark "Cinema" is the
+  alternate.
+- C5: each vertical's colour is vivid and dominant inside its own world; outside, gold is the only accent.
+- C7: one light source per scene.
+- C8: gold edges only.
 
-### Theme Cinema (dark), recommended default
+### Theme Luminous (light), the DEFAULT
 | Token | Hex | Role |
 |---|---|---|
-| Canvas Ink | `#0B0F1A` | The page floor and the film's darkness. Never pure black. |
-| Canvas Deep | `#070A12` | Menu overlay, gate backdrop, the dip before the flood. |
-| Surface | `#121726` | House slices, the rare raised surface. No shadow; the step in tone is the elevation. |
-| Surface Raised | `#18203A` | The expanded house slice, the pressed state of dark controls. |
-| Cream Ink | `#F3EBDD` | Headlines and primary text (≈15:1 on canvas). |
-| Body Cream | `#D9D3C7` | Running text. |
-| Muted | `#9D9AA3` | Secondary text, captions, the timecode (≥ 7:1 on canvas). |
-| Hairline | `rgba(243,235,221,0.14)` | The only divider. 1px. |
-| Hairline Strong | `rgba(243,235,221,0.28)` | Ghost button borders, the lens ring, focusable outlines. |
-| **Gold** | `#C9A45C` | **The one accent.** Primary button fill, the active act on the scrubber, the ✦, focus on the Idea. Never on body text blocks. |
-| Gold Bright | `#E8C98A` | Focus ring, hover on gold, the Idea's highlights in the render. |
-| Gold Pressed | `#B38E45` | Pressed primary. |
+| Canvas | `#F4F5F7` | The page floor: neutral, a whisper cool, luminous. Not white, not cream. |
+| Canvas Deep | `#E9EBEF` | Gate backdrop, the Index overlay, the dip before the flood. |
+| Surface | `#FBFBFC` | Raised surfaces (house panels, the Index). The step in tone is the elevation, with no shadow. |
+| Surface Raised | `#EEF0F3` | The pressed state of light controls. |
+| Ink | `#0B0F1A` | Headlines and primary text. |
+| Body | `#2A2E38` | Running text. |
+| Muted | `#5A5E6A` | Secondary text and the timecode (≥ 6:1 on canvas). |
+| Hairline / Strong | ink at 12% / 24% | The only dividers; ghost button borders; the lens ring. |
+| **Gold** | `#C9A45C` | **The one UI accent.** Primary button fill (with Ink text, ≈ 8:1), link underlines, the active act, the ✦. Never used as a text colour on light (contrast). |
+| Gold Bright / Pressed | `#DDB978` / `#B38E45` | Hover / pressed. |
+| Focus | `#0B0F1A` | 2px focus ring, 3px offset. |
 
-### Theme Daylight (light), the alternate
-| Token | Hex | Role |
-|---|---|---|
-| Porcelain | `#EFEFEC` | Canvas. Neutral, very slightly warm. **Never** the banned cream/paper family (#F5F1EA, #F3EDE2…). |
-| Porcelain Shade | `#E6E6E2` | Raised surface. |
-| Ink | `#0B0F1A` | Headlines and the primary button fill (with Porcelain text). |
-| Body | `#2A2E38` / Muted `#55565E` | Text ladder (Muted ≥ 7:1). |
-| Gold | `#C9A45C` | **Decoration only on light**: the Idea, the ✦, the active scrubber tick. Never text, never a button fill (fails contrast). |
-
-### House identity markers (both themes)
-| House | Hex |
+### Theme Cinema (dark), the alternate
+| Token | Hex |
 |---|---|
-| Aurelius | `#3D4BFF` |
-| Valora | `#FF6A3D` |
-| Golden Guardian Productions | `#E8307F` |
-| Rudra Yugen | `#0FB5E4` |
-| Asraya | `#23C27C` |
+| Canvas | `#0B0F1A` |
+| Canvas Deep | `#070A12` |
+| Surface | `#121726` |
+| Surface Raised | `#18203A` |
+| Ink | `#F3EBDD` |
+| Body | `#D9D3C7` |
+| Muted | `#9D9AA3` |
+| Hairline / Strong | cream at 14% / 28% |
+| Gold | `#C9A45C` (buttons, links, the active state, text allowed) |
+| Focus | `#E8C98A` |
 
-These are the approved house colours, used like BMW M's tricolour: only as a **3px identity edge** on a house
-slice, as the tint of that house's light inside the 3D scene while its act plays, and as a thin tick on the
-scrubber for that act. Never a CTA, never text, never a section background, never together as a rainbow.
+### Vertical world colours (both themes)
+| World | Colour | Atmosphere (Luminous) | Atmosphere (Cinema) |
+|---|---|---|---|
+| Aurelius | `#3D4BFF` royal indigo | `#E7E9FF` | `#0A0E3A` |
+| Valora | `#FF6A3D` sunrise coral | `#FFEDE6` | `#2A0F07` |
+| Golden Guardian Productions | `#E8307F` cinema magenta | `#FDE7F0` | `#2A0717` |
+| Rudra Yugen | `#0FB5E4` electric cyan | `#E1F6FD` | `#04202B` |
+| Asraya | `#23C27C` fresh jade | `#E2F7ED` | `#042419` |
+
+**Rules (C5):**
+- **Inside its own world** a vertical's colour is vivid and dominant. It is the colour of that world's single light
+  source, its atmosphere (the canvas shifts to the world's atmosphere tint), its materials and the world's own
+  interactive objects. Moving from one world to the next should feel like changing worlds.
+- **One vivid colour per scene.** Two vertical colours never compete on the same screen. Passages between worlds
+  cross-fade one colour out before the next arrives.
+- **Outside its world**, including all UI chrome (buttons, links, act bar, Index, highlights), **gold is the only
+  accent**, even inside a vertical's world. The chrome never takes a world colour.
+- **Never:** a world colour for body text or as a button fill; a rainbow of all five at once. The single exception
+  is one deliberate moment where all five meet (the finale), sequenced so each appears in turn.
 
 ### Banned
-- The warm cream + brass + espresso default palette.
-- Purple/blue AI gradients.
-- Neon or outer glows on UI.
-- Rainbow or mesh gradients.
+- Cream / paper / brass / espresso defaults.
+- Purple/blue AI gradients; neon or outer glows on UI; rainbow or mesh gradients.
 - Pure `#000000` / `#FFFFFF`.
-- A second accent colour.
-- Light/dark section flips within one page.
+- A second UI accent.
+- Light/dark flips between sections.
+- More than one light source per scene (C7).
+- Halos.
 
 ## 3. Typography Rules
 **Three faces, three roles, never blurred** (after Bugatti's display / text / mono trinity):
@@ -300,17 +332,18 @@ scrubber for that act. Never a CTA, never text, never a section background, neve
 
 ## 4. Component Stylings
 
-**Top bar.** 64px tall, transparent over the film. Left: "Kreatif Atelier" as text (title, cream). Right: the
+**Top bar.** 64px tall, transparent over the film. Left: "Kreatif Atelier" as text (title, Ink; cream in Cinema). Right: the
 sound toggle and one menu button ("Index", ghost pill). One line, nothing else. No contact duplicate (the single
 contact action lives in the post-credits scene and the Index).
 
 **Buttons**
 - **Primary:** gold fill, ink text, pill, 52px tall, 30px side padding, Plex Mono 14 uppercase. Hover: Gold
-  Bright. Press: `scale(0.97)` for 120ms. Focus: 2px Gold Bright ring, 3px offset. At most one primary per
+  Bright. Press: `scale(0.97)` for 120ms. Focus: 2px Ink ring (Gold Bright in Cinema), 3px offset. At most one primary per
   viewport.
-- **Ghost:** transparent, 1px Hairline Strong, cream label; the secondary action. Hover: the border becomes cream.
+- **Ghost:** transparent, 1px Hairline Strong, Ink label (cream in Cinema); the secondary action. Hover: the border
+  becomes Ink.
 - **Icon:** 44px circle, ghost style; close, mute, previous and next act.
-- **Text link:** cream, underline with a 4px offset.
+- **Text link:** Ink text with a 2px gold underline at a 4px offset (the gold marks it as a link, per C5).
 - **CTA labels:** 3 words where possible, and never wrapping at desktop. The one exception is the live site's CTA
   "Schedule Your Free Brand Audit", kept word for word; it fits on one line at ≥ 360px.
 
@@ -345,11 +378,12 @@ contact action lives in the post-credits scene and the Index).
   - the tagline as three stacked words;
   - the four "what we do" items (body);
   - the value line (voice-md).
-- A 3px identity edge in the house colour runs along the slice's left side.
+- The expanded slice takes its world's atmosphere tint and a vivid edge in the world colour. Only one slice is
+  expanded at a time, so only one world colour shows (C5). Collapsed slices stay neutral.
 - Phone: a vertical stack of five rows; tapping one expands it.
 
 **Industries marquee.**
-- The 13 industries in display-lg Outfit 400, cream at 90%, separated by a ✦ in Gold at 60%.
+- The 13 industries in display-lg Outfit 400, Ink at 90% (cream in Cinema), separated by a ✦ in Gold.
 - It drifts at 28px/s, and scroll velocity adds speed.
 - It is the only marquee on the page. It pauses on hover and focus, and under reduced motion it becomes a static
   wrapped list.
@@ -436,7 +470,7 @@ level. It is always visible once the gate has been passed.
   | Act | Mode |
   |---|---|
   | I Idea | Raw light |
-  | II Strategy | Blueprint lines in cream |
+  | II Strategy | Blueprint lines in ink (cream in Cinema) |
   | III Story | Warm projected light |
   | IV Movement | Flowing streams |
   | V People | Constellations |

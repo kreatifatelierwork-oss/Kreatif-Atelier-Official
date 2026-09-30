@@ -16,6 +16,25 @@ decision stands until they choose.
 
 ---
 
+## 0. User decisions on the conflicts (2026-09-30). These override anything below.
+| # | Decision |
+|---|---|
+| C1 | **Light is the default:** a clean, neutral, luminous light ("Luminous", canvas `#F4F5F7`), never cream-and-brass. Dark "Cinema" is the alternate. Light, accented and vibrant, done with restraint. |
+| C2 | No fake readouts. One act bar: the act name plus the real film time. |
+| C3 | Punctuation-only changes (comma or colon for long dashes, hyphens in price ranges). Words and prices unchanged. |
+| C4 | No TURA edge labels or micro-type. A top bar plus the act bar only. |
+| C5 | **Each vertical's colour is vivid and dominant inside its own world** (its light, atmosphere, materials); moving between verticals feels like moving between worlds. Outside its world, gold is the only accent for buttons, links and highlights. One vivid colour per scene, never several competing. |
+| C6 | Outfit, Cormorant Garamond, IBM Plex Mono. Manrope retired. |
+| C7 | One light source per scene; no halos. |
+| C8 | Gold-only edges on the opening flood **and** the ink cursor. |
+
+**Consequences for the rules below:**
+- The theme choice in §5 is **Pristine Light Mode** ("Luminous"), with **Deep Dark** as the alternate.
+- The colour rule "house colours as markers only" becomes the C5 rule. It stays consistent with the sources' "one
+  accent" discipline because the *UI* accent is still only gold, and each scene still has only one dominant hue.
+
+---
+
 ## 1. The design read
 > **Reading this as:** a brand-film website for a creative holding company in Hyderabad, for founders, brand
 > leads, institutions, partners and talent. The language is cinematic and editorial, with one continuous 3D
@@ -82,13 +101,14 @@ Each rule names the source it comes from.
 - Nav on one line, at most 80px tall. *(taste-skill §4.7)*
 
 **Colour and surface**
-- One interactive accent, locked across the page. Identity colours (the five houses) are markers only: never a
-  CTA, never UI chrome, never a full background. (Precedents: BMW M's tricolour, HashiCorp's product colours.)
-  *(taste-skill §4.2; awesome-design-md)*
+- One interactive accent (gold), locked across the page and all UI chrome. Each vertical's colour is vivid and
+  dominant only inside its own world, with one vivid colour per scene (user decision C5; compatible with
+  taste-skill §4.2 because the UI accent never changes).
 - No warm-cream + brass + espresso "premium-consumer" default palette. *(taste-skill §4.2)*
 - No neon or outer glows, no generic bloom, no halo sprites, no glass stacked without reason, no rainbow or mesh
   gradients, no pure #000 or #fff. *(taste-skill §9.A; imagegen-web §13)*
-- One page theme. Sections do not flip between light and dark. *(taste-skill §4.11)*
+- One page theme (Luminous by default). Sections do not flip between light and dark. *(taste-skill §4.11)*
+- One light source per scene; no halos (C7). Gold-only edges on the flood and the ink (C8).
 
 **Components and behaviour**
 - No custom cursor replacing the system pointer. (Our fluid ink keeps the system cursor, so it complies; it is an
@@ -132,7 +152,7 @@ Each rule names the source it comes from.
 ## 5. Choices from the combinatorial variation engine
 | Category | Choice | Why |
 |---|---|---|
-| Theme paradigm | **Deep Dark Mode**, "the cinema" (recommended). Light remains available as an alternate theme. | Every film-grade reference (Runway, Bugatti, SpaceX, Framer, Lamborghini, Ferrari) is dark; gold light reads best on ink; it also escapes the banned cream + brass default. **Conflict with the user's "light as default"** (AUDIT C1): until the user decides, light stays default. |
+| Theme paradigm | **Pristine Light Mode, "Luminous"** (user decision C1), with **Deep Dark "Cinema"** as the alternate | Light, accented and vibrant as the user wants, kept neutral and luminous (no cream or brass) so it stays premium; the vertical worlds bring the vivid colour (C5). |
 | Background character | **Full-bleed cinematic imagery** | The live 3D scene is our photography: every frame is a full-bleed render. |
 | Typography character | **Editorial serif + sans**, as a strict three-role trinity (after Bugatti) | See below. |
 | Hero architecture | **Massive image-first hero with restrained text** | The Idea is the hero image; the title sits low-left like Ferrari's "headline floats over the bottom of the photograph". |

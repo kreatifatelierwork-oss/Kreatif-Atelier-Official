@@ -116,7 +116,7 @@
     - **What's wrong:** palette A is warm cream `#F3EDE2`–`#F7F3EC` + brass `#A8812F` + espresso-navy ink.
     - **Source:** taste-skill §4.2 "premium-consumer palette ban (second-most-recurring AI-tell)".
     - **Fix:** DESIGN.md "Cinema" (ink `#0B0F1A` + gold `#C9A45C`, the brand's original tokens) as the default, and
-      "Daylight" (neutral porcelain `#EFEFEC`, gold only as decoration) as the alternate. **CONFLICT C1.**
+      "Daylight" (neutral porcelain `#EFEFEC`, gold only as decoration) as the alternate. **CONFLICT C1 (decided: Luminous light default).**
 17. **Six accents plus pastel skies.** home
     - **What's wrong:** gold + 5 house colours, used as backgrounds, text tints, buttons and timeline segments;
       each world floods the page with its own pastel sky.
@@ -222,7 +222,19 @@
 
 ---
 
-## 4. CONFLICTS for you to decide
+## 4. CONFLICTS (decided by the user on 2026-09-30; see PHILOSOPHY.md §0)
+
+Decisions:
+- C1: light default (Luminous, neutral).
+- C2: agreed.
+- C3: agreed.
+- C4: agreed.
+- C5: vertical colours vivid and dominant inside their own world, gold outside.
+- C6: agreed.
+- C7: agreed.
+- C8: agreed, and the ink edge is gold too.
+
+The original analysis is kept below for the record.
 Each conflict: your earlier decision → what the sources say → my recommendation.
 
 | # | Your earlier decision | Sources say | Recommendation |
