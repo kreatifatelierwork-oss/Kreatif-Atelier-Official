@@ -1,5 +1,41 @@
 # Kreatif Atelier — "The Long Take"
 
+## Design sources of truth (added 2026-09-30, OVERRIDE earlier design choices where they conflict)
+These materials define what "premium" means for this project. Read the relevant ones before any design work.
+- **Installed skills** (`.claude/skills/`, committed):
+  - `image-to-code` (the user's SKILL.md; identical to `image-to-code-skill`): image-first workflow, meaning
+    generate or receive design images, analyse them deeply, then build to match them without drifting;
+  - `taste-skill` (`design-taste-frontend` v2): brief inference, the three dials, the anti-slop bans (em-dash ban,
+    eyebrow rationing, no scroll cues, no locale/time strips, no fake technical labels, no custom cursors) and the
+    pre-flight check;
+  - `redesign-skill` (the audit protocol), `output-skill` (no half-finished work, no placeholders);
+  - `imagegen-frontend-web` / `imagegen-frontend-mobile` (how image prompts are written);
+  - `stitch-skill` (the DESIGN.md format);
+  - `soft-skill`, `minimalist-skill`, `brutalist-skill`, `gpt-tasteskill` and `brandkit`, used only when their
+    direction is chosen. `brandkit` is never used for logo work (see the no-logo rule).
+- **Reference library:** `design-sources/` (gitignored). It holds taste-skill-main (README, research/laziness,
+  examples), awesome-design-md-main (73 DESIGN.md files; the closest to us are Bugatti, SpaceX, Runway, Ferrari,
+  Lamborghini, Apple, BMW M, Nike, Framer and Wired) and playwright-cli-main.
+- **Our distillation:**
+  - `docs/design/PHILOSOPHY.md` (principles, anti-slop rules, dials, variation-engine choices);
+  - `DESIGN.md` at the project root (the design system any agent must build from);
+  - `docs/design/AUDIT.md` (what the current build breaks);
+  - `docs/design/IMAGE-PROMPTS.md` (image prompts; generated images go in `design-refs/`).
+- **Image-first:** no visual section is coded before its reference image exists in `design-refs/` and has been
+  analysed (text, type scale, spacing, components, colour, layout). The code follows the image, and gaps are
+  filled from DESIGN.md.
+- **Precedence:** these sources override earlier design decisions in this file where they conflict, EXCEPT the
+  standing rules:
+  - no logo, monogram or placeholder mark;
+  - no invented facts, clients or stats;
+  - copy word for word;
+  - accessibility and reduced motion mandatory;
+  - the performance targets.
+  Conflicts between a source rule and a user decision are listed in `docs/design/AUDIT.md` for the user to decide.
+  Until the user decides, the user's decision stands.
+- **Visual checks:** use **Playwright CLI** (`playwright-cli`, skill in `.claude/skills/playwright-cli`) for all
+  visual checks, screenshots, video recordings and traces, at 1440 and 390, both palettes, and with reduced motion.
+
 ## What this project is
 The website for **Kreatif Atelier, a creative holding company** ("Ideas | People | Impact") and its five verticals.
 It is built as **The Long Take**: one continuous, cinematic 3D camera shot through a luminous orrery. The holding
@@ -74,7 +110,7 @@ text dissolving). **No hard cuts** except in reduced motion.
 
 ## Workflow rules for Claude
 - Work in phases; after each: `pnpm build`, fix type/lint errors, check at 1440 and 390 (headless Chrome with WebGL via
-  `scripts/research/rc.mjs` / `capture-longtake.mjs`), commit with a clear message.
+  Playwright CLI; the older `scripts/research/*.mjs` CDP scripts remain for frame-accurate screencasts), commit with a clear message.
 - Tunables go in `lib/config.ts`. Keep components small.
 
 ## Commands

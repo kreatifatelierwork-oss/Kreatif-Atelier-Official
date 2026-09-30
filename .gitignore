@@ -31,3 +31,8 @@ docs/research/buttermax/
 
 # Checkpoint comparison sheets include buttermax.net frames (third-party imagery) — local only.
 docs/concepts/film-checkpoint/
+
+# Design source material (unzipped references); the installed skills live in .claude/skills and are committed.
+design-sources/
+# Playwright CLI output (may contain credentials)
+.playwright-cli/
