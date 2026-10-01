@@ -14,6 +14,9 @@ const only = opt("--only", null)?.split(",") ?? null;
 const evalJs = opt("--eval", null);
 // --shots 757,1100,1400: instead of a screencast (which stalls without vsync), take screenshots at these ms offsets
 // from each stroke's start. Used for the uncapped-frame-rate check. --no-capture: timings only, no images.
+// --ink-only: on /experience (or the home page), hide the world and the chrome so only the ink over the plain page
+// colour is recorded (the background changes as the site is built; the ink must not).
+const inkOnly = rest.includes("--ink-only");
 const shots = rest.includes("--no-capture") ? [] : opt("--shots", null)?.split(",").map(Number) ?? null;
 const dpr = Number(opt("--dpr", 1));
 const quality = Number(opt("--quality", 85));
@@ -64,6 +67,7 @@ await page.evaluate(() => {
   addEventListener("pointermove", (e) => window.__pm.push([performance.now() + performance.timeOrigin, e.clientX, e.clientY, e.getCoalescedEvents ? e.getCoalescedEvents().length : 1]), { capture: true, passive: true });
 });
 // Park the pointer at the first start point before recording.
+if (inkOnly) await page.addStyleTag({ content: ".xp-world,.xp-topbar,.xp-actbar,.xp-captions{display:none!important}.xp-root{background:#F4F5F7!important}" });
 const { events, marks, total } = schedule(1500, only);
 if (evalJs) await page.evaluate(evalJs);
 if (!mobile) await page.mouse.move(events[0].x, events[0].y);

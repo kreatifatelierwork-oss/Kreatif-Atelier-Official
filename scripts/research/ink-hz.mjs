@@ -5,11 +5,13 @@
 //   node scripts/research/ink-hz.mjs [--port 9555]
 import { chromium } from "playwright-core";
 const port = process.argv.includes("--port") ? process.argv[process.argv.indexOf("--port") + 1] : "9555";
+const url = process.argv.includes("--url") ? process.argv[process.argv.indexOf("--url") + 1] : "http://localhost:4174/film/?tune";
+const outFile = process.argv.includes("--out") ? process.argv[process.argv.indexOf("--out") + 1] : null;
 const browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`);
 const ctx = browser.contexts()[0];
 const page = await ctx.newPage();
 await page.setViewportSize({ width: 1440, height: 900 });
-await page.goto("http://localhost:4174/film/?tune", { waitUntil: "domcontentloaded" });
+await page.goto(url, { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(2600);
 await page.getByRole("button", { name: /enter in silence/i }).click();
 await page.waitForTimeout(5000);
@@ -53,9 +55,18 @@ const result = await page.evaluate(() => {
   const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
   const clocks = { "30": () => 1000 / 30, "60": () => 1000 / 60, "120": () => 1000 / 120, "144": () => 1000 / 144, jitter: () => 5 + rnd() * 20 };
   const out = {};
+  const packed = {};
   for (const [name, path] of Object.entries(paths)) {
     const ref = run(path, clocks["60"]);
     out[name] = { area60: ref.map((m) => m.reduce((a, v) => a + v, 0)) };
+    // Keep the 60 Hz masks (bit-packed, base64) so a later build can be compared pixel for pixel.
+    packed[name] = ref.map((m) => {
+      const b = new Uint8Array(Math.ceil(m.length / 8));
+      for (let j = 0; j < m.length; j++) if (m[j]) b[j >> 3] |= 1 << (j & 7);
+      let str = "";
+      for (let j = 0; j < b.length; j += 0x8000) str += String.fromCharCode(...b.subarray(j, j + 0x8000));
+      return btoa(str);
+    });
     for (const [c, clock] of Object.entries(clocks)) {
       if (c === "60") continue;
       const m = run(path, clock);
@@ -68,8 +79,13 @@ const result = await page.evaluate(() => {
   }
   for (const t of e.targets) e.wipe(t);
   e.running = false; e.clear();
-  return { at, iou: out };
+  return { at, iou: out, W, H, packed };
 });
-console.log(JSON.stringify(result, null, 1));
+if (outFile) {
+  const { writeFile } = await import("node:fs/promises");
+  await writeFile(outFile, JSON.stringify(result));
+}
+const { packed, ...summary } = result;
+console.log(JSON.stringify(summary, null, 1));
 await page.close();
 process.exit(0);

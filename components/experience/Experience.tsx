@@ -190,6 +190,7 @@ export function Experience() {
         eng.resize(window.innerWidth, window.innerHeight, reduced ? 1 : inkRatio());
         if (reduced) eng.clear(); else eng.flood(0, pal.dark, false, F.opening.dotSpacing, F.opening.rimWidth, 0);
         engineRef.current = eng;
+        if (new URLSearchParams(window.location.search).has("tune")) Object.assign(window, { __filmInk: eng, __filmBrush: brush });
         setInkReady(!reduced);
       }
     }

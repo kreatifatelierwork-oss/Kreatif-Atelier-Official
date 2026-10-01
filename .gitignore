@@ -41,3 +41,6 @@ design-sources/
 docs/design/audit-shots/
 .playwright-cli/
 docs/research/xp-check/
+docs/research/baseline/nav-frames/
+docs/research/baseline/ink-baseline/
+docs/research/final/*/
