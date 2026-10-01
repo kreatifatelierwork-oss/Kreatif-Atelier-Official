@@ -34,6 +34,22 @@ const noop = () => () => {};
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 const inkRatio = () => Math.min(window.devicePixelRatio || 1, 1.5);
 
+/** WebGL 2 with float render targets, and not a clearly weak device (≤ 2 cores and ≤ 2 GB). */
+let render3D: boolean | null = null;
+function canRender3D() {
+  if (render3D !== null) return render3D;
+  try {
+    const gl = document.createElement("canvas").getContext("webgl2");
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const weak = (nav.hardwareConcurrency ?? 8) <= 2 && (nav.deviceMemory ?? 8) <= 2;
+    render3D = !!gl && !!gl.getExtension("EXT_color_buffer_float") && !weak;
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+  } catch {
+    render3D = false;
+  }
+  return render3D;
+}
+
 function inkSettings(mobile: boolean, calm: boolean): InkSettings {
   const I = F.ink;
   return {
@@ -66,6 +82,9 @@ export function Experience() {
   const [sound, setSound] = useState<boolean | null>(null);
   const [stageOn, setStageOn] = useState(false);
   const [inkReady, setInkReady] = useState(false);
+  /** Weak devices and browsers without WebGL 2 get the still version: the same words, places and navigation over
+   *  each place's colour field, without the 3D stage. */
+  const still = useSyncExternalStore(noop, canRender3D, () => true) === false;
 
   const rootRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
@@ -194,7 +213,8 @@ export function Experience() {
         setInkReady(!reduced);
       }
     }
-    setStageOn(true);
+    if (still) stageReadyRef.current = true;
+    else setStageOn(true);
     useUi.getState().set({ phase: "dip" });
     dipEndRef.current = performance.now() + (reduced ? 200 : F.opening.dipMs + F.opening.dipHoldMs);
     h1Ref.current?.focus({ preventScroll: true });
@@ -293,13 +313,18 @@ export function Experience() {
   const live = ui.phase === "live";
 
   return (
-    <div ref={rootRef} className={`xp-root theme-${theme}${live ? " is-live" : ""}`} style={{ ["--xp-gold" as string]: pal.gold }}>
+    <div
+      ref={rootRef}
+      className={`xp-root theme-${theme}${live ? " is-live" : ""}${still ? " is-still" : ""}`}
+      data-place={route[ui.place].id}
+      style={{ ["--xp-gold" as string]: pal.gold }}
+    >
       <noscript><style>{`.xp-gate{display:none}.xp-signature{clip-path:none!important}`}</style></noscript>
       <div ref={worldRef} className="xp-world">
         {stageOn && (
           <Stage rtRef={rtRef} filmRef={filmRef} theme={theme} mobile={mobile} calm={reduced} riseAtRef={riseAtRef} onReady={onStageReady} onEnter={enter} />
         )}
-        <Captions ref={h1Ref} onEnter={enter} onWatch={watch} onDirect={direct} />
+        <Captions ref={h1Ref} reduced={reduced} onEnter={enter} onGo={(p, t) => go(p, t)} onWatch={watch} onDirect={direct} />
       </div>
 
       <header className="xp-topbar">
@@ -315,8 +340,8 @@ export function Experience() {
 
       <canvas ref={canvasRef} className="xp-ink" aria-hidden="true" />
 
-      {room && <RoomPanel room={room} onBack={leave} />}
-      {ui.indexOpen && <IndexPlan onJump={(p, t) => go(p, t)} onClose={closeIndex} />}
+      {room && <RoomPanel room={room} onBack={leave} onEnter={enter} />}
+      {ui.indexOpen && <IndexPlan onJump={(p, t) => go(p, t)} onClose={closeIndex} onWatch={watch} />}
       {ui.phase !== "live" && (
         <Gate mode={ui.phase === "gate" ? "gate" : ui.phase === "dip" ? "leaving" : inkReady ? "clear" : "fading"} onChoose={choose} />
       )}

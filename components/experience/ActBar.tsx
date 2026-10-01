@@ -12,11 +12,16 @@ type Props = { onJump: (place: number) => void; onToggleMode: () => void };
 
 const two = (n: number) => String(n).padStart(2, "0");
 
-/** "Act II · Strategy · The Drafting Hall" (C2: the act and the place, nothing else). */
+/** The act and the place (C2): ["Act II", "Strategy", "The Drafting Hall"]. Set apart by space, not dots. */
+export function actParts(act: Act, name: string): string[] {
+  if (act === "credits") return [xp.credits, name];
+  if (act === "post") return [xp.postCredits, name];
+  return [`${xp.act} ${actNumeral(act)}`, film.acts[act], name];
+}
+/** For accessible names: "Act II, Strategy: The Drafting Hall". */
 export function actLabel(act: Act, name: string) {
-  if (act === "credits") return `${xp.credits} · ${name}`;
-  if (act === "post") return `${xp.postCredits} · ${name}`;
-  return `${xp.act} ${actNumeral(act)} · ${film.acts[act]} · ${name}`;
+  const p = actParts(act, name);
+  return p.length === 3 ? `${p[0]}, ${p[1]}: ${p[2]}` : `${p[0]}: ${p[1]}`;
 }
 
 /**
@@ -47,7 +52,9 @@ export const ActBar = forwardRef<ActBarHandle, Props>(function ActBar({ onJump, 
         ))}
       </ol>
       <p className="xp-actbar-row">
-        <span className="xp-actbar-label" aria-live="polite">{actLabel(p.act, p.name)}</span>
+        <span className="xp-actbar-label" aria-live="polite">
+          {actParts(p.act, p.name).map((t, i) => <span key={i} className={i === 2 || (i === 1 && typeof p.act !== "number") ? "is-place" : undefined}>{t}</span>)}
+        </span>
         <button type="button" className="xp-mode" onClick={onToggleMode} aria-pressed={mode === "watch"}>
           {mode === "watch" ? film.modes.direct : film.modes.watch}
         </button>

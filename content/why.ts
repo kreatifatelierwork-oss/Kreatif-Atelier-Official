@@ -36,7 +36,7 @@ export const reasons: { number: string; title: string; body: string }[] = [
   {
     number: "06",
     title: "An Ecosystem, Not a Vendor",
-    // "four" → "five" (user decision 2026-10-01: the chart wins; five verticals).
-    body: "With five specialized divisions, clients gain access to production, PR, education, and social impact capabilities — all under one creative intelligence.",
+    // Rewritten by the user on 2026-10-01 so it matches the chart (five verticals).
+    body: "With five specialized verticals, clients gain access to brand strategy, education, production, innovation and wellbeing capabilities, all under one creative intelligence.",
   },
 ];
