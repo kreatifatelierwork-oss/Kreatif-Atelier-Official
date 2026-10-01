@@ -17,6 +17,7 @@ import { filmConfig as F } from "@/lib/config";
 import { ActBar, type ActBarHandle } from "./ActBar";
 import { Captions } from "./Captions";
 import { IndexPlan } from "./IndexPlan";
+import { LensRing } from "./LensRing";
 import { advance, createRuntime, jumpTo, useUi } from "./journey";
 import { RoomPanel } from "./RoomPanel";
 import { filmTimeAt, hashFor, parseHash, route } from "./route";
@@ -338,6 +339,7 @@ export function Experience() {
       </header>
       <ActBar ref={actRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
 
+      {!still && <LensRing rtRef={rtRef} filmRef={filmRef} />}
       <canvas ref={canvasRef} className="xp-ink" aria-hidden="true" />
 
       {room && <RoomPanel room={room} onBack={leave} onEnter={enter} />}

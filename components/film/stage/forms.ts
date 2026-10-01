@@ -28,13 +28,35 @@ function onSegment(a: number[], b: number[], t: number, j: number, out: Float32A
   out[o + 2] = a[2] + (b[2] - a[2]) * t;
 }
 
-// 0 — Raw idea: a restless shell with a denser heart.
+/**
+ * The ribbon: a closed band folded twice over itself with one half-twist, so it has a clear top and front and
+ * never reads as a ball (approved 2026-10-01: "gold light that never rests as a sphere"). `calm` = the monument's
+ * taller, quieter fold. Shared with the solid gold monument mesh, so the light condenses into the same shape.
+ */
+export function ribbonPoint(u: number, v: number, calm: boolean, out: number[]) {
+  const R = calm ? 0.95 : 1.15;
+  const lift = calm ? 0.95 : 0.42;
+  // Centre line: a loop that rises and dips twice (a fold) and leans forward at the front.
+  const cx = Math.cos(u) * R * (1 + 0.18 * Math.cos(2 * u));
+  const cz = Math.sin(u) * R * (calm ? 0.78 : 0.62);
+  const cy = Math.sin(2 * u) * lift + (calm ? 0.12 * Math.cos(u) : 0.22 * Math.sin(u));
+  // Across the band: rotate the cross-section by half a turn over the loop (one half-twist).
+  const a = u / 2 + (calm ? 0.35 : 0.9);
+  const w = (calm ? 0.42 : 0.34) * v;
+  out[0] = cx + Math.cos(a) * w * Math.cos(u);
+  out[1] = cy + Math.sin(a) * w;
+  out[2] = cz + Math.cos(a) * w * Math.sin(u);
+  return out;
+}
+
+const tmpPoint = [0, 0, 0];
+
+// 0 — Raw idea: a folded ribbon of light, its edges a little frayed.
 const raw: P = (i, r, out, o) => {
-  const u = r() * 2 - 1, th = r() * Math.PI * 2;
-  const shell = r() < 0.78;
-  const rad = shell ? 1.25 + gauss(r) * 0.06 : Math.cbrt(r()) * 0.9;
-  const s = Math.sqrt(1 - u * u);
-  out[o] = Math.cos(th) * s * rad; out[o + 1] = u * rad; out[o + 2] = Math.sin(th) * s * rad;
+  const u = r() * Math.PI * 2, v = r() * 2 - 1;
+  ribbonPoint(u, v, false, tmpPoint);
+  const fray = Math.abs(v) > 0.86 ? 0.06 : 0.012;
+  out[o] = tmpPoint[0] + gauss(r) * fray; out[o + 1] = tmpPoint[1] + gauss(r) * fray; out[o + 2] = tmpPoint[2] + gauss(r) * fray;
 };
 
 // 1 — Blueprint: a cube's edges with an inscribed octahedron and a measuring ring.
@@ -118,13 +140,10 @@ const futures: P = (i, r, out, o) => {
   onSegment(e[0], e[1], r(), gauss(r) * 0.3, out, o);
 };
 
-// 6 — Monument: a calm, dense form of revolution.
+// 6 — Monument: the ribbon's calm fold, dense (it becomes solid gold at the Roof).
 const monument: P = (i, r, out, o) => {
-  const y = r() * 2.9 - 1.45;
-  const rad = 0.42 + 0.5 * Math.pow(Math.cos((y / 1.45) * 1.25), 2) + (y < -1.2 ? 0.25 : 0);
-  const th = r() * Math.PI * 2;
-  const R = rad * (0.96 + gauss(r) * 0.015);
-  out[o] = Math.cos(th) * R; out[o + 1] = y; out[o + 2] = Math.sin(th) * R;
+  ribbonPoint(r() * Math.PI * 2, r() * 2 - 1, true, tmpPoint);
+  out[o] = tmpPoint[0]; out[o + 1] = tmpPoint[1]; out[o + 2] = tmpPoint[2];
 };
 
 const FORMS: P[] = [raw, blueprint, story, movement, people, futures, monument];

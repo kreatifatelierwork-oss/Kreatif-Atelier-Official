@@ -7,6 +7,8 @@ export const interaction = {
   /** Aurelius: how far the stair flights have turned into line (0..1); 1 = the hall builds itself. */
   angle: 0,
   angleHeld: false,
+  /** How far the Drafting Hall has built itself (0..1), written by the scene (the Lens hides when it is built). */
+  built: 0,
   /** Golden Guardian Productions: the aperture is held open; how open it is (0..1). */
   rollHeld: false,
   roll: 0,

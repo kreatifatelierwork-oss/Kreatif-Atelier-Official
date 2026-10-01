@@ -57,12 +57,13 @@ void main() {
 }`;
 
 const FRAG = /* glsl */ `
+uniform float uFade;
 varying vec3 vColor; varying float vAlpha;
 void main() {
   vec2 c = gl_PointCoord - 0.5;
   float r = length(c);
   if (r > 0.5) discard;
-  gl_FragColor = vec4(vColor, smoothstep(0.5, 0.16, r) * vAlpha);
+  gl_FragColor = vec4(vColor, smoothstep(0.5, 0.16, r) * vAlpha * uFade);
 }`;
 
 const hex = (c: string) => new THREE.Color(c);
@@ -75,13 +76,17 @@ type Props = {
   /** performance.now() at which the rise starts (null = not yet). */
   riseAtRef: { current: number | null };
   onSwap?: (step: number) => void;
+  /** The form the Idea should take (one per act); it dissolves into it when this changes. */
+  formRef?: { current: number };
+  /** 0..1 opacity (the Idea condenses into the solid gold monument at the Roof). */
+  fadeRef?: { current: number };
 };
 
 /**
  * The Idea: one cloud of gold light that changes form. It looks at the cursor with weight (a quick first move, then a
  * long, damped settle), is nudged by the cursor's motion, and changes form when the pointer moves onto it.
  */
-export function Idea({ stateRef, palette, mobile, calm, riseAtRef, onSwap }: Props) {
+export function Idea({ stateRef, palette, mobile, calm, riseAtRef, onSwap, formRef, fadeRef }: Props) {
   const count = mobile ? F.idea.count.mobile : F.idea.count.desktop;
   const outer = useRef<THREE.Group>(null);
   const pointsRef = useRef<THREE.Points>(null);
@@ -111,6 +116,7 @@ export function Idea({ stateRef, palette, mobile, calm, riseAtRef, onSwap }: Pro
         uAspect: { value: new THREE.Vector2(1, 1) },
         uGold: { value: hex(pal.gold) }, uGoldBright: { value: hex(pal.goldBright) },
         uHouses: { value: F.ghost.map(hex) },
+        uFade: { value: 1 },
       },
     });
     return { geometry: g, material: m };
@@ -164,6 +170,12 @@ export function Idea({ stateRef, palette, mobile, calm, riseAtRef, onSwap }: Pro
         onSwap?.(mo.to);
       }
     }
+    const want = formRef?.current;
+    if (want != null && mo.swapAt < 0 && want !== mo.cur && u.uRise.value >= 1) {
+      mo.from = mo.cur; mo.to = want; mo.swapAt = now;
+      onSwap?.(mo.to);
+    }
+    u.uFade.value = fadeRef?.current ?? 1;
     if (mo.swapAt >= 0) {
       const k = Math.min(1, (now - mo.swapAt) / (calm ? 300 : F.idea.swapMs));
       u.uFrom.value = mo.from; u.uTo.value = mo.to; u.uMix.value = k;
