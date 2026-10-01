@@ -40,3 +40,4 @@ design-sources/
 # Audit screenshots stay local.
 docs/design/audit-shots/
 .playwright-cli/
+docs/research/xp-check/
