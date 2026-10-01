@@ -407,6 +407,14 @@
   .xp-root.is-still.theme-dark[data-place="valora"] { --xp-canvas: #2a0f07; }
   .xp-root.is-still.theme-dark[data-place="asraya"] { --xp-canvas: #042419; }
   .xp-root.is-still.theme-dark[data-place="rudra"] { --xp-canvas: #04202b; }
+  /* Each still field carries a soft wash of its world's colour, and the world interactions (which need the 3D) hide. */
+  .xp-root.is-still { background-image: radial-gradient(70% 70% at 72% 38%, color-mix(in srgb, var(--xp-wash, var(--xp-gold)) 22%, transparent), transparent 70%); }
+  .xp-root.is-still[data-place="aurelius"] { --xp-wash: #3d4bff; }
+  .xp-root.is-still[data-place="ggp"] { --xp-wash: #e8307f; }
+  .xp-root.is-still[data-place="valora"] { --xp-wash: #ff6a3d; }
+  .xp-root.is-still[data-place="asraya"] { --xp-wash: #23c27c; }
+  .xp-root.is-still[data-place="rudra"] { --xp-wash: #0fb5e4; }
+  .xp-root.is-still .xp-action { display: none; }
 
   /* ---- Phones ------------------------------------------------------------------------------------------------- */
   @media (max-width: 767px) {

@@ -150,8 +150,23 @@ const FORMS: P[] = [raw, blueprint, story, movement, people, futures, monument];
 
 const cache = new Map<number, { forms: Float32Array[]; rand: Float32Array }>();
 
-/** Build (and cache) ahead of time — called in idle time while the gate is shown. */
-export function prewarmForms(count: number) { buildForms(count); }
+let worker: Worker | null = null;
+
+/**
+ * Build ahead of time in a worker while the gate is shown (it is the heaviest work on the page, so it never runs on
+ * the main thread). If the stage needs the forms before the worker answers, buildForms computes them in place.
+ */
+export function prewarmForms(count: number) {
+  if (cache.has(count) || worker) return;
+  if (typeof Worker === "undefined") { buildForms(count); return; }
+  worker = new Worker(new URL("./forms.worker.ts", import.meta.url));
+  worker.onmessage = (e: MessageEvent<{ count: number; forms: Float32Array[]; rand: Float32Array }>) => {
+    if (!cache.has(e.data.count)) cache.set(e.data.count, { forms: e.data.forms, rand: e.data.rand });
+    worker?.terminate();
+    worker = null;
+  };
+  worker.postMessage(count);
+}
 
 /** All forms for `count` points, plus per-point randoms (x: size, y: delay, z: house 0–4, w: phase). */
 export function buildForms(count: number) {

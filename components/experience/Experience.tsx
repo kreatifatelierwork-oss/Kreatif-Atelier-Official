@@ -39,6 +39,8 @@ const inkRatio = () => Math.min(window.devicePixelRatio || 1, 1.5);
 let render3D: boolean | null = null;
 function canRender3D() {
   if (render3D !== null) return render3D;
+  // ?still previews the still version on any device.
+  if (new URLSearchParams(window.location.search).has("still")) return (render3D = false);
   try {
     const gl = document.createElement("canvas").getContext("webgl2");
     const nav = navigator as Navigator & { deviceMemory?: number };
@@ -182,7 +184,7 @@ export function Experience() {
   // Build the Idea's forms while the visitor reads the gate.
   useEffect(() => {
     const count = mobile ? F.idea.count.mobile : F.idea.count.desktop;
-    const id = setTimeout(() => prewarmForms(count), 1200);
+    const id = setTimeout(() => { if (canRender3D()) prewarmForms(count); }, 1200);
     return () => clearTimeout(id);
   }, [mobile]);
 
