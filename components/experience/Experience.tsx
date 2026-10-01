@@ -318,6 +318,7 @@ export function Experience() {
       ref={rootRef}
       className={`xp-root theme-${theme}${live ? " is-live" : ""}${still ? " is-still" : ""}`}
       data-place={route[ui.place].id}
+      data-room={room ? room.kind : undefined}
       style={{ ["--xp-gold" as string]: pal.gold }}
     >
       <noscript><style>{`.xp-gate{display:none}.xp-signature{clip-path:none!important}`}</style></noscript>

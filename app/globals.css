@@ -186,6 +186,10 @@
   }
   .xp-root .film-gate { z-index: 60; }
   .xp-root :focus-visible { outline: 2px solid var(--xp-focus); outline-offset: 3px; border-radius: 2px; }
+  .xp-root [tabindex="-1"]:focus-visible { outline: none; }
+  /* A moment or a full-width room takes the screen: the place's caption steps aside meanwhile. */
+  .xp-root[data-room="moment"] .xp-caption[data-active] .xp-block,
+  .xp-root[data-room="formats"] .xp-caption[data-active] .xp-block { opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
 
   .xp-world { position: absolute; inset: 0; transform-origin: 50% 56%; will-change: transform; }
   .xp-stage { position: absolute !important; inset: 0; z-index: 0; }

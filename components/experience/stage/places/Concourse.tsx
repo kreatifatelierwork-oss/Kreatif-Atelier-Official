@@ -43,7 +43,7 @@ void main() {
   vGlow = 0.35 + min(1.0, wave) * 0.65;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = uSize * uPixelRatio * (0.6 + aSeed.z) * (1.0 + wave * 1.4) / -mv.z;
+  gl_PointSize = min(uSize * uPixelRatio * (0.6 + aSeed.z) * (1.0 + wave * 1.4) / -mv.z, 9.0 * uPixelRatio);
 }`;
 const STREAM_FRAG = /* glsl */ `
 uniform vec3 uGold; uniform vec3 uBright;

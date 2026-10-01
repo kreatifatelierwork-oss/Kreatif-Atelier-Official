@@ -32,6 +32,8 @@ export const LATTICE_CLUSTERS: V3[] = [[57.5, 6, -312], [61.5, 10.5, -316], [66.
 /** The Roof: a terrace above the Atrium's level with the monument on it, right of centre in the aerial view. */
 export const ROOF_TERRACE: V3 = [27.2, 53.2, -79.4];
 export const MONUMENT: V3 = [26.8, 56, -79.2];
+/** Where the camera leans for a Roof moment: just left of the monument, so it stands right of the words. */
+export const ROOF_MOMENT: V3 = [21, 55.6, -77.5];
 /** Gallery: the prints hang on the Atrium's curved wall. */
 export const GALLERY_WALL: V3 = [-9, 2.2, -2];
 
@@ -49,11 +51,11 @@ export function thingAnchor(place: number, k: number): V3 | null {
       if (offering >= 0) return at(DRAFT_MODELS, offering);
       return t.id === "engagement-models" ? DRAFT_FORMATS : DRAFT_SERVICES;
     case "ggp": return offering >= 0 ? at(PROJ_FRAMES, offering) : PROJ_SCREEN;
-    case "concourse": return [16, 2.2, -190];
+    case "concourse": return [23.8, 3, -199.8]; // the middle of the far wall's openings
     case "valora": return at(WATER_STONES, 4 + Math.max(0, offering));
     case "asraya": return at(GARDEN_STONES, Math.max(0, offering));
     case "rudra": return at(LATTICE_CLUSTERS, Math.max(0, offering));
-    case "roof": return MONUMENT;
+    case "roof": return ROOF_MOMENT;
     case "gallery": return GALLERY_WALL;
     default: return null;
   }
