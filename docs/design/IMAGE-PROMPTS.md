@@ -1,461 +1,475 @@
-# Image prompt pack: "The Making of a Legacy"
+# Image prompt pack v3: "The Making of a Legacy: Shot on Location"
 
-Written 2026-09-30 with the **imagegen-frontend-web** skill (desktop sections) and the **imagegen-frontend-mobile**
-skill (phone views), for the **image-to-code** workflow.
+Rewritten 2026-10-01 for the v3 proposal (`docs/concepts/THE-MAKING-OF-v3.md`). It replaces the v2 pack: the scenes
+changed, so no v2 prompt is reused. Written with the **imagegen-frontend-web** skill (desktop) and the
+**imagegen-frontend-mobile** skill (phone), for the **image-to-code** workflow.
+
+**Only generate these after you approve v3.**
 
 **How to use it:**
-1. Generate every image below in ChatGPT.
-2. Save them into `design-refs/` using the file names given.
-3. Tell me when they are in. I will then analyse each one (text, type scale, spacing, components, colour, layout)
-   before any code is written, and ask for a fresh standalone re-render (never a crop) of anything unreadable.
+1. In ChatGPT, keep everything in **one chat** so the look stays consistent.
+2. For each image, paste the **Shared style block**, then that image's prompt. For the dark theme, also paste the
+   **Dark add-on** at the end.
+3. Save each image into `design-refs/` with the file name given. Dark versions get `-dark` before `.png`.
+4. Tell me when they are in. I analyse each one (text, type scale, spacing, components, colour, layout) before any
+   code, and ask for a fresh standalone re-render (never a crop) of anything unreadable.
 
 **What the pack contains:**
-- 15 desktop section images;
+- 15 desktop place images;
 - 6 desktop detail images;
-- 8 phone images.
+- 10 phone images.
 
-That is **29 images in total**, one per section, never combined.
+That is **31 images**, one per message, never combined. Light (the default) is required. Dark versions are wanted for
+P02, P04, P06, P09, P11 and P14 at least.
 
-**Theme:** the prompts are written for the **recommended Cinema (dark) theme**. If you decide light stays the
-default (AUDIT C1), append the **Daylight suffix** (end of this file) to every prompt.
+**Sizes:**
+- desktop at **1536 × 1024** (landscape);
+- phone at **1024 × 1536** (portrait).
 
-## Tips for ChatGPT
-- **Keep everything in one chat** so the look stays consistent. For each image, paste the **Global style block**
-  plus that section's prompt.
-- **Size:** desktop images at **1536 × 1024 (landscape)**; phone images at **1024 × 1536 (portrait)**.
-- **Check the text.** If any text renders wrong or tiny, say "re-render this exact section with the text larger
-  and spelled exactly as quoted". Don't crop old images.
-- Ask for one image per message. Label each reply with the section number.
+**If text comes out wrong or tiny,** say "re-render this exact image with the text larger and spelled exactly as
+quoted".
 
 ---
 
-## GLOBAL STYLE BLOCK (paste before every prompt)
+## SHARED STYLE BLOCK (paste before every prompt)
 
 > A premium website design reference, rendered as a flat, full-bleed website screen with no browser window and no
-> device frame. It is part of one consistent set for a brand-film website called "Kreatif Atelier".
+> device frame. It is one frame from a single continuous film-like website for "Kreatif Atelier", a creative holding
+> company.
 >
-> **World:** a dark screening room. The page background is deep ink blue-black (#0B0F1A) with subtle 3% film grain.
-> The only lit object is **"the Idea"**, an abstract sculptural form made of fine gold light (#C9A45C with highlights
-> #E8C98A), rendered like high-end studio product photography under cinema lighting, with soft falloff and shallow
-> depth of field. The Idea is abstract: never a logo, emblem, letter, monogram, crest or symbol.
+> **World:**
+> - The website is one continuous place you travel through: a luminous building-landscape called the Atelier, made
+>   of pale plaster, smooth stone, still water and clear glass.
+> - It is still being made. Parts of each place are drawn as fine lines of light, and parts are already built as real
+>   material.
+> - It is rendered like high-end architectural photography: soft natural light, baked soft shadows, gentle depth of
+>   field.
+> - Simple curved forms, no clutter, no people.
+>
+> **The Idea:** an abstract form of fine gold light (#C9A45C, highlights #DDB978) that we follow through the film.
+> It is never a ball, logo, letter, emblem, crest, monogram or symbol.
+>
+> **Light theme (default):**
+> - neutral luminous light: page and walls #F4F5F7, deeper surfaces #E9EBEF, text ink #0B0F1A, muted text #5A5E6A;
+> - never cream, beige or brass.
+>
+> **Colour rule:**
+> - each place has at most ONE vivid colour, used as its light, atmosphere and material tint;
+> - outside the vertical worlds, the only accent is gold #C9A45C (buttons, active states, the ✦);
+> - exactly one light source per place, and no glow halos.
 >
 > **Typography:**
-> - Headlines: a clean geometric sans (like Outfit) at medium weight, sentence case, tight letter-spacing, cream
->   #F3EBDD.
-> - Spoken lines and quotes: an elegant old-style serif (like Cormorant Garamond), often italic, cream.
-> - Buttons and small functional labels: a monospaced sans (like IBM Plex Mono), uppercase with wide tracking.
+> - headlines in a clean geometric sans (like Outfit), medium weight, sentence case, tight letter-spacing, ink
+>   #0B0F1A;
+> - spoken lines in an elegant old-style serif italic (like Cormorant Garamond);
+> - small functional labels and buttons in a monospaced sans (like IBM Plex Mono), uppercase, wide tracking;
+> - never mix two of these in one line.
 >
-> **Colour:** one accent only, gold #C9A45C, used for the primary button and the active state. Muted text is
-> #9D9AA3; hairline dividers are 1px cream at 14% opacity.
+> **Chrome on every screen after the gate:**
+> - a quiet top bar: "Kreatif Atelier" in the sans at top left; "SOUND OFF" and "INDEX" in small mono at top right;
+> - at the bottom, a thin hairline act bar with small evenly spaced ticks (the current tick gold), the act name in
+>   small mono on the left and the time in small mono on the right.
 >
-> **Shapes:** images and panels have sharp square corners; buttons are pills.
->
-> **Space:** very generous, calm, gallery-like. One focal point. Text readable at normal viewing size.
+> **Layout:**
+> - captions sit BESIDE the subject in one calm off-grid text block, never on top of the imagery;
+> - very generous space, one focal point, text readable at normal size;
+> - sharp square corners on panels, pill-shaped buttons.
 >
 > **Strictly avoid:**
 > - any logo, emblem, monogram, crest, badge or "KA" letters;
-> - glowing UI and neon;
-> - purple or rainbow gradients;
-> - glassmorphism panels;
-> - pills or labels placed on top of the imagery;
-> - fake data, numbers, charts or dashboards;
-> - section numbers;
-> - vertical rotated text;
-> - "scroll" hints;
-> - em-dashes;
-> - any text other than the exact text quoted below. Spell it exactly.
+> - columns, swans, clapperboards, flames or lotus flowers;
+> - planets, orbits or space;
+> - neon, glowing UI, glassmorphism, purple or rainbow gradients;
+> - labels or pills on the imagery;
+> - fake data, numbers, charts or readouts;
+> - section numbers, vertical rotated text, "scroll" hints, em-dashes;
+> - any text other than the exact text quoted. Spell it exactly.
+
+## DARK ADD-ON (paste after the prompt for the dark version)
+
+> **Dark theme "Cinema":**
+> - The same place at night. Surfaces are deep ink #0B0F1A to #121726. Headline and body text are warm cream #F3EBDD,
+>   muted text #9D9AA3, hairlines in cream at 14%.
+> - The place's own light (its one vivid colour, or gold where it has none) is the ONLY light, falling across dark
+>   matte materials, cinematic and calm.
+> - Keep the composition, text and layout identical to the light version.
 
 ---
 
-## DESKTOP SECTIONS (1536 × 1024, landscape)
+## DESKTOP PLACES (1536 × 1024)
 
-### Section 1 of 15: Gate · `design-refs/web/S00-gate.png`
-- **Composition:** stacked centre.
-- **Background:** solid, darker ink (#070A12), nothing else on screen.
-- **Centre:** a four-pointed star "✦" about 110px tall, drawn in gold (#E8C98A), as if just formed from a few
-  gathering points of light. A faint trace of 3–4 tiny gold points is still drifting into it.
+### P00 · The Gate · `design-refs/web/P00-gate.png`
+- **Note:** this frame is dark in both themes, so no dark add-on is needed.
+- **Composition:** stacked centre on solid deep ink #070A12.
+- **Centre:** a four-pointed star "✦" about 110px tall in gold #DDB978, as if it has just pooled together from
+  drops of liquid gold. Three or four tiny gold droplets are still drifting into it.
 - **Below it, 40px apart, side by side:**
   - a gold pill button with dark text "ENTER WITH SOUND";
   - a transparent pill button with a thin cream outline and cream text "ENTER IN SILENCE".
-- Both buttons are the same height (about 52px), in monospaced uppercase.
-- Nothing else. Around 80% of the frame is empty darkness.
+- **Nothing else:** no top bar or act bar yet.
 
-### Section 2 of 15: Opening flood (transition frame) · `design-refs/web/S01-flood.png`
-- **Composition:** image-as-canvas.
-- **Scene:** the moment the dark gate dissolves into the page. A halftone lattice of dots grows from the centre of
-  the screen. Near the centre, the dots have swollen and bridged into slanted, wavy diagonal bands that open onto
-  the page beneath: deep ink with a large gold form of light. Towards the edges, the dots are still small and
-  separate.
-- **Colour:** each band edge carries a thin gold rim only. The outer areas are near-black.
-- **Text:** none.
-- **Style:** graphic, crisp, a print-halftone feel, cinematic. No other elements.
+### P01 · The flood opening · `design-refs/web/P01-flood.png`
+- **What it shows:** the moment the screen opens, frozen mid-transition.
+- **The flood:** a slanted halftone lattice of round dots spreads from the centre. Through the dots you see a bright,
+  pale, sky-lit round hall. Between the dots there is deep ink #0B0F1A. Each opened dot has a thin gold rim
+  (#C9A45C), gold only.
+- **Proportions:** about half the screen has opened, with the dots larger and merged near the centre and smaller
+  towards the corners.
+- **No text, no chrome.**
 
-### Section 3 of 15: Title card (hero) · `design-refs/web/S02-title.png`
-- **Composition:** bottom-left text over a full-bleed image.
-- **Hero scale:** Giant Statement.
-- **Background:** ink. Upper-right of centre floats the Idea in its first form: a large folded ribbon of fine gold
-  light filaments, like a single loop of silk made of light, with a clear front and top. It takes about 45% of
-  the frame height and is softly lit, with fine particles at its edges.
-- **Lower-left, left margin 64px, from the top of the text block down:**
-  1. the headline "Kreatif Atelier" in huge geometric sans, medium weight, cream, tight tracking, one line, about
-     110px tall;
-  2. 24px below, two lines of elegant serif italic in cream, about 32px: "Where Strategy Meets Story." / "Where
-     Story Becomes Legacy.";
-  3. 36px below, two pill buttons side by side: a gold pill "WATCH" (dark text) and a thin-outline pill "DIRECT".
-- **Top bar, 64px tall, transparent:**
-  - left: the words "Kreatif Atelier" in small sans, about 18px, cream;
-  - right: a thin-outline pill "SOUND OFF" with five tiny vertical bars, and a thin-outline pill "INDEX".
-- **Bottom edge, 56px:** one thin hairline across the width with 8 small evenly spaced tick marks. The first tick
-  is gold. Above the first tick: the word "Title" in small monospaced. At the far right: a small monospaced
-  timecode "00:00:04:12".
-- Nothing else: no eyebrow, stats or extra labels.
+### P02 · The Atrium, Title · `design-refs/web/P02-atrium.png`
+- **Composition:** massive image-first. Text block at lower left; the subject upper-right of centre.
+- **Scene:**
+  - a tall, round, pale plaster hall open to the sky through a round oculus;
+  - one shaft of white daylight falls onto the floor, where the gold Idea hovers above a shallow well of light, made
+    of fine gold light strands like a folded ribbon;
+  - ahead, a tall passage in the curved wall glows softly gold.
+- **Text (lower left):**
+  - headline, very large: "Kreatif Atelier";
+  - directly beneath it, on its own line: "Atelier" in a flowing hand-written serif italic, as if just written;
+  - "Where Strategy Meets Story." and "Where Story Becomes Legacy." on two lines in the serif italic;
+  - small mono: "BOLD · RADIANT · TIMELESS";
+  - a gold pill button "WATCH" and a transparent outlined pill "DIRECT".
+- **Act bar:** "ACT 00 · TITLE · THE ATRIUM" left, "00:08" right.
 
-### Section 4 of 15: Act I · Idea · `design-refs/web/S03-idea.png`
-- **Composition:** low-right caption, subject left.
-- **Background:** ink.
-- **Subject:** the Idea, left of centre: the gold ribbon of light, now restless, with fine threads of light pulled
-  out towards the lower right as if something just moved past it.
-- **Text block, lower-right, right margin 64px, max width about 520px, left-aligned inside:**
-  1. "Idea" in large geometric sans, about 72px, cream;
-  2. 20px below, "We build brands that actually move people." in serif italic, about 34px, cream;
-  3. 16px below, "Great creative work is not decoration: it is a business tool." in serif roman, about 22px, muted
-     cream.
-- **Top bar** as in Section 3.
-- **Bottom scrubber** as in Section 3, with the second tick gold, "Idea" above it and timecode "00:00:31:08".
+### P03 · The Studio Floor, Act I · Idea · `design-refs/web/P03-studio-floor.png`
+- **Composition:** a wide floor receding into depth. Text at upper right.
+- **Scene:**
+  - a vast, pale working floor with long low tables and four tall standing panels spaced across it;
+  - two panels are already solid plaster, two are still drawn as fine dark lines on the air;
+  - the gold Idea is restless and scattered in the middle distance, like gold light caught mid-swirl;
+  - far away at the end of the floor, a tall doorway is filled with royal indigo light (#3D4BFF). It is the only
+    colour in the scene apart from gold.
+- **Text (upper right):**
+  - small mono "IDEA";
+  - headline: "We build brands that actually move people.";
+  - a short body paragraph: "Kreatif Atelier is a full-spectrum creative agency operating at the intersection of
+    strategy, storytelling, and execution, built for brands that want more than good-looking content."
+- **Panel captions** (small, beside the panels on the floor plane, not on them): "What We Are" · "Where We Operate" ·
+  "Who We Work With" · "Our Philosophy".
+- **Act bar:** "ACT I · IDEA · THE STUDIO FLOOR" left, "01:12" right.
 
-### Section 5 of 15: Act II · Strategy (Aurelius) · `design-refs/web/S04-strategy.png`
-- **Composition:** high-right caption, subject left.
-- **Background:** ink.
-- **Subject (left half):** the Idea redrawn as a precise architectural blueprint in fine cream lines at 60%
-  opacity. It has the same ribbon form, with construction lines, one faint dimension line with arrowheads, a
-  circular section cut and a faint square grid behind it. A few lines in the blueprint are tinted royal indigo
-  (#3D4BFF) as a thin identity accent.
-- **The Lens:** a crisp circle about 220px across, outlined in a 1px cream line, sits over part of the blueprint.
-  Inside it the same part of the form appears fully rendered in solid gold light, as if seen through a lens.
-- **Text block, upper-right, right margin 64px, top about 180px:**
-  1. "Strategy" in geometric sans, about 72px, cream;
-  2. 16px below, "Aurelius" in geometric sans, about 44px, cream;
-  3. 12px below, three stacked words in monospaced uppercase, muted: "BRANDS" / "STRATEGY" / "GROWTH";
-  4. 20px below, "Builds brands that lead and last." in serif italic, about 30px;
-  5. 20px below, a thin hairline, then two small sans lines in muted cream: "Discovery & Audit" and "Strategy &
-     Positioning";
-  6. below them, "Brand Strategy & Identity" in the same small sans.
-- **Top bar** as in Section 3.
-- **Scrubber:** the third tick is indigo, "Strategy" above it, timecode "00:01:02:16".
+### P04 · The Drafting Hall, Aurelius (drawing + Lens) · `design-refs/web/P04-aurelius-drawing.png`
+- **Composition:** a tall hall seen from low. Text block at the right third.
+- **Colour:** everything is ROYAL INDIGO. Indigo light pours from one tall narrow window, and the air is a soft
+  indigo haze (#3D4BFF, deep shades #1C2380, pale tint #E7E9FF on lit plaster). No other colour except a tiny touch
+  of gold.
+- **Scene:**
+  - the hall is still a drawing: floating stair flights at odd angles, drawn as fine indigo construction lines in
+    the air, going nowhere;
+  - in the lower-left there is one soft-edged round area about 260px wide, like a liquid window, where the same stairs
+    appear BUILT, in solid indigo-lit plaster (the cursor's lens);
+  - a long drafting table in the foreground holds four small abstract plaster models (a folded plane, a stepped
+    block, a curved shell, an open frame).
+  - No columns anywhere.
+- **Text (right third):**
+  - small mono "STRATEGY";
+  - headline: "Aurelius";
+  - stacked on three lines: "Brands" / "Strategy" / "Growth";
+  - serif italic: "Builds brands that lead and last.";
+  - a short list in body text: "Brand Strategy & Identity", "Marketing & Communication", "Creative Consulting",
+    "Business Advisory";
+  - two small named steps in mono: "DISCOVERY & AUDIT" and "STRATEGY & POSITIONING";
+  - a small outlined pill: "FIND THE ANGLE".
+- **Act bar:** "ACT II · STRATEGY · THE DRAFTING HALL" left, "02:14" right.
 
-### Section 6 of 15: Act III · Story (Golden Guardian Productions) · `design-refs/web/S05-story.png`
-- **Composition:** low-left caption, subject right.
-- **Background:** ink, warmed by projected light.
-- **Subject (right two-thirds):** the Idea is no longer lines. It has been rendered into a luminous surface that
-  works as a projection screen: a curved sheet of warm gold light on which a soft, abstract moving image flickers
-  (warm film grain, gentle magenta (#E8307F) light leaks at its edge as the house identity tint). A cone of
-  projector light falls onto it from the upper left, with dust in the beam. It is cinematic and quiet.
-- **Text block, lower-left, left margin 64px, max width about 540px:**
-  1. "Story" in geometric sans, about 72px;
-  2. 16px below, "Golden Guardian Productions" in geometric sans, about 40px, on one line;
-  3. 12px below, stacked monospaced uppercase: "STORIES" / "VISUALS" / "IMPACT";
-  4. 20px below, "Creates powerful stories that inspire and influence." in serif italic, about 30px;
-  5. 20px below, a thin-outline pill button "ROLL".
-- **Top bar** as in Section 3.
-- **Scrubber:** the fourth tick is magenta, "Story" above it, timecode "00:01:44:02".
+### P05 · The Drafting Hall, built · `design-refs/web/P05-aurelius-built.png`
+- **Composition:** the same hall, now from the angle where everything lines up. Text at lower left.
+- **Scene:**
+  - the broken stair flights have aligned into one continuous stair rising to the tall window;
+  - the whole hall is now solid, smooth plaster washed in deep and pale royal indigo light (#3D4BFF);
+  - the light runs up the stair to the window;
+  - the gold Idea climbs the stair as a thin ribbon of gold light;
+  - beyond the window, a faint magenta glow hints at the next place (just a soft wash, no objects).
+- **Text (lower left):** headline "Aurelius"; serif italic "Builds brands that lead and last."
+- **Act bar:** "ACT II · STRATEGY · THE DRAFTING HALL" left, "02:51" right.
 
-### Section 7 of 15: Act IV · Movement · `design-refs/web/S06-movement.png`
-- **Composition:** top-left lead, marquee along the lower third.
-- **Background:** ink.
-- **Subject (centre-right):** the gold Idea bursting outward into many fine streams of gold light that flow
-  towards the right edge of the frame, like a river delta seen from above, full of motion.
-- **Top-left, margin 64px, top 140px:**
-  1. "Movement" in geometric sans, about 72px;
-  2. 16px below, "Sector-fluid. Results-focused." in serif italic, about 34px;
-  3. 24px below, three short lines of small sans in muted cream: "Social Media Management" / "Performance
-     Marketing" / "Public Relations & Media".
-- **Across the lower third, full width, one line** of large geometric sans (about 60px, cream at 90%) running
-  off both edges, with a small gold "✦" between the items: "D2C & E-commerce ✦ Funded Startups ✦ F&B & Restaurants
-  ✦ Healthcare & Wellness ✦ Real Estate ✦ Education & EdTech".
-- Below the marquee, a thin-outline pill button "LAUNCH".
-- **Top bar** as in Section 3.
-- **Scrubber:** the fifth tick is gold, "Movement" above it, timecode "00:02:20:11".
+### P06 · The Projection Hall, Golden Guardian Productions · `design-refs/web/P06-ggp.png`
+- **Composition:** a deep, long hall in central perspective. Text block at lower left.
+- **Colour:** everything is CINEMA MAGENTA (#E8307F, deep shade #6E0E37, pale tint #FDE7F0 on plaster).
+- **Scene:**
+  - one small round aperture in the far wall shoots a single beam of light down the hall;
+  - the beam projects a large, soft, abstract moving image across the back wall: blurred shapes of light, like a
+    film frame out of focus, in magenta and gold;
+  - four empty frames hang along the right wall, each holding a softer abstract image;
+  - no clapperboards, cameras or film-reel icons.
+- **Text (lower left):**
+  - small mono "STORY";
+  - headline: "Golden Guardian Productions";
+  - stacked: "Stories" / "Visuals" / "Impact";
+  - serif italic: "Creates powerful stories that inspire and influence.";
+  - list: "Film & Video Production", "Branded Content", "Live Events", "Creative IP Development";
+  - a small mono step "CREATIVE DEVELOPMENT";
+  - a gold-outlined pill "ROLL".
+- **Act bar:** "ACT III · STORY · THE PROJECTION HALL" left, "03:40" right.
 
-### Section 8 of 15: Act V · People (Valora and Asraya) · `design-refs/web/S07-people.png`
-- **Composition:** centred low.
-- **Background:** ink.
-- **Subject (upper 60% of the frame):** small clusters of gold light points form loose constellations, suggestive
-  of groups of people gathering: abstract, with no faces or figures drawn. Thin lines of light connect some
-  clusters.
-  - On the left side of the constellation field, soft coral (#FF6A3D) light tints a pair of clusters joined by a
-    bridge of light.
-  - On the right side, soft jade (#23C27C) light tints a calm, still cluster.
-- **Lower half: a centred two-column text area, 120px between columns.**
-  - **Left column:**
-    1. "Valora" in geometric sans, about 44px;
-    2. stacked monospaced uppercase: "PEOPLE" / "SKILLS" / "OPPORTUNITIES";
-    3. "Bridges education with real-world opportunities." in serif italic, about 26px.
-  - **Right column:**
-    1. "Asraya" in geometric sans, about 44px;
-    2. "PEOPLE" / "BALANCE" / "WELLBEING";
-    3. "Enables people to live healthier, more meaningful lives." in serif italic, about 26px.
-- Above both columns, centred: "People" in geometric sans, about 72px.
-- **Top bar** as in Section 3.
-- **Scrubber:** the sixth tick shows a coral half and a jade half, "People" above it, timecode "00:03:01:20".
+### P07 · The Concourse, Act IV · Movement · `design-refs/web/P07-concourse.png`
+- **Composition:** a very wide, bright, open concourse of pale stone under a high diffuse ceiling. Text top left.
+- **Colour:** neutral and luminous. The only colour is gold.
+- **Scene:**
+  - the gold Idea has burst into thousands of thin gold streams that sweep across the floor;
+  - the streams pour out through a long row of thirteen tall identical openings along the far wall;
+  - one wave of brighter gold travels through the streams.
+- **Text (top left):**
+  - small mono "MOVEMENT";
+  - headline: "Sector-fluid. Results-focused.";
+  - two small mono steps: "EXECUTION & PUBLISHING" and "REVIEW & OPTIMIZE";
+  - three short lines: "Social Media Management", "Performance Marketing", "Public Relations & Media";
+  - a gold pill "LAUNCH".
+- **Industries marquee:** a single line of text crosses the lower third of the screen in the sans at about 40px, in
+  ink, with gold ✦ between names (as page text, not on the stones): "D2C & E-commerce ✦ Funded Startups ✦ F&B &
+  Restaurants ✦ Healthcare & Wellness ✦ Real Estate ✦ Education & EdTech ✦ Fashion & Lifestyle".
+- **Act bar:** "ACT IV · MOVEMENT · THE CONCOURSE" left, "04:55" right.
 
-### Section 9 of 15: Act VI · Futures (Rudra Yugen) · `design-refs/web/S08-futures.png`
-- **Composition:** right-third caption, visual on the left two-thirds.
-- **Background:** ink.
-- **Subject (left two-thirds):** a vast three-dimensional lattice of fine gold lines and nodes receding into
-  depth, like a crystal or neural structure. Bright signals of electric cyan (#0FB5E4) light travel along a few of
-  its edges; the rest stays gold and calm. Crisp, precise, deep perspective.
-- **Right third, right margin 64px, vertically centred:**
-  1. "Futures" in geometric sans, about 72px;
-  2. "Rudra Yugen" in geometric sans, about 44px;
-  3. stacked monospaced uppercase: "INNOVATION" / "CULTURE" / "FUTURES";
-  4. "Builds what's next at the intersection of creativity and technology." in serif italic, about 28px, over 3
-     lines;
-  5. a thin-outline pill "SPARK".
-- **Top bar** as in Section 3.
-- **Scrubber:** the seventh tick is cyan, "Futures" above it, timecode "00:03:38:05".
+### P08 · The Water Court, Valora · `design-refs/web/P08-valora.png`
+- **Composition:** a low view across still water. Text at the right third.
+- **Colour:** everything is SUNRISE CORAL (#FF6A3D, deep shade #8A2A10, pale tint #FFEDE6 on plaster and water).
+- **Scene:**
+  - an indoor court of still water, with a quiet study alcove with a bench on the near left;
+  - on the far side, a tall open arch blazes with coral light from outside;
+  - a path of smooth round stepping stones has risen out of the water, curving from the near edge to the arch;
+  - the four stones nearest the arch are slightly larger and lit;
+  - the gold Idea crosses the stones as a thin ribbon of light;
+  - no swans or birds.
+- **Text (right third):**
+  - small mono "PEOPLE";
+  - headline: "Valora";
+  - stacked: "People" / "Skills" / "Opportunities";
+  - serif italic: "Bridges education with real-world opportunities.";
+  - list: "Student Capability Ecosystem", "Industry Connect", "Mentorship & Placement", "Global Opportunities";
+  - a small outlined pill "LAY A STONE".
+- **Act bar:** "ACT V · PEOPLE · THE WATER COURT" left, "05:48" right.
 
-### Section 10 of 15: Act VII · Legacy · `design-refs/web/S09-legacy.png`
-- **Composition:** centred statement, low.
-- **Background:** ink.
-- **The second-read moment:** for the first time the Idea is SOLID. In the centre stands a monumental abstract form
-  of polished solid gold: the same folded ribbon shape now cast in metal, smooth and heavy. It rests on a dark
-  reflective floor that shows a soft reflection, lit by one warm key light and a cool rim light, like a museum
-  sculpture. It is the only solid object in the whole film, and it must not resemble a logo or letter.
-- **Lower part, centred:**
-  1. "Multiple verticals. One vision. Exponential impact." in geometric sans, about 64px, cream, over two lines;
-  2. 20px below, "Disciplines today. A brighter tomorrow." in serif italic, about 30px, muted cream.
-- **Top bar** as in Section 3.
-- **Scrubber:** the eighth tick is gold, "Legacy" above it, timecode "00:04:10:00".
+### P09 · The Garden Court, Asraya · `design-refs/web/P09-asraya.png`
+- **Composition:** a calm, symmetrical view across a still pool. Text centred low.
+- **Colour:** everything is FRESH JADE (#23C27C, deep shade #0C5A37, pale tint #E2F7ED).
+- **Scene:**
+  - a garden court with no roof, open to a soft green-white sky;
+  - a perfectly still round pool reflects the sky;
+  - four smooth stones sit around its edge, and slow concentric ripples spread from the centre;
+  - in the reflection, faint thin lines of a glass lattice that is not in the garden (a hint of the next place);
+  - no lotus, no flowers.
+- **Text (centred low):**
+  - small mono "PEOPLE";
+  - headline: "Asraya";
+  - stacked: "People" / "Balance" / "Wellbeing";
+  - serif italic: "Enables people to live healthier, more meaningful lives.";
+  - list in one row: "Wellness Experiences", "Retreats & Programs", "Mindfulness & Lifestyle Tools", "Community
+    Spaces";
+  - a small outlined pill "BREATHE".
+- **Act bar:** "ACT V · PEOPLE · THE GARDEN COURT" left, "06:30" right.
 
-### Section 11 of 15: The Houses (hover-accordion slices) · `design-refs/web/S10-houses.png`
-- **Composition:** a full-width component on a solid ink section.
-- **Top-left, margin 64px:** "The Houses" is NOT shown. Instead, place a single line of small monospaced uppercase
-  muted text, "A CREATIVE HOLDING COMPANY", as the only eyebrow.
-- **Below:** five tall vertical slices side by side, spanning the width with 64px side margins. Each slice has a
-  slightly lighter dark surface (#121726), sharp corners and a 1px hairline between slices, and is about 560px
-  tall.
-- **Four collapsed slices** each show a house name in geometric sans, about 36px, stacked word per line and set
-  horizontally (not rotated), near the bottom: "Aurelius", "Valora", "Rudra Yugen", "Asraya". Each slice has a 3px
-  vertical colour edge on its left side in its house colour: indigo #3D4BFF, coral #FF6A3D, cyan #0FB5E4, jade
-  #23C27C.
-- **The third slice is EXPANDED** (about three times wider) for "Golden Guardian Productions", with a 3px magenta
-  (#E8307F) edge. It shows, from the top:
-  1. the name in geometric sans, about 40px;
-  2. stacked monospaced "STORIES" / "VISUALS" / "IMPACT";
-  3. a hairline;
-  4. four sans lines: "Film & Video Production", "Branded Content", "Live Events", "Creative IP Development";
-  5. at the bottom, "Creates powerful stories that inspire and influence." in serif italic, about 26px.
-- Calm, flat and precise. No shadows or icons.
+### P10 · The Glass Lattice, Rudra Yugen · `design-refs/web/P10-rudra-yugen.png`
+- **Composition:** a tall void seen from inside. Text at the left third.
+- **Colour:** everything is ELECTRIC CYAN (#0FB5E4, deep shade #064A5E, pale tint #E1F6FD).
+- **Scene:**
+  - hundreds of thin rectangular glass panes hang on fine threads at different angles in a tall pale void;
+  - one cyan beam enters from above and splits through the glass, painting crisp moving bands of cyan light across
+    the curved walls;
+  - in the centre, a group of panes has aligned and a clean geometric pattern of light resolves on the far wall;
+  - no flames, no circuit boards, no robots.
+- **Text (left third):**
+  - small mono "FUTURES";
+  - headline: "Rudra Yugen";
+  - stacked: "Innovation" / "Culture" / "Futures";
+  - serif italic: "Builds what's next at the intersection of creativity and technology.";
+  - list: "Emerging Tech & AI", "Cultural Projects", "R&D and Innovation Labs", "Strategic Ventures";
+  - a small outlined pill "SPARK".
+- **Act bar:** "ACT VI · FUTURES · THE GLASS LATTICE" left, "07:22" right.
 
-### Section 12 of 15: Vision and Impact · `design-refs/web/S11-vision.png`
-- **Composition:** left-third caption, right two-thirds visual.
-- **Background:** ink.
-- **Right two-thirds:** the solid gold monument from Section 10, seen closer and dimmed, partly out of frame on
-  the right, with a soft reflection.
-- **Left third, margin 64px:**
-  1. a small monospaced uppercase label "VISION";
-  2. 16px below, "To build an interdisciplinary ecosystem that creates meaningful opportunities, cultural value
-     and long-term impact through creativity, education, production and innovation." in serif italic, about
-     28px, cream, over about 6 lines;
-  3. 48px below, the label "IMPACT";
-  4. below it, six lines of geometric sans, about 24px, cream: "Skilled Talent" / "Stronger Brands" / "Meaningful
-     Content" / "Innovative Solutions" / "Healthier Lives" / "A Brighter Tomorrow".
+### P11 · The Roof, Act VII · Legacy · `design-refs/web/P11-roof.png`
+- **Composition:** a high aerial view. Text at the left third; the monument right of centre.
+- **Scene:**
+  - from high above at a low warm sun, you see the whole Atelier below: a round, sky-lit atrium at the centre and
+    five distinct places around it, each glowing softly in its own colour far below (indigo, magenta, coral, jade,
+    cyan);
+  - they are small and distant, so no colour dominates;
+  - a single thin gold line traces the route through all of them;
+  - right of centre, on the roof terrace, stands **one solid, polished gold abstract form** (a calm folded shape, the
+    only solid gold object in the film), lit by the low sun;
+  - not a planet, not a solar system.
+- **Text (left third):**
+  - headline: "Multiple verticals. One vision. Exponential impact.";
+  - serif italic: "Disciplines today. A brighter tomorrow.";
+  - small mono label "IMPACT" above a stacked list: "Skilled Talent", "Stronger Brands", "Meaningful Content",
+    "Innovative Solutions", "Healthier Lives", "A Brighter Tomorrow".
+- **Act bar:** "ACT VII · LEGACY · THE ROOF" left, "08:10" right.
 
-### Section 13 of 15: Credits, the founders · `design-refs/web/S12-founders.png`
-- **Composition:** off-grid editorial.
-- **Background:** ink.
-- **Upper-left, margin 64px:** small monospaced uppercase muted "A KREATIF ATELIER FILM".
-- **Centre-left:** four portrait prints fanned in a gentle arc and overlapping by about 24px. Each is a
-  light-stone print (#E4E1DA) with a thin border and a deeper bottom border, like polaroids. Each print holds a
-  photographic cut-out portrait of a person in formal dark clothing on the light background.
-  - The prints are rotated −9°, −3°, 3° and 9°, with a soft shadow beneath.
-  - The second print is lifted forward and upright (selected).
-  - **Use neutral placeholder silhouettes for the faces.** The real founder photos will be placed in code.
-- **Right of the arc, max width 440px:**
-  1. "Rohan Yadav" in geometric sans, about 32px;
-  2. "CO-FOUNDER & COO" in monospaced uppercase, muted;
-  3. 16px below, "Rohan is the operational backbone of Kreatif Atelier, the force that translates creative vision
-     into flawless execution." in serif, about 22px.
+### P12 · The Gallery, credits and founders · `design-refs/web/P12-gallery-founders.png`
+- **Composition:** off-grid editorial on a curved pale wall at golden hour. Text at upper left.
+- **Light:** one warm golden-hour shaft across the wall. Neutral otherwise, with gold accents.
+- **Scene:**
+  - four portrait prints hang in a gentle arc on the curved wall;
+  - each print is a cut-out photo of a person in formal clothes on a pale mount;
+  - the faces are softly out of focus, because real photos replace them;
+  - the second print is lifted slightly forward.
+- **Text:**
+  - small mono at the top left: "A KREATIF ATELIER FILM";
+  - beside the lifted print, in the sans: "Rohan Yadav", and in small mono below: "CO-FOUNDER & COO";
+  - the other three names in small type under their prints: "Gourish Girish Pillai" / "Anwesha Mulge" /
+    "Aritra Ghoshal".
+- **Act bar:** "CREDITS · THE GALLERY" left, "09:02" right.
 
-### Section 14 of 15: Credits, the work and the formats · `design-refs/web/S13-credits.png`
-- **Composition:** stacked centre, like a film's end-credits roll.
-- **Background:** ink. Text only, no imagery.
-- **Centred columns, top to bottom:**
-  1. a small monospaced uppercase label "SERVICES" above six lines of geometric sans, about 26px: "Brand Strategy &
-     Identity", "Social Media Management", "Performance Marketing", "Creative Production", "Public Relations &
-     Media", "Creative Direction & Campaigns";
-  2. 64px below, three credit blocks side by side with 96px between them and no boxes or borders:
-     - "Starter" / "₹25-35K" / "PER MONTH" / "Social media management" / "12 posts / month";
-     - "MOST POPULAR" in small gold monospaced, above "Growth" / "₹55-75K" / "PER MONTH" / "Social media (2
-       platforms)" / "Performance ads management";
-     - "Brand Partner" / "₹1-1.5L" / "PER MONTH" / "Full-stack creative direction" / "Strategy + creative +
-       production".
-- In each block, the tier name is about 28px sans, the price about 44px sans, "PER MONTH" is monospaced muted and
-  the features are 18px sans muted.
+### P13 · The Gallery, credits and formats (pricing) · `design-refs/web/P13-gallery-formats.png`
+- **Composition:** stacked centre, like film credits rolling up a pale wall.
+- **Content:** three credit blocks in a row, each with a name in the sans, the price in large sans, "per month" in
+  small mono, then its features in small type.
+  - **"Starter"**: "₹25-35K". Features: "Social media management", "12 posts / month", "Basic content creation",
+    "Monthly analytics report", "1 platform focus".
+  - **"Growth"**: "₹55-75K", with a small gold mono label "MOST POPULAR" above the name. Features: "Social media (2
+    platforms)", "Performance ads management", "1 brand video / month", "Copywriting & design", "Bi-weekly strategy
+    calls", "Detailed analytics".
+  - **"Brand Partner"**: "₹1-1.5L". Features: "Full-stack creative direction", "Strategy + creative + production",
+    "PR & media campaigns", "2–4 videos / month", "Dedicated account team", "Weekly reporting".
+- **Heading:** small mono "FORMATS" above the blocks.
+- **Act bar:** "CREDITS · THE GALLERY" left, "09:40" right.
 
-### Section 15 of 15: Post-credits (the CTA) · `design-refs/web/S14-contact.png`
+### P14 · Post-credits, the Atrium at dusk · `design-refs/web/P14-post-credits.png`
 - **Composition:** mini minimalist, centred.
-- **Background:** the darkest ink (#070A12).
-- **Centred:**
-  1. a small gold "✦", about 40px;
-  2. 40px below it, "Ready to build something worth remembering?" in geometric sans, about 64px, cream, over two
-     lines, with "worth remembering?" in the same sans in italic;
-  3. 24px below, "Every great brand started with a single conversation." in serif italic, about 26px, muted
-     cream;
-  4. 36px below, one gold pill button with dark text "SCHEDULE YOUR FREE BRAND AUDIT ✦";
-  5. 24px below, "hello@kreatifatelier.com" in small sans with a thin underline, and beneath it "@kreatifatelier"
-     in small sans, muted.
-- The top bar is present.
-- The bottom scrubber is complete: all ticks passed, and "Credits" appears as the act name.
+- **Scene:**
+  - the round sky-lit hall at dusk, the walls in soft blue-grey shadow;
+  - in the middle of the floor, one small gold "✦" hovers where the Idea first rose;
+  - a gentle gold light comes from it, and nothing else glows.
+- **Text (centred, below the ✦):**
+  - headline: "Ready to build something worth remembering?" (the words "worth remembering?" in the same sans, italic);
+  - body: "Every great brand started with a single conversation. We offer a complimentary 30-minute brand audit call:
+    no obligation, no pitch deck. Just honest strategy.";
+  - a gold pill button "SCHEDULE YOUR FREE BRAND AUDIT ✦";
+  - small mono below: "HELLO@KREATIFATELIER.COM · @KREATIFATELIER".
+- **Act bar:** "POST-CREDITS · THE ATRIUM" left, "10:05" right.
 
 ---
 
-## DESKTOP DETAIL IMAGES (1536 × 1024), for extraction precision
+## DESKTOP DETAILS (1536 × 1024)
 
-### Detail 1: the chrome (top bar and scrubber, close up) · `design-refs/web/D1-chrome.png`
-- A close, larger render of just the top 120px and the bottom 120px of the Section 4 design, stacked with a band
-  of plain ink between them, so the type and spacing are easy to read.
-- **Top:** "Kreatif Atelier" at left, then the "SOUND ON" pill with five level bars and the "INDEX" pill at right.
-- **Bottom:** the hairline with 8 ticks (the second tick gold), "Idea" above the playhead and "00:00:31:08" at
-  the right.
-- Show exact paddings and generous size.
+### D1 · An Enter room: a service · `design-refs/web/D1-enter-room.png`
+- **Scene:** a small, quiet indigo-lit alcove off the Drafting Hall. One abstract plaster model sits on a plinth on
+  the left.
+- **Panel:** on the right, a clean pale panel with square corners and generous padding:
+  - small mono "BRAND STRATEGY & IDENTITY";
+  - headline "Building brands that matter, in markets that are crowded.";
+  - small mono "WHAT IT IS" over the body: "Brand Strategy & Identity is the foundational layer of all great
+    marketing. At Kreatif Atelier, we don't just design logos: we architect complete brand universes.";
+  - four feature names in a 2 × 2 grid: "Brand Audit", "Positioning Strategy", "Visual Identity System", "Brand
+    Guidelines";
+  - a transparent outlined pill "BACK".
 
-### Detail 2: buttons and type specimen · `design-refs/web/D2-specimen.png`
-- A design-system specimen sheet on ink, with generous spacing. Everything left-aligned in rows:
-  1. "Kreatif Atelier" in the headline sans at 110px;
-  2. "Strategy" at 72px;
-  3. "Aurelius" at 44px;
-  4. "Brand Strategy & Identity" at 24px;
-  5. a body line in 17px sans, "Every great brand started with a single conversation.";
-  6. a serif italic line at 34px, "We build brands that actually move people.";
-  7. a monospaced uppercase label line, "DISCOVERY & AUDIT".
-- Then a row of buttons: gold pill "WATCH", outline pill "DIRECT", outline pill "SOUND OFF", and a circular
-  outline icon button with a thin "×".
-- Include no labels naming the styles.
+### D2 · The Index (floor plan) · `design-refs/web/D2-index.png`
+- **Panel:** a full-screen overlay on #F4F5F7.
+- **Plan:** a fine architectural line floor plan of the Atelier:
+  - a round atrium at the centre;
+  - the studio floor, the concourse and the gallery around it;
+  - five rooms, each with a small solid dot of its colour: indigo, magenta, coral, jade, cyan;
+  - a gold "you are here" dot in the Drafting Hall.
+- **Names** in small mono beside each room: "THE ATRIUM", "THE STUDIO FLOOR", "AURELIUS", "GOLDEN GUARDIAN
+  PRODUCTIONS", "THE CONCOURSE", "VALORA", "ASRAYA", "RUDRA YUGEN", "THE ROOF", "THE GALLERY".
+- **Right column** of plain links in the sans: "Formats", "Founders", "Contact".
+- **Top right:** "CLOSE" in mono.
 
-### Detail 3: the Lens, close up · `design-refs/web/D3-lens.png`
-- A close-up of the blueprint Idea from Section 5, filling the frame. The fine cream construction lines, a
-  dimension line and a section cut are clearly visible.
-- The Lens circle (1px cream ring) sits at the centre, about 380px across in this crop, with the fully rendered
-  gold form inside.
-- No text.
+### D3 · Chrome close-up · `design-refs/web/D3-chrome.png`
+- **What it shows:** only the bottom 240px and top 120px of a light screen, the middle left plain #F4F5F7.
+- **Top bar:** "Kreatif Atelier" in the sans at the left; "SOUND OFF" and "INDEX" in mono at the right, with a gold
+  focus ring around "INDEX".
+- **Bottom act bar:**
+  - a hairline with 12 ticks, the 4th tick gold;
+  - "ACT II · STRATEGY · THE DRAFTING HALL" in mono at the left, "02:14" at the right.
+- Readable at large size.
 
-### Detail 4: one house slice expanded, close up · `design-refs/web/D4-house-slice.png`
-- A close, large render of the expanded "Golden Guardian Productions" slice from Section 11, with its neighbours'
-  3px colour edges visible at the sides.
-- All of its text is large and exactly as in Section 11.
+### D4 · A threshold (passage) · `design-refs/web/D4-threshold.png`
+- **Scene:** walking through a tall doorway from the pale Studio Floor into Aurelius's world. The doorway is filled
+  with dense royal indigo haze (#3D4BFF) that is starting to flood the frame from the centre outward.
+- **Text:** the Studio Floor's caption text at the left is dissolving: soft and half-transparent, slightly blurred.
+- **Act bar:** in mid-change, "ACT II · STRATEGY · THE DRAFTING HALL".
 
-### Detail 5: the founder print, close up · `design-refs/web/D5-print.png`
-- A close render of one polaroid print from Section 13, upright, with its thin border, deeper bottom border and
-  soft shadow, next to the name, role and bio text from Section 13 at large size.
-- The portrait area is a neutral placeholder silhouette.
+### D5 · The ink cursor · `design-refs/web/D5-ink.png`
+- **Scene:** a close-up of a light page area with part of the headline "We build brands that" in large ink sans.
+- **The ink:** a liquid, smooth-edged blob about 160px tall, shaped like a teardrop moving left with a pointed tail
+  trailing right, crosses the letters.
+  - Where it covers the page it is near-black.
+  - Where it covers the letters, they turn pale.
+  - The blob has a crisp edge with a thin 1-2px gold outline.
+- **The cursor:** a small standard arrow cursor sits at the front of the blob.
 
-### Detail 6: one pricing credit block, close up · `design-refs/web/D6-credit-block.png`
-- A close render of the "Growth" credit block from Section 14 at large size, with all of its lines:
-  - "MOST POPULAR" / "Growth" / "₹55-75K" / "PER MONTH";
-  - "Social media (2 platforms)" / "Performance ads management" / "1 brand video / month" / "Copywriting &
-    design" / "Bi-weekly strategy calls" / "Detailed analytics";
-  - "Ideal for growing brands ready to invest in multi-channel presence." in serif italic.
-- No box around it.
+### D6 · A founder print · `design-refs/web/D6-founder-print.png`
+- **Subject:** one portrait print on a pale mount, hanging on the gallery wall in golden-hour light. It is a cut-out
+  photo of a person in a dark formal jacket, the face softly out of focus (a real photo replaces it).
+- **Text beside it:**
+  - "Gourish Girish Pillai" in the sans;
+  - "FOUNDER & CEO" in small mono;
+  - body: "The architect of Kreatif Atelier's vision, Gourish brings a rare combination of entrepreneurial acuity and
+    creative instinct.";
+  - a transparent pill "BACK".
 
 ---
 
 ## PHONE VIEWS (1024 × 1536, portrait)
+Each phone image shows **a 390 × 844 phone screen** filling the frame, with no device hardware.
+- **Layout:** the subject in the upper two-thirds; the caption block in the lower third; a slim top bar ("Kreatif
+  Atelier" left, "INDEX" right) and a slim act bar at the bottom.
+- **Size:** all text at least 16px equivalent.
 
-**Mobile add-on block** (paste after the Global style block for every phone image):
+### M01 · Gate · `design-refs/mobile/M01-gate.png`
+- **Background:** deep ink #070A12.
+- **Centre:** the gold "✦" pooling from liquid drops.
+- **Buttons:** stacked full-width pills, "ENTER WITH SOUND" (gold) above "ENTER IN SILENCE" (outlined cream).
 
-> Show the website screen inside a clean, minimal modern iPhone mockup with a thin dark frame, centred with equal
-> margins on a plain dark-grey canvas. The phone screen content is the main focus; the frame must not dominate.
-> Respect the status bar and home indicator areas. All text on the phone screen is comfortably readable, with no
-> tiny text. It is a single column, with side margins of about 20px (scaled).
+### M02 · The Atrium · `design-refs/mobile/M02-atrium.png`
+- **Subject (upper two-thirds):** the tall pale round hall from below, with the sky oculus at the top and the gold
+  Idea above the light well.
+- **Text (below):** "Kreatif Atelier"; "Atelier" hand-written on its own line; "Where Strategy Meets Story. Where
+  Story Becomes Legacy."
+- **Buttons:** "WATCH" (gold pill) and "DIRECT" (outlined), side by side.
+- **Act bar:** "ACT 00 · TITLE", "00:08".
 
-### Phone 1 of 8: Gate · `design-refs/mobile/M01-gate.png`
-- The phone screen is darkest ink.
-- The gold "✦" sits a little above the middle.
-- Below it, stacked full-width pills 12px apart: gold "ENTER WITH SOUND" and outline "ENTER IN SILENCE".
-- Nothing else.
+### M03 · The Drafting Hall, Aurelius · `design-refs/mobile/M03-aurelius.png`
+- **Subject:** the indigo hall of floating drawn stairs, with one round liquid lens showing the built version.
+- **Text:** "Aurelius"; "Brands / Strategy / Growth"; "Builds brands that lead and last."
+- **Button:** a pill "FIND THE ANGLE".
+- **Act bar:** "ACT II · STRATEGY".
 
-### Phone 2 of 8: Title card · `design-refs/mobile/M02-title.png`
-- **Upper 55% of the screen:** the gold ribbon Idea, large.
-- **Below it:**
-  1. "Kreatif Atelier" in geometric sans, about 52px, over two lines ("Kreatif" / "Atelier");
-  2. "Where Strategy Meets Story." / "Where Story Becomes Legacy." in serif italic, about 22px;
-  3. two stacked full-width pills: gold "WATCH" and outline "DIRECT".
-- **Top bar:** "Kreatif Atelier" small at left, and a small outline "INDEX" pill plus a small sound pill at right.
-- **Bottom:** a thin scrubber line with only "Title" in small monospaced.
+### M04 · The Projection Hall, Golden Guardian Productions · `design-refs/mobile/M04-ggp.png`
+- **Subject:** the magenta hall with the beam and the soft projection on the back wall.
+- **Text:** "Golden Guardian Productions"; "Stories / Visuals / Impact"; "Creates powerful stories that inspire and
+  influence."
+- **Button:** a pill "HOLD TO ROLL".
+- **Act bar:** "ACT III · STORY".
 
-### Phone 3 of 8: Act II Strategy with the Lens · `design-refs/mobile/M03-strategy.png`
-- **Upper 55%:** the blueprint Idea (fine cream lines), with the Lens circle open under a thumb, showing solid gold
-  inside.
-- **Lower area:**
-  1. "Strategy" (about 40px);
-  2. "Aurelius" (about 30px);
-  3. stacked "BRANDS" / "STRATEGY" / "GROWTH" in monospaced;
-  4. "Builds brands that lead and last." in serif italic, about 22px;
-  5. a small muted sans line, "Hold to look".
-- **Bottom:** the scrubber with "Strategy".
+### M05 · The Water Court, Valora · `design-refs/mobile/M05-valora.png`
+- **Subject:** the coral court with the stepping-stone path to the blazing arch.
+- **Text:** "Valora"; "People / Skills / Opportunities"; "Bridges education with real-world opportunities."
+- **Button:** a pill "LAY A STONE".
+- **Act bar:** "ACT V · PEOPLE".
 
-### Phone 4 of 8: Act IV Movement · `design-refs/mobile/M04-movement.png`
-- **Upper half:** the gold streams flowing outward.
-- **Below:**
-  1. "Movement" (about 40px);
-  2. "Sector-fluid. Results-focused." in serif italic (about 22px);
-  3. one marquee line of large sans (about 34px) running off both edges: "Real Estate ✦ Hospitality ✦ FMCG ✦
-     Automotive", with a gold ✦;
-  4. an outline pill "LAUNCH".
-- **Bottom:** the scrubber with "Movement".
+### M06 · The Garden Court, Asraya · `design-refs/mobile/M06-asraya.png`
+- **Subject:** the jade pool open to the sky, with ripples.
+- **Text:** "Asraya"; "People / Balance / Wellbeing"; "Enables people to live healthier, more meaningful lives."
+- **Button:** a large round outlined button "HOLD TO BREATHE".
+- **Act bar:** "ACT V · PEOPLE".
 
-### Phone 5 of 8: The Houses (vertical accordion) · `design-refs/mobile/M05-houses.png`
-- Five stacked full-width rows on a slightly lighter dark surface, sharp corners, hairlines between them, each with
-  a 3px house-colour edge on the left.
-- Four rows are collapsed, showing just the name (about 26px): "Aurelius", "Valora", "Rudra Yugen", "Asraya".
-- "Golden Guardian Productions" is expanded, showing:
-  1. stacked "STORIES" / "VISUALS" / "IMPACT";
-  2. "Film & Video Production", "Branded Content", "Live Events", "Creative IP Development";
-  3. "Creates powerful stories that inspire and influence." in serif italic.
+### M07 · The Glass Lattice, Rudra Yugen · `design-refs/mobile/M07-rudra-yugen.png`
+- **Subject:** the cyan void of hanging glass panes and split beams.
+- **Text:** "Rudra Yugen"; "Innovation / Culture / Futures"; "Builds what's next at the intersection of creativity and
+  technology."
+- **Button:** a pill "TAP TO SPARK".
+- **Act bar:** "ACT VI · FUTURES".
 
-### Phone 6 of 8: Founders · `design-refs/mobile/M06-founders.png`
-- A small monospaced "A KREATIF ATELIER FILM" at the top.
-- A horizontal row of polaroid prints (light-stone mounts with neutral placeholder silhouettes). The first print
-  is upright and fully visible; the next peeks in from the right edge.
-- Below:
-  1. "Gourish Girish Pillai" (about 26px);
-  2. "FOUNDER & CEO" in monospaced;
-  3. "The architect of Kreatif Atelier's vision, Gourish brings a rare combination of entrepreneurial acuity and
-     creative instinct." in serif (about 19px).
+### M08 · The Roof · `design-refs/mobile/M08-roof.png`
+- **Subject:** the aerial view of the atrium and five small coloured places joined by a gold line, with the solid
+  gold form in the foreground.
+- **Text:** "Multiple verticals. One vision. Exponential impact." and "Disciplines today. A brighter tomorrow."
+- **Act bar:** "ACT VII · LEGACY".
 
-### Phone 7 of 8: Post-credits CTA · `design-refs/mobile/M07-contact.png`
-- Darkest ink, everything centred:
-  1. a small gold ✦;
-  2. "Ready to build something worth remembering?" (about 36px, over three lines, with "worth remembering?" in
-     italic sans);
-  3. "Every great brand started with a single conversation." in serif italic;
-  4. a full-width gold pill "SCHEDULE YOUR FREE BRAND AUDIT ✦", allowed to wrap onto two lines at this width;
-  5. "hello@kreatifatelier.com";
-  6. "@kreatifatelier".
+### M09 · The Index (floor plan) · `design-refs/mobile/M09-index.png`
+- **Plan:** a full-screen overlay with the line floor plan fitted to the top half, coloured dots on the five rooms,
+  and the gold "you are here" dot.
+- **Below it:** a list of place names in the sans: "The Atrium", "The Studio Floor", "Aurelius", "Golden Guardian
+  Productions", "The Concourse", "Valora", "Asraya", "Rudra Yugen", "The Roof", "The Gallery", "Contact".
+- **Top right:** "CLOSE".
 
-### Phone 8 of 8: Index overlay (menu) · `design-refs/mobile/M08-index.png`
-- A solid darkest-ink overlay.
-- At top right, a circular outline close button with a thin "×".
-- A list of large geometric sans items (about 34px), left-aligned, with generous spacing: "Title", "Idea",
-  "Strategy", "Story", "Movement", "People", "Futures", "Legacy", "Credits". "Strategy" is in gold (current).
-- Below the list:
-  - two pills side by side: outline "WATCH" and gold "DIRECT";
-  - a text link "hello@kreatifatelier.com".
-
----
-
-## Daylight suffix (use only if light stays the default, AUDIT C1)
-> **Theme override:** instead of the dark room, use a calm neutral porcelain background (#EFEFEC, not cream or
-> beige) with ink text (#0B0F1A) and muted text #55565E. The Idea stays gold light, lit like a studio object on a
-> pale seamless background with soft shadows. The primary button is an ink pill with porcelain text (not gold).
-> Hairlines are ink at 12% opacity. Everything else is identical.
-
-## After generation
-- **Drop the images into** `design-refs/web/` and `design-refs/mobile/` with exactly these names.
-- **For each image I will:**
-  1. write an analysis note in `docs/design/analysis/<name>.md` covering the visible text, type scale relationships,
-     spacing, components, colours (sampled), layout grid and anything unclear;
-  2. request a fresh standalone re-render (never a crop) of any detail that is unreadable;
-  3. only then implement, and compare side by side before calling a section done.
-- **The founder portraits:** the images use placeholder silhouettes on purpose. The code uses the real cut-outs.
+### M10 · Post-credits · `design-refs/mobile/M10-post-credits.png`
+- **Subject:** the dusk atrium with the small gold "✦" in the upper half.
+- **Text:**
+  - "Ready to build something worth remembering?";
+  - "Every great brand started with a single conversation.";
+  - a full-width gold pill "SCHEDULE YOUR FREE BRAND AUDIT ✦";
+  - "hello@kreatifatelier.com" in small mono.
