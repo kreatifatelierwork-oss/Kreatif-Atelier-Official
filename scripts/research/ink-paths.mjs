@@ -55,11 +55,11 @@ export const STROKES = [
 ];
 
 /** Flatten to a timed schedule: [{ t, x, y, stroke }] with t in ms from the first event. */
-export function schedule(lead = 1500) {
+export function schedule(lead = 1500, only = null) {
   const out = [];
   let t = 0;
   const marks = [];
-  for (const s of STROKES) {
+  for (const s of STROKES.filter((k) => !only || only.includes(k.name))) {
     // Jump to the start (a pointer teleport draws on some sites, so the jump happens during a quiet gap and is
     // followed by a 250 ms settle before the stroke begins).
     out.push({ t, x: s.start[0], y: s.start[1], stroke: s.name, jump: true });

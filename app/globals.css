@@ -498,15 +498,25 @@ body {
     letter-spacing: 0.14em;
   }
   .film-hud-toggle:focus-visible { outline: 2px solid var(--film-gold); outline-offset: 3px; }
-  .film-hud-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; }
-  .film-hud-bars span { width: 2px; height: 10px; background: var(--film-gold); transform-origin: bottom; transform: scaleY(0.12); }
-  .film-hud-read { position: absolute; left: 4.2vw; bottom: 1.3rem; display: flex; flex-direction: column; gap: 0.2rem; }
-  .film-hud-read.is-right { left: auto; right: 4.2vw; text-align: right; }
+  /* The act bar (C2): act, its name, the real film time. */
+  .film-actbar {
+    position: absolute;
+    left: 4.2vw;
+    right: 4.2vw;
+    bottom: 1.2rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.4rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid color-mix(in srgb, var(--film-text) 14%, transparent);
+    color: var(--film-muted);
+  }
+  .film-actbar-name { color: var(--film-text); }
+  .film-actbar-time { margin-left: auto; font-variant-numeric: tabular-nums; }
   @media (max-width: 767px) {
     .film-hud { font-size: 10px; letter-spacing: 0.04em; }
     .film-pill { font-size: 0.75rem; letter-spacing: 0.12em; padding: 0.9rem 1.3rem; }
-    .film-hud-read span:nth-child(2) { display: none; }
-    .film-hud-read span:nth-child(3), .film-hud-read span:nth-child(4) { display: none; }
+    .film-actbar { gap: 0.9rem; }
   }
 }
 

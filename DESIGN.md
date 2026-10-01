@@ -492,8 +492,13 @@ level. It is always visible once the gate has been passed.
 - **Opening** (after the buttermax measurements): glyph build 1.8s → gate → 0.35s dip + 0.15s hold → halftone
   flood about 0.75s to clean (the page zooms 0.6→1 and straightens) → the Idea rises at +0.72s over 0.4s →
   the title reveals at +1.07s over 0.85s → settle.
-- **Cursor:** the system cursor stays visible. The fluid ink (GPU stable-fluids: velocity keep 0.985 per frame,
-  ink keep 0.955, capsule splats, no curl) inverts what it covers and passes behind the Idea.
+- **Cursor:** the system cursor stays visible. The fluid ink inverts what it covers, passes behind the Idea and has
+  a 1.25px gold edge (C8). Tuned to buttermax.net with identical scripted strokes (`docs/research/buttermax.md`):
+  - one blob about 150px wide at any speed, razor-sharp, one piece even on a 6900 px/s flick;
+  - it appears ~80ms after the pointer moves (the brush trails it), slides on 140–250px after a stop with the back
+    tapering to a point, and shrinks away in ~0.9–1.0s;
+  - fixed 1/60s solver steps on the clock grid (identical at 30–144Hz), velocity keep 0.985, ink keep 0.95 per
+    step, one shared animation loop with the 3D stage. Values: `filmConfig.ink`.
 - **The Idea's look-at:**
   - range ±20° yaw, ±10° pitch;
   - two-stage follow (fast share 0.55 at τ 0.09s, slow τ 0.65s);

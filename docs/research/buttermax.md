@@ -192,19 +192,100 @@ product in front of the ink from x ≈ 430 and its cookie banner covers y ≥ 81
   - dye resolution fixed (512) rather than scaled to the viewport;
   - an allocation per HUD tick (`new Uint8Array`).
 
-### Rebuild spec (next step, not yet built)
+### Rebuild (done 2026-10-01): what changed and what it measures now
+**What was built** (`components/film/ink/*`, `components/film/loop.ts`, values in `filmConfig.ink`):
 - **Timing:**
-  - a fixed 1/60 s step with an accumulator (at most 4 steps a frame);
-  - display interpolated between the last two dye states, so 120 Hz is smooth;
-  - per-step constants exactly as buttermax: velocity 0.985, dye 0.95.
-- **Input and brush:**
-  - coalesced pointer events go into a preallocated ring buffer with timestamps;
-  - the brush point follows the interpolated raw path with exponential smoothing (τ ≈ 25–30 ms), sub-stepped 8× per step;
-  - each step splats one polyline capsule (up to 9 points in one pass).
-- **Force and ink:**
-  - velocity is injected at about 1× the brush speed, accumulated per step;
-  - dye is unclamped at a large amount, with a fixed threshold, so the fade shrinks from the edges over ~1 s.
-- **Display:** crisp threshold with fwidth anti-aliasing, a 1–1.5 px gold rim only (C8), and dye resolution scaled to the viewport (short side × DPR × 0.5).
-- **One shared rAF:** R3F set to `frameloop="never"` and advanced from the film loop. No allocations and no React state in the loop.
-- **Other changes:** the HUD readouts are replaced by one act bar (C2), and palette a becomes Luminous `#F4F5F7`.
-- **Acceptance:** re-run `ink-record.mjs` + `ink-measure.py` until the metrics above match.
+  - a fixed 1/60 s solver step on a fixed grid of the clock (at most 4 steps per frame, no catch-up after a stall);
+  - the display is interpolated between the last two ink states;
+  - per step: velocity keep 0.985, ink keep 0.95.
+- **Input:**
+  - every pointer sample, coalesced events included, goes into a preallocated ring with its own timestamp;
+  - the brush follows the interpolated path 30 ms behind with τ 28 ms smoothing, sub-stepped 8× per step;
+  - each step splats one polyline capsule (9 points, one pass).
+- **Force:**
+  - velocity added = 0.1 × brush velocity per step, with the brush speed capped at 900 px/s for the push (a flick
+    lays ink but barely slides it);
+  - the velocity splat has the same radius as the ink.
+- **Ink:**
+  - 0.8 per step, saturating towards 3 × the brush falloff, so the profile stays peaked: the sides and the oldest part
+    fade first and the back tapers to a point;
+  - less ink when the brush is slower than 240 px/s, so it doesn't pool as it eases to a stop;
+  - display threshold 0.18.
+- **Display:**
+  - a hard threshold anti-aliased over one device pixel (from the ink's screen-space gradient);
+  - a 1.25 px gold rim (C8);
+  - ink texture = 0.5 × device pixels (capped at 1024 / 640 on phones); velocity grid 128 / 80 on the short side.
+- **One shared animation loop** (`loop.ts`): the R3F canvas runs `frameloop="never"` and is advanced first, then the
+  ink.
+  - No per-frame allocations and no React state in the loop.
+  - The Idea's canvas sits above the ink once the opening ends, so the ink passes behind it (as buttermax's device
+    does) and the Idea's gold is never inverted.
+- **Also:**
+  - the HUD readouts are replaced by one act bar (C2);
+  - palette a is now Luminous `#F4F5F7`;
+  - the flood rim and the Idea's materialising colours are gold only.
+
+**Measured on the same 13 strokes** (buttermax / rebuilt / checkpoint 1; clean strokes in the empty lower-left; files
+`ink-bm.json`, `ink-ours-after.json`, `ink-ours-before.json`, side by side in `ink-compare-after.txt`):
+
+| Stroke | First ink (ms) | Gone after stop (ms) | Most pieces | Width (px) | Slide after stop (px) | Edge band (px) |
+|---|---|---|---|---|---|---|
+| slow line 317 px/s | 81 / 85 / 33 | 1134 / 905 / 285 | 2 / 1 / 2 | 185 / 168 / 338 | 192 / 157 / 83 | 0.5 / 0.6 / 3.3 |
+| medium 1000 px/s | 87 / 71 / 18 | 810 / 925 / 74 | 4 / 1 / 6 | 170 / 154 / 177 | 207 / 243 / 82 | 0.7 / 0.5 / 3.0 |
+| fast flick 3450 px/s | 90 / 79 / 28 | 834 / 951 / 56 | 2 / 1 / 2 | (banner) | (banner) / 283 / 44 | 0 / 0.3 / 2.3 |
+| very fast 6900 px/s | 85 / 72 / 20 | 695 / 966 / 47 | 4 / 2 / 3 | (banner) | | 0 / 0 / 4.2 |
+| circle | 93 / 77 / 27 | 1104 / 940 / 211 | 3 / 2 / 6 | 208 / 271 / 117 | 155 / 135 / 104 | 0.5 / 0.6 / 3.4 |
+| zig-zag | 71 / 28 / 22 | 1060 / 964 / 158 | 3 / 1 / 8 | | 137 / 179 / 89 | 0.5 / 0.6 / 3.1 |
+| stop dead | 93 / 77 / 23 | 914 / 938 / 63 | 3 / 1 / 2 | 145 / 148 / 116 | 236 / 218 / 56 | 0.6 / 0.5 / 2.0 |
+| jitter ±4 px | 80 / 38 / 32 | 1312 / ≈800 / 598 | 4 / 1 / 1 | | 10 / 4 / 62 | 0.6 / 0.7 / 0.9 |
+| into the left edge | 88 / 70 / 18 | 757 / 915 / 73 | 2 / 2 / 5 | 141 / 146 / 111 | 147 / 228 / 7 | 0.6 / 0.6 / 2.5 |
+
+Fade curves (area relative to its peak at +0, 100, 200, 300, 400, 600, 800 and 1000 ms after the stop):
+
+| Stroke | Curve |
+|---|---|
+| slow line, buttermax | 0.98 0.96 0.86 0.76 0.66 0.41 0.21 0.07 |
+| slow line, rebuilt | 1.00 0.95 0.83 0.71 0.59 0.38 0.16 0.00 |
+| circle, buttermax | 0.93 0.96 0.86 0.71 0.56 0.29 0.12 0.05 |
+| circle, rebuilt | 0.98 0.97 0.83 0.68 0.58 0.38 0.15 0.00 |
+| stop dead, buttermax | 0.55 0.98 0.88 0.73 0.62 0.36 0.12 0.00 |
+| stop dead, rebuilt | 0.53 0.98 0.99 0.94 0.85 0.59 0.20 0.00 |
+
+**Reading it:**
+- **Matches:**
+  - one piece at every speed, including the 6900 px/s flick;
+  - the same width (~150 px) at any speed;
+  - razor edges (0.5–0.7 px band vs 2–4 px before);
+  - the brush trailing the pointer (first ink ~70–90 ms, vs 20–30 ms before);
+  - the slide after stopping, with the back tapering to a point;
+  - a steady shrink with almost the same curve, gone in 0.9–1.0 s.
+- **Still different:**
+  - Fast flicks fade a little later than buttermax's (≈0.95 s vs 0.7–0.83 s): they hold their size slightly
+    longer, then shrink.
+  - Buttermax's ink sheds small droplets as it stretches (2–4 pieces); ours stays in 1–2 pieces.
+  - Buttermax keeps stretching a slow stroke longer and thinner after it stops, while ours stays a little rounder.
+  - These are the remaining differences in the side-by-side video.
+- **Not measured numerically:** the strokes over the headline, the product and the top-right corner. Buttermax's
+  product and headline move in those areas, so they are compared by eye in the video only.
+
+**Frame times:**
+- **60 Hz, desktop, full 61 s test:** every frame 16.7 ms (max 16.8); script work p50 1.1 ms, p99 1.7 ms, max 9.6 ms;
+  no frame over 20 ms.
+- **Frame-rate independence** (`scripts/research/ink-hz.mjs`):
+  - the same pointer path is fed through the real engine at 30, 60, 120 and 144 Hz and with a random 5–25 ms clock;
+  - the ink masks match the 60 Hz run at 99.2–100 % (intersection over union) for slow lines and circles, and at
+    95–100 % for the fading end of a fast flick.
+  - Headless Chrome can't present at a true 120 Hz: uncapped it saturates the GPU at ~400 fps and stalls. So 120 Hz
+    smoothness is shown by this check plus the script budget (p99 1.7 ms against 8.3 ms per 120 Hz frame).
+- **Phone** (390 × 844, DPR 3 capped to 1.5, touch, CPU throttled 4×): every frame 16.7 ms; script work p99 2.9 ms,
+  max 4.2 ms. Finger strokes are continuous and crisp.
+
+**Videos** (local, gitignored, 60 fps, aligned frame by frame):
+- `docs/research/buttermax/videos/ink-after.webm` (buttermax | rebuilt);
+- `ink-before.webm` (buttermax | checkpoint 1);
+- `ours-before-vs-after.webm`.
+
+**Tools:**
+- `ink-record.mjs` (`--mobile`, `--only`, `--eval`, `--shots`, `--raf-hz`, `--port`);
+- `ink-measure.py`, `ink-compare.py`, `ink-sheet.py`, `ink-sidebyside.py`, `ink-hz.mjs`;
+- `film-check.mjs` (both palettes, phone touch, reduced motion).

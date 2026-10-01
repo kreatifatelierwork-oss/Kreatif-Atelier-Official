@@ -20,39 +20,51 @@ in vec2 vUv;
 out vec4 outColor;
 `;
 
-/** Semi-Lagrangian advection of any field by the velocity field (velocity in grid cells per second). */
+/** Semi-Lagrangian advection of any field by the velocity field (velocity in CSS px per second, y up). */
 export const ADVECT = HEAD + /* glsl */ `
 uniform sampler2D uVelocity;
 uniform sampler2D uSource;
-uniform vec2 uVelTexel;
+uniform vec2 uInvView;
 uniform float uDt;
 uniform float uKeep;
 void main() {
-  vec2 back = vUv - uDt * texture(uVelocity, vUv).xy * uVelTexel;
+  vec2 back = vUv - uDt * texture(uVelocity, vUv).xy * uInvView;
   outColor = uKeep * texture(uSource, back);
 }`;
 
-/** Adds a stroke: a capsule from the previous to the current pointer position, soft-edged. */
+/**
+ * Adds one solver step of the brush: a capsule along the polyline the brush travelled during the step (up to 9
+ * points, CSS px with y up), so even a flick across the screen in one step is one continuous stroke. Falloff
+ * (1 - t²)² from the path to the radius. `uMax` > 0 caps the ink at uMax × falloff so a resting brush can't pile it up
+ * forever.
+ */
 export const SPLAT = HEAD + /* glsl */ `
 uniform sampler2D uTarget;
-uniform vec2 uA;
-uniform vec2 uB;
-uniform float uAspect;
+uniform vec2 uPts[9];
+uniform int uN;
+uniform vec2 uView;
 uniform float uRadius;
 uniform vec3 uValue;
+uniform float uMax;
 float segment(vec2 p, vec2 a, vec2 b) {
   vec2 pa = p - a, ba = b - a;
-  pa.x *= uAspect; ba.x *= uAspect;
-  float h = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-8), 0.0, 1.0);
+  float h = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-6), 0.0, 1.0);
   return length(pa - ba * h);
 }
 void main() {
-  float t = clamp(segment(vUv, uA, uB) / uRadius, 0.0, 1.0);
-  float w = pow(1.0 - t * t, 2.0);
-  vec4 v = texture(uTarget, vUv) + vec4(uValue * w, 0.0);
-  // Ink saturates (a stroke can't pile up forever); velocity is left free.
-  if (uValue.y == 0.0 && uValue.z == 0.0) v.x = min(v.x, 1.25);
-  outColor = v;
+  vec2 p = vUv * uView;
+  float d = length(p - uPts[0]);
+  for (int i = 1; i < 9; i++) {
+    if (i >= uN) break;
+    d = min(d, segment(p, uPts[i - 1], uPts[i]));
+  }
+  float t = clamp(d / uRadius, 0.0, 1.0);
+  float w = (1.0 - t * t) * (1.0 - t * t);
+  vec4 base = texture(uTarget, vUv);
+  // Ink saturates towards uMax × the brush's falloff, so the profile stays peaked on the path: the sides and the
+  // oldest part fade first, the blob shrinks steadily and its back tapers to a point.
+  float room = uMax > 0.0 ? clamp(1.0 - base.x / max(uMax * w, 1e-4), 0.0, 1.0) : 1.0;
+  outColor = base + vec4(uValue * w * vec3(room, 1.0, 1.0), 0.0);
 }`;
 
 export const DIVERGENCE = HEAD + /* glsl */ `
@@ -105,46 +117,37 @@ void main() { outColor = uKeep * texture(uSource, vUv); }`;
 
 /**
  * Ink display for a canvas composited with mix-blend-mode: difference. White = full inversion of whatever is under
- * it (page → deep ink, dark text → light), black = no change. A thin rim in the houses' colours rides the ink's edge
- * while it moves; the Idea cuts a soft hole so the ink reads as *behind* it.
+ * it (page → deep ink, dark text → light), black = no change. The edge is a hard threshold anti-aliased over one
+ * device pixel (the dye's own screen-space gradient gives the distance to the edge), with a thin gold rim just
+ * outside it (C8). The dye is interpolated between the last two solver steps, so the ink moves smoothly at any
+ * refresh rate. (The Idea's canvas is layered above this one, so the ink passes behind it.)
  */
 export const DISPLAY = HEAD + /* glsl */ `
 uniform sampler2D uDye;
-uniform sampler2D uVelocity;
-uniform vec2 uRes;
-uniform vec2 uEdge;
-uniform float uRim;
+uniform sampler2D uDyePrev;
+uniform float uAlpha;
+uniform float uEdge;
+uniform float uRimPx;
 uniform float uStrength;
 uniform vec3 uPage;
-uniform vec3 uHouses[5];
-uniform vec3 uHole;       // centre (px, canvas space) and radius (px)
-uniform float uTime;
+uniform vec3 uGold;
 vec3 through(vec3 page, vec3 want) {
   // The colour that, differenced with the page, shows as "want".
   return mix(page + want, page - want, step(want, page));
 }
 void main() {
-  float d = texture(uDye, vUv).x;
-  float mask = smoothstep(uEdge.x, uEdge.y, d);
-  vec2 frag = vUv * uRes;
-  float hole = uHole.z > 0.0 ? smoothstep(uHole.z * 0.62, uHole.z * 0.95, length(frag - uHole.xy)) : 1.0;
-  mask *= hole;
-  // Rim: a band of constant screen width (~3px) along the edge, strongest where the ink is moving.
-  float fw = max(fwidth(d), 1e-4);
-  float band = (1.0 - smoothstep(1.2, 3.0, abs(d - uEdge.x) / fw)) * hole;
-  float speed = length(texture(uVelocity, vUv).xy);
-  float rim = band * uRim * smoothstep(4.0, 40.0, speed);
-  float k = fract(atan(vUv.y - 0.5, vUv.x - 0.5) * 0.8 + vUv.x * 2.0 - vUv.y * 1.3 + uTime * 0.35) * 5.0;
-  int i = int(floor(k));
-  vec3 hue = mix(uHouses[i], uHouses[(i + 1) % 5], fract(k));
-  vec3 col = mix(vec3(mask), clamp(through(uPage, hue), 0.0, 1.0), clamp(rim, 0.0, 1.0));
+  float d = mix(texture(uDyePrev, vUv).x, texture(uDye, vUv).x, uAlpha);
+  float s = (d - uEdge) / max(fwidth(d), 1e-6);   // ≈ device px from the edge, inside > 0
+  float mask = clamp(s + 0.5, 0.0, 1.0);
+  float rim = clamp(s + uRimPx + 0.5, 0.0, 1.0) * (1.0 - mask);
+  vec3 col = vec3(mask) + clamp(through(uPage, uGold), 0.0, 1.0) * rim;
   outColor = vec4(col * uStrength, 1.0);
 }`;
 
 /**
  * The opening flood: a lattice of halftone dots grows outward from the centre, the dots merge into bands and the
  * page shows through them. Signed distances to the lattice's circles are united with a smooth minimum (so
- * neighbouring dots bridge like liquid); the rim between dark and page cycles through the five houses' colours.
+ * neighbouring dots bridge like liquid); the rim between dark and page is gold only (C8), shimmering between two golds.
  */
 export const FLOOD = HEAD + /* glsl */ `
 uniform vec2 uRes;
@@ -152,7 +155,8 @@ uniform vec2 uCenter;
 uniform float uP;
 uniform float uSpacing;
 uniform vec3 uDark;
-uniform vec3 uHouses[5];
+uniform vec3 uGold;
+uniform vec3 uGoldBright;
 uniform float uRimPx;
 uniform float uTime;
 uniform float uRimOn;
@@ -201,8 +205,7 @@ void main() {
   float rimT = (1.0 - smoothstep(rimW * 0.5, rimW, px)) * step(0.0, px) * smoothstep(0.0, 0.08, gNear);
   rimT *= uRimOn * (1.0 - smoothstep(0.6, 0.9, uP));
   float k = fract(length(q) / far * 3.0 - uTime * 0.25 + uP * 2.0) * 5.0;
-  int hi = int(floor(k));
-  vec3 hue = mix(uHouses[hi], uHouses[(hi + 1) % 5], fract(k));
+  vec3 hue = mix(uGold, uGoldBright, 0.5 + 0.5 * sin(k * 1.2566));
   vec3 col = mix(uDark, hue, clamp(rimT, 0.0, 1.0));
   float alpha = (1.0 - open);
   // Newborn dots are tinted with the rim colours before the page shows through them.

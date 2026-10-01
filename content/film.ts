@@ -15,18 +15,8 @@ export const film = {
   sound: { on: "Sound on", off: "Sound off", label: "Sound" }, // PROPOSED (toggle labels)
   modes: { watch: "Watch", direct: "Direct" }, // APPROVED
   acts: ["Title", "Idea", "Strategy", "Story", "Movement", "People", "Futures", "Legacy"], // APPROVED (0 = title card)
-  /** Readout labels for the HUD. PROPOSED */
-  hud: {
-    act: "Act",
-    form: "Form",
-    cursor: "Cursor",
-    fps: "FPS",
-    particles: "Particles",
-    city: "Hyderabad",
-    timezone: "IST",
-  },
-  /** The Idea's forms (one per act it will pass through). Shown in the HUD as you hover the Idea. PROPOSED labels. */
-  forms: ["Raw idea", "Blueprint", "Story", "Movement", "People", "Futures", "Monument"],
+  /** The act bar (C2): the act and the real film time. PROPOSED labels. */
+  actBar: { act: "Act", time: "Film time" },
   loading: "Setting the scene", // PROPOSED (kept from the Long Take)
   skip: "Skip to content", // PROPOSED
 } as const;

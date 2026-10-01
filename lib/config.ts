@@ -301,12 +301,13 @@ export const sculptureVariants: Record<1 | 2 | 3, SculptureVariant> = {
  */
 export const filmConfig = {
   palettes: {
-    /** a = pearl studio (default), b = ink studio. `dark` is the loader / dip colour. */
-    a: { page: "#F3EDE2", text: "#12152A", muted: "#5B5A63", gold: "#A8812F", goldBright: "#E3BF72", dark: "#0B0F1A" },
+    /** a = Luminous (default, neutral light, C1), b = Cinema. `dark` is the loader / dip colour. Tokens: DESIGN.md. */
+    a: { page: "#F4F5F7", text: "#0B0F1A", muted: "#5A5E6A", gold: "#C9A45C", goldBright: "#DDB978", dark: "#0B0F1A" },
     b: { page: "#10142A", text: "#F3EBDD", muted: "#A9A6B4", gold: "#C9A45C", goldBright: "#EACB8C", dark: "#04050A" },
   },
-  /** The five houses' colours (chart order) — used for the flood's rim and the Idea's "ghost" colours. */
-  houses: ["#3D4BFF", "#FF6A3D", "#E8307F", "#0FB5E4", "#23C27C"],
+  /** Gold tones the Idea's particles pass through as they materialise (outside the verticals' worlds gold is the
+   *  only accent, C5/C8). */
+  ghost: ["#C9A45C", "#DDB978", "#B38E45", "#E8C98A", "#A8812F"],
   opening: {
     /** ✦ glyph build: whirl → dot → split → bridge (ms from first paint); the gate appears after `gateAt`. */
     glyphMs: 1800,
@@ -332,22 +333,39 @@ export const filmConfig = {
     rimWidth: 0.16,
   },
   ink: {
-    /** Velocity grid and ink ("dye") texture sizes; pressure iterations. Phones get the smaller numbers. */
+    /**
+     * Tuned against buttermax.net with identical scripted strokes (docs/research/buttermax.md, "Ink comparison 2").
+     * Velocity grid cells on the short side; ink texture as a share of device pixels (capped); pressure iterations.
+     */
     simRes: { desktop: 128, mobile: 80 },
-    dyeRes: { desktop: 512, mobile: 320 },
+    dyeScale: 0.5,
+    dyeMax: { desktop: 1024, mobile: 640 },
     iterations: { desktop: 10, mobile: 6 },
-    /** Per-frame (60 fps) retention: velocity keeps flowing, ink fades faster. */
+    /** Fixed solver step (s) and per-step retention (velocity keeps flowing, ink fades over ~1 s). */
+    step: 1 / 60,
     velocityKeep: 0.985,
-    dyeKeep: 0.955,
-    /** Brush radius (fraction of viewport height), force per px/s of pointer motion, ink added per splat. */
-    radius: 0.1,
-    force: 5200,
-    amount: 0.36,
-    /** Display threshold (hard edge) and how much the rim follows the ink's speed. */
-    edge: [0.2, 0.26] as [number, number],
-    rim: 0.9,
-    /** Reduced motion: a calm, faint ink. */
-    calm: { radius: 0.05, force: 900, amount: 0.35, strength: 0.28 },
+    dyeKeep: 0.95,
+    pressureKeep: 0.8,
+    /** Brush smoothing time constant and extra delay (ms): the brush trails the pointer slightly. */
+    tau: 28,
+    lag: 30,
+    /** Velocity splat radius as a share of the ink radius; brush speed (px/s) above which moves push no harder. */
+    velocityRadius: 1,
+    maxSpeed: 900,
+    /** Brush speed (px/s) below which it lays proportionally less ink. */
+    inkSpeed: 240,
+    /** Brush radius = min(radiusH × viewport height, radiusW × viewport width). */
+    radiusH: 0.1,
+    radiusW: 0.14,
+    /** Share of brush velocity added per step; ink added per step, its cap, and the display threshold. */
+    force: 0.1,
+    amount: 0.8,
+    maxInk: 3,
+    edge: 0.18,
+    /** Gold rim outside the ink's edge (CSS px), C8. */
+    rimPx: 1.25,
+    /** Reduced motion: a smaller, slower, faint ink. */
+    calm: { radius: 0.6, force: 0.01, strength: 0.28 },
   },
   idea: {
     count: { desktop: 36000, mobile: 12000 },

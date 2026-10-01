@@ -1,3 +1,4 @@
+import { type Brush, SUB } from "./brush";
 import { ADVECT, DISPLAY, DIVERGENCE, FLOOD, GRADIENT, PRESSURE, SCALE, SPLAT, VERT } from "./shaders";
 
 type Program = { prog: WebGLProgram; u: Record<string, WebGLUniformLocation | null> };
@@ -5,26 +6,44 @@ type Target = { tex: WebGLTexture; fbo: WebGLFramebuffer; w: number; h: number }
 type Swap = { read: Target; write: Target; swap: () => void };
 
 export type InkSettings = {
+  /** Velocity grid: cells on the viewport's short side. */
   simRes: number;
-  dyeRes: number;
+  /** Ink texture: fraction of the canvas's device pixels, capped on the long side. */
+  dyeScale: number;
+  dyeMax: number;
   iterations: number;
+  /** Solver step (s) and per-step retention of velocity, ink and pressure. */
+  step: number;
   velocityKeep: number;
   dyeKeep: number;
-  radius: number;
+  pressureKeep: number;
+  /** Brush radius: the smaller of a fraction of the viewport height and of its width (CSS px). */
+  radiusH: number;
+  radiusW: number;
+  /** Brush delay behind the pointer (ms, on top of its smoothing) and the velocity splat's radius (share of the
+   *  ink radius: a narrower push than the ink stretches it into tails and swirls). */
+  lag: number;
+  velocityRadius: number;
+  /** Brush speed (px/s) above which a move pushes no harder: a flick lays ink but barely slides it. */
+  maxSpeed: number;
+  /** Brush speed (px/s) below which it lays proportionally less ink (a brush easing to a stop doesn't pool). */
+  inkSpeed: number;
+  /** Share of the brush's velocity added to the fluid per step; ink added per step and its cap; display threshold. */
   force: number;
   amount: number;
-  edge: [number, number];
-  rim: number;
+  maxInk: number;
+  edge: number;
+  /** Gold rim width (CSS px; 0 = none) and overall strength (reduced motion paints faintly). */
+  rimPx: number;
   strength: number;
 };
-
-export type Stroke = { ax: number; ay: number; bx: number; by: number; vx: number; vy: number };
 
 const hex = (c: string) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16) / 255);
 
 /**
  * The overlay's GPU work: the opening flood and the cursor ink (a small stable-fluids solver).
- * Coordinates handed in are CSS px; the canvas may be rendered at a higher pixel ratio.
+ * The ink runs on a fixed timestep (independent of the display's refresh rate) and is displayed interpolated
+ * between its last two steps. Coordinates handed in are CSS px; the canvas may be rendered at a higher pixel ratio.
  */
 export class InkEngine {
   readonly gl: WebGL2RenderingContext;
@@ -32,27 +51,35 @@ export class InkEngine {
   private vao: WebGLVertexArrayObject;
   private velocity!: Swap;
   private dye!: Swap;
+  private dyePrev!: Target;
   private divergence!: Target;
   private pressure!: Swap;
-  private s: InkSettings;
+  private targets: Target[] = [];
+  s: InkSettings;
   private cssW = 1;
   private cssH = 1;
   private ratio = 1;
-  private houses: number[];
-  /** Seconds of ink activity left to simulate after the last stroke (lets the engine go idle). */
+  private gold: number[];
+  private goldBright: number[];
+  private pts = new Float32Array(2 * (SUB + 1));
+  /** Solver clock (ms, performance.now timeline), whether it is running, and ms of activity left before idling. */
+  private simT = 0;
+  private running = false;
   private life = 0;
+  private seen = -Infinity;
   time = 0;
 
-  static create(canvas: HTMLCanvasElement, settings: InkSettings, houses: readonly string[]) {
+  static create(canvas: HTMLCanvasElement, settings: InkSettings, gold: string, goldBright: string) {
     const gl = canvas.getContext("webgl2", { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false });
     if (!gl || !gl.getExtension("EXT_color_buffer_float")) return null;
-    return new InkEngine(gl, settings, houses);
+    return new InkEngine(gl, settings, gold, goldBright);
   }
 
-  private constructor(gl: WebGL2RenderingContext, settings: InkSettings, houses: readonly string[]) {
+  private constructor(gl: WebGL2RenderingContext, settings: InkSettings, gold: string, goldBright: string) {
     this.gl = gl;
     this.s = settings;
-    this.houses = houses.flatMap(hex);
+    this.gold = hex(gold);
+    this.goldBright = hex(goldBright);
     this.vao = gl.createVertexArray()!;
     const sources: Record<string, string> = { ADVECT, SPLAT, DIVERGENCE, PRESSURE, GRADIENT, SCALE, DISPLAY, FLOOD };
     for (const [name, frag] of Object.entries(sources)) this.programs[name] = this.program(frag);
@@ -95,10 +122,18 @@ export class InkEngine {
     const fbo = gl.createFramebuffer()!;
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
-    gl.viewport(0, 0, w, h);
+    const t = { tex, fbo, w, h };
+    this.targets.push(t);
+    this.wipe(t);
+    return t;
+  }
+
+  private wipe(t: Target) {
+    const gl = this.gl;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, t.fbo);
+    gl.viewport(0, 0, t.w, t.h);
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    return { tex, fbo, w, h };
   }
 
   private swap(w: number, h: number, internal: number, format: number): Swap {
@@ -110,21 +145,25 @@ export class InkEngine {
     return pair;
   }
 
-  /** (Re)allocate for a viewport in CSS px at a device pixel ratio. */
+  /** (Re)allocate for a viewport in CSS px at a device pixel ratio. Sizes follow the screen. */
   resize(cssW: number, cssH: number, ratio: number) {
     const gl = this.gl;
     const canvas = gl.canvas as HTMLCanvasElement;
     this.cssW = cssW; this.cssH = cssH; this.ratio = ratio;
     canvas.width = Math.round(cssW * ratio);
     canvas.height = Math.round(cssH * ratio);
-    const aspect = cssW / cssH;
-    const dims = (res: number) => (aspect >= 1 ? [Math.round(res * aspect), res] : [res, Math.round(res / aspect)]);
-    const [sw, sh] = dims(this.s.simRes);
-    const [dw, dh] = dims(this.s.dyeRes);
+    for (const t of this.targets) { gl.deleteTexture(t.tex); gl.deleteFramebuffer(t.fbo); }
+    this.targets = [];
+    const short = Math.min(cssW, cssH);
+    const sim = this.s.simRes / short;
+    const sw = Math.max(16, Math.round(cssW * sim)), sh = Math.max(16, Math.round(cssH * sim));
+    const dyeK = Math.min(this.s.dyeScale * ratio, this.s.dyeMax / Math.max(cssW, cssH));
+    const dw = Math.max(16, Math.round(cssW * dyeK)), dh = Math.max(16, Math.round(cssH * dyeK));
     this.velocity = this.swap(sw, sh, gl.RG16F, gl.RG);
     this.pressure = this.swap(sw, sh, gl.R16F, gl.RED);
     this.divergence = this.target(sw, sh, gl.R16F, gl.RED);
     this.dye = this.swap(dw, dh, gl.R16F, gl.RED);
+    this.dyePrev = this.target(dw, dh, gl.R16F, gl.RED);
   }
 
   setSettings(settings: InkSettings) { this.s = settings; }
@@ -158,7 +197,8 @@ export class InkEngine {
     gl.uniform1f(P.u.uP, p);
     gl.uniform1f(P.u.uSpacing, h * spacingFrac);
     gl.uniform3fv(P.u.uDark, hex(dark));
-    gl.uniform3fv(P.u.uHouses, this.houses);
+    gl.uniform3fv(P.u.uGold, this.gold);
+    gl.uniform3fv(P.u.uGoldBright, this.goldBright);
     gl.uniform1f(P.u.uRimPx, h * spacingFrac * rimFrac);
     gl.uniform1f(P.u.uTime, this.time);
     gl.uniform1f(P.u.uRimOn, rimOn ? 1 : 0);
@@ -169,55 +209,89 @@ export class InkEngine {
     this.draw();
   }
 
-  /** True while there is ink or motion worth simulating. */
-  get busy() { return this.life > 0; }
+  /**
+   * Per display frame: run as many fixed solver steps as the clock owes (at most 4), then display the ink
+   * interpolated to `now`. Wakes on new pointer samples and idles (clearing everything) once the ink is gone.
+   */
+  update(now: number, brush: Brush, page: string) {
+    const H = this.s.step * 1000;
+    if (brush.latest > this.seen) {
+      this.seen = brush.latest;
+      if (!this.running) {
+        this.running = true;
+        // Steps sit on a fixed grid of the clock, so the result doesn't depend on when a frame happened to land.
+        this.simT = Math.floor(now / H) * H - H;
+        brush.place(this.simT - this.s.lag);
+      }
+      this.life = 2000;
+    }
+    if (!this.running) return;
+    if (now - this.simT > 4 * H) this.simT = Math.floor(now / H) * H - H; // after a stall, don't try to catch up
+    while (this.simT + H <= now) {
+      this.stepOnce(brush, this.simT, this.simT + H);
+      this.simT += H;
+      this.life -= H;
+    }
+    if (this.life <= 0) {
+      this.running = false;
+      for (const t of this.targets) this.wipe(t);
+      this.clear();
+      return;
+    }
+    this.display(page, (now - this.simT) / H);
+  }
 
-  /** One ink step: add strokes, run the solver, and display. `hole` is the Idea's footprint (CSS px). */
-  step(dt: number, strokes: Stroke[], page: string, hole: { cx: number; cy: number; r: number } | null) {
+  private stepOnce(brush: Brush, t0: number, t1: number) {
     const gl = this.gl;
     const s = this.s;
-    dt = Math.min(dt, 1 / 30);
-    this.time += dt;
-    const f = dt * 60;
-    if (strokes.length) this.life = 2.2;
-    this.life -= dt;
-
+    const dt = (t1 - t0) / 1000;
     const vel = this.velocity, dye = this.dye;
     const velTexel: [number, number] = [1 / vel.read.w, 1 / vel.read.h];
+    const invView: [number, number] = [1 / this.cssW, 1 / this.cssH];
+
+    // 0. Keep the previous ink for display interpolation.
+    let P = this.programs.SCALE;
+    this.use(P, this.dyePrev);
+    this.tex(P, "uSource", 0, dye.read);
+    gl.uniform1f(P.u.uKeep, 1);
+    this.draw();
 
     // 1. Advect velocity by itself.
-    let P = this.programs.ADVECT;
+    P = this.programs.ADVECT;
     this.use(P, vel.write);
     this.tex(P, "uVelocity", 0, vel.read);
     this.tex(P, "uSource", 1, vel.read);
-    gl.uniform2f(P.u.uVelTexel, ...velTexel);
+    gl.uniform2f(P.u.uInvView, ...invView);
     gl.uniform1f(P.u.uDt, dt);
-    gl.uniform1f(P.u.uKeep, Math.pow(s.velocityKeep, f));
+    gl.uniform1f(P.u.uKeep, s.velocityKeep);
     this.draw();
     vel.swap();
 
-    // 2. Strokes: push velocity along the motion and lay down ink.
-    const aspect = this.cssW / this.cssH;
-    for (const k of strokes) {
-      const a: [number, number] = [k.ax / this.cssW, 1 - k.ay / this.cssH];
-      const b: [number, number] = [k.bx / this.cssW, 1 - k.by / this.cssH];
-      // px/s → grid cells/s, scaled by the force setting.
-      const scale = s.force / 1000;
-      const fx = (k.vx / this.cssW) * vel.read.w * scale;
-      const fy = (-k.vy / this.cssH) * vel.read.h * scale;
+    // 2. The brush's path over this step: push the fluid along it and lay down ink.
+    const n = brush.step(t0 - s.lag, t1 - s.lag, this.pts);
+    if (n) {
+      this.life = Math.max(this.life, 2000);
+      const pts = this.pts;
+      for (let i = 0; i < n; i++) pts[i * 2 + 1] = this.cssH - pts[i * 2 + 1];
+      const radius = Math.min(s.radiusH * this.cssH, s.radiusW * this.cssW);
       P = this.programs.SPLAT;
       this.use(P, vel.write);
       this.tex(P, "uTarget", 0, vel.read);
-      gl.uniform2f(P.u.uA, ...a);
-      gl.uniform2f(P.u.uB, ...b);
-      gl.uniform1f(P.u.uAspect, aspect);
-      gl.uniform1f(P.u.uRadius, s.radius);
-      gl.uniform3f(P.u.uValue, fx, fy, 0);
+      gl.uniform2fv(P.u.uPts, pts);
+      gl.uniform1i(P.u.uN, n);
+      gl.uniform2f(P.u.uView, this.cssW, this.cssH);
+      gl.uniform1f(P.u.uRadius, radius * s.velocityRadius);
+      const sp = Math.hypot(brush.vx, brush.vy);
+      const k = s.force * (sp > s.maxSpeed ? s.maxSpeed / sp : 1);
+      gl.uniform3f(P.u.uValue, brush.vx * k, -brush.vy * k, 0);
+      gl.uniform1f(P.u.uMax, 0);
       this.draw();
       vel.swap();
       this.use(P, dye.write);
       this.tex(P, "uTarget", 0, dye.read);
-      gl.uniform3f(P.u.uValue, s.amount, 0, 0);
+      gl.uniform1f(P.u.uRadius, radius);
+      gl.uniform3f(P.u.uValue, s.amount * Math.min(1, sp / s.inkSpeed), 0, 0);
+      gl.uniform1f(P.u.uMax, s.maxInk);
       this.draw();
       dye.swap();
     }
@@ -232,7 +306,7 @@ export class InkEngine {
     P = this.programs.SCALE;
     this.use(P, this.pressure.write);
     this.tex(P, "uSource", 0, this.pressure.read);
-    gl.uniform1f(P.u.uKeep, 0.8);
+    gl.uniform1f(P.u.uKeep, s.pressureKeep);
     this.draw();
     this.pressure.swap();
 
@@ -259,32 +333,26 @@ export class InkEngine {
     this.use(P, dye.write);
     this.tex(P, "uVelocity", 0, vel.read);
     this.tex(P, "uSource", 1, dye.read);
-    gl.uniform2f(P.u.uVelTexel, ...velTexel);
+    gl.uniform2f(P.u.uInvView, ...invView);
     gl.uniform1f(P.u.uDt, dt);
-    gl.uniform1f(P.u.uKeep, Math.pow(s.dyeKeep, f));
+    gl.uniform1f(P.u.uKeep, s.dyeKeep);
     this.draw();
     dye.swap();
-
-    this.display(page, hole);
   }
 
-  private display(page: string, hole: { cx: number; cy: number; r: number } | null) {
+  private display(page: string, alpha: number) {
     const gl = this.gl;
     const s = this.s;
     const P = this.programs.DISPLAY;
     this.use(P, null);
     this.tex(P, "uDye", 0, this.dye.read);
-    this.tex(P, "uVelocity", 1, this.velocity.read);
-    gl.uniform2f(P.u.uRes, gl.drawingBufferWidth, gl.drawingBufferHeight);
-    gl.uniform2f(P.u.uEdge, ...s.edge);
-    gl.uniform1f(P.u.uRim, s.rim);
+    this.tex(P, "uDyePrev", 1, this.dyePrev);
+    gl.uniform1f(P.u.uAlpha, Math.min(1, Math.max(0, alpha)));
+    gl.uniform1f(P.u.uEdge, s.edge);
+    gl.uniform1f(P.u.uRimPx, s.rimPx * this.ratio);
     gl.uniform1f(P.u.uStrength, s.strength);
     gl.uniform3fv(P.u.uPage, hex(page));
-    gl.uniform3fv(P.u.uHouses, this.houses);
-    gl.uniform1f(P.u.uTime, this.time);
-    if (hole && hole.r > 0) {
-      gl.uniform3f(P.u.uHole, hole.cx * this.ratio, (this.cssH - hole.cy) * this.ratio, hole.r * this.ratio);
-    } else gl.uniform3f(P.u.uHole, 0, 0, 0);
+    gl.uniform3fv(P.u.uGold, this.gold);
     this.draw();
   }
 

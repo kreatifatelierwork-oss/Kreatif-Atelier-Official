@@ -110,7 +110,7 @@ export function Idea({ stateRef, palette, mobile, calm, riseAtRef, onSwap }: Pro
         uImpAge: { value: new Array(TRAIL).fill(99) },
         uAspect: { value: new THREE.Vector2(1, 1) },
         uGold: { value: hex(pal.gold) }, uGoldBright: { value: hex(pal.goldBright) },
-        uHouses: { value: F.houses.map(hex) },
+        uHouses: { value: F.ghost.map(hex) },
       },
     });
     return { geometry: g, material: m };
