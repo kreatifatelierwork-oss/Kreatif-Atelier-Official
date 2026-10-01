@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Experience } from "@/components/experience/Experience";
-import { site } from "@/content/site";
+import { Redirect } from "./Redirect";
 
 export const metadata: Metadata = {
-  title: `${site.name}: The Making of a Legacy (preview)`,
-  robots: { index: false, follow: false },
+  title: "Kreatif Atelier",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/" },
 };
 
-/** v3 "Shot on Location" (docs/concepts/THE-MAKING-OF-v3.md): the first vertical slice, built here before it replaces the home page. */
-export default function ExperiencePage() {
+/** The old preview address: forwards to the home page, keeping any place link (#aurelius, #founders …). */
+export default function ExperienceRedirect() {
   return (
     <main id="main">
-      <Experience />
+      <noscript>
+        <meta httpEquiv="refresh" content="0; url=/" />
+      </noscript>
+      <Redirect />
     </main>
   );
 }

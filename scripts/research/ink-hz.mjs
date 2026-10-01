@@ -85,7 +85,8 @@ if (outFile) {
   const { writeFile } = await import("node:fs/promises");
   await writeFile(outFile, JSON.stringify(result));
 }
-const { packed, ...summary } = result;
+const summary = { ...result };
+delete summary.packed;
 console.log(JSON.stringify(summary, null, 1));
 await page.close();
 process.exit(0);
