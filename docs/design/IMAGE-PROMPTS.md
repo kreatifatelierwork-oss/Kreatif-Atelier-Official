@@ -4,7 +4,21 @@ Rewritten 2026-10-01 for the v3 proposal (`docs/concepts/THE-MAKING-OF-v3.md`). 
 changed, so no v2 prompt is reused. Written with the **imagegen-frontend-web** skill (desktop) and the
 **imagegen-frontend-mobile** skill (phone), for the **image-to-code** workflow.
 
-**Only generate these after you approve v3.**
+**v3 was approved on 2026-10-01.** Start with the **first-slice set** below. The rest can follow later.
+
+## FIRST SLICE: generate these first (16 images)
+The first build covers the opening, the Atrium, the Studio Floor and Aurelius's Drafting Hall with its Enter room
+and the Lens, plus the act bar and the Index. In this order:
+1. **P02** The Atrium · and **P02 dark**.
+2. **P03** The Studio Floor · and **P03 dark**.
+3. **P04** The Drafting Hall (drawing + Lens) · and **P04 dark**.
+4. **P05** The Drafting Hall, built.
+5. **D1** The Enter room · **D2** The Index · **D3** Chrome close-up · **D4** The threshold.
+6. **P00** The Gate · **P01** The flood opening.
+7. Phone: **M02** Atrium · **M03** Drafting Hall · **M09** Index.
+
+P00 and P01 matter least: the opening already exists at `/film` and is matched to buttermax. Their job is to
+confirm the look.
 
 **How to use it:**
 1. In ChatGPT, keep everything in **one chat** so the look stays consistent.
@@ -143,8 +157,8 @@ quoted".
 - **Text (upper right):**
   - small mono "IDEA";
   - headline: "We build brands that actually move people.";
-  - a short body paragraph: "Kreatif Atelier is a full-spectrum creative agency operating at the intersection of
-    strategy, storytelling, and execution, built for brands that want more than good-looking content."
+  - a serif italic quote: "We believe the most powerful brands are built at the intersection of strategy and story.
+    We bring both, and we bring them together without compromise."
 - **Panel captions** (small, beside the panels on the floor plane, not on them): "What We Are" · "Where We Operate" ·
   "Who We Work With" · "Our Philosophy".
 - **Act bar:** "ACT I · IDEA · THE STUDIO FLOOR" left, "01:12" right.
@@ -167,6 +181,8 @@ quoted".
   - headline: "Aurelius";
   - stacked on three lines: "Brands" / "Strategy" / "Growth";
   - serif italic: "Builds brands that lead and last.";
+  - a short body paragraph: "Kreatif Atelier is a full-spectrum creative agency operating at the intersection of
+    strategy, storytelling, and execution, built for brands that want more than good-looking content.";
   - a short list in body text: "Brand Strategy & Identity", "Marketing & Communication", "Creative Consulting",
     "Business Advisory";
   - two small named steps in mono: "DISCOVERY & AUDIT" and "STRATEGY & POSITIONING";

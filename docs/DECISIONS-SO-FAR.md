@@ -1,6 +1,7 @@
 # Decisions so far
 
-The one list of what has been decided for the Kreatif Atelier website, in force as of **2026-10-01**.
+The one list of what has been decided for the Kreatif Atelier website, in force as of **2026-10-01** (updated after
+the user's answers that day).
 
 - **Sources:**
   - the conversations with the user (2026-09-28 to 2026-10-01);
@@ -77,16 +78,16 @@ The one list of what has been decided for the Kreatif Atelier website, in force 
 - **Earlier decisions still in force:**
   - **Domain:** `https://kreatifatelier.com` for metadata; hosting is decided later.
   - **Dates:** no "Est." line until the founding year is confirmed; the footer year comes from the current date.
-- **CONTRADICTION (OPEN):** some live-site copy still describes the old structure, so ported word for word it would
-  contradict the chart. Each needs a decision: keep as is, drop the sentence, or give us replacement wording.
-  - Why us #06: "With four specialized divisions, clients gain access to production, PR, education, and social impact
-    capabilities…"
-  - The hero stat "4 Divisions".
-  - The old ecosystem section ("One Agency. Four Distinct Forces." and Zenith Chapter). This one is already replaced
-    by the chart.
-- **CONTRADICTION (OPEN):** the live site calls the company "a full-spectrum creative agency" (About intro). The chart
-  calls it "a creative holding company". Both can stand if the agency services are read as Aurelius's work, but that
-  reading is ours, not the user's.
+- **CONTRADICTION (resolved 2026-10-01, "the chart wins"):** live-site copy that describes the old structure is removed,
+  or "four" becomes "five" where a number is needed.
+  - Why us #06 now reads "With five specialized divisions, …".
+  - The hero stat is now "5 Verticals".
+  - The old ecosystem section (`content/ecosystem.ts`, Zenith Chapter) is marked superseded, kept only for the
+    `/concepts` prototypes and never used in v3.
+  - **Note:** Why us #06's capability list ("production, PR, education, and social impact") is unchanged, word for
+    word. Say if it should change.
+- **CONTRADICTION (resolved 2026-10-01):** Kreatif Atelier is **"a creative holding company"** (chart wording). The
+  old About intro ("Kreatif Atelier is a full-spectrum creative agency…") **moves inside Aurelius**.
 
 ## 3. How the direction evolved (oldest first)
 | Date | Decision | Status |
@@ -102,10 +103,11 @@ The one list of what has been decided for the Kreatif Atelier website, in force 
 | 2026-09-30 | **buttermax.net** is the reference for the opening sequence (beat for beat) and the cursor. Checkpoint 1 built at `/film` (6e75291) | In force |
 | 2026-09-30 | **Design sources of truth adopted:** image-to-code, taste-skill, awesome-design-md, playwright-cli. They override earlier design choices except the standing rules. Image-first from now on | In force |
 | 2026-09-30 | **C1–C8 answered** (see §6) | In force |
-| 2026-10-01 | **The unified idea brief** (this list's points §4–§5). The cursor ink is rebuilt to match buttermax | In force; v3 proposed |
+| 2026-10-01 | **The unified idea brief** (this list's points §4–§5). The cursor ink is rebuilt to match buttermax | In force |
+| 2026-10-01 | **v3 "Shot on Location" approved** with all its new wording. The concept pair confirmed as Orrery × Production. The ink gets one more pass on the tail shape only, then is accepted. **Build plan:** one complete vertical slice at `/experience` (opening, Atrium, Studio Floor, Aurelius's Drafting Hall with its Enter room and the Lens, the act bar and the Index), image-first, the rest blocked out. The home page stays untouched | In force |
 
 ## 4. The two concepts that were combined, and what the user liked
-The combination the user chose (2026-09-28) was **The Orrery × The Production**. The House of Light (2026-09-29) is the
+The combination the user chose (2026-09-28) was **The Orrery × The Production** (confirmed by the user 2026-10-01). The House of Light (2026-09-29) is the
 world idea the user liked afterwards. All three are carried into v3. What each contributed:
 - **From The Orrery:**
   - the company as one central, radiant thing with its verticals around it, each a *world* with its own colour,
@@ -185,17 +187,15 @@ film time), a gold flood rim and a gold ink edge, and the Idea's particles pass 
   the ink is an effect, not a replacement cursor.
 - **One accent colour (taste-skill) vs five vertical colours.** C5 resolves it: one vivid colour per place, gold
   outside.
-- **No mixed type families in one line (DESIGN.md) vs the opening's hand-written word.** v3 sets the hand-written word
-  on its own line under the wordmark, so no line mixes families. **OPEN:** confirm this reading.
-- **"Floating spheres" slop (imagegen-web) vs the Idea as a sphere of particles on `/film`.** v2 proposed a folded
-  ribbon of light. v3 keeps the Idea as gold light that changes form and is never a ball at rest. **OPEN:** confirm.
+- **No mixed type families in one line (DESIGN.md) vs the opening's hand-written word.** The hand-written *Atelier*
+  sits on its own line under the wordmark (approved 2026-10-01).
+- **"Floating spheres" slop (imagegen-web) vs the Idea as a sphere of particles on `/film`.** The Idea is gold light
+  that changes form and never rests as a sphere (approved 2026-10-01).
 - **"No scroll cues" vs the Long Take's Scroll label.** Resolved by C4.
 - **No sound (old CLAUDE.md) vs the approved generated score.** Resolved (2026-09-30).
 
 ## 9. OPEN: waiting for the user
-- **Approve, change or reject `docs/concepts/THE-MAKING-OF-v3.md`.** Nothing of v3 is built before that.
-- **Generate the images** from `docs/design/IMAGE-PROMPTS.md` (v3) into `design-refs/` after approval.
-- **The outdated "four divisions" lines** in the live copy (§2).
-- **New wording proposed in v3:** place names, "Enter", "Index" and the role labels. See v3 §11.
-- **The hand-written word and the Idea's form** (§8).
+- **The first-slice images** (16, listed at the top of `docs/design/IMAGE-PROMPTS.md`) into `design-refs/`. Then the
+  slice is built to match them.
+- **Why us #06's capability list** (see §2): keep it word for word, or change it?
 - **/concepts:** delete before launch (recommended).

@@ -8,6 +8,8 @@ export const about: SectionIntro & {
   marker: "01 · Who We Are",
   kicker: "A Multidisciplinary Creative Enterprise",
   headline: { lead: "We build brands that", emphasis: "actually move people." },
+  /** v3: this line is shown inside Aurelius (user decision 2026-10-01). Kreatif Atelier itself is "a creative
+   *  holding company" (chart wording). */
   intro:
     "Kreatif Atelier is a full-spectrum creative agency operating at the intersection of strategy, storytelling, and execution — built for brands that want more than good-looking content.",
   pillars: [

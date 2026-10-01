@@ -1,3 +1,7 @@
+/**
+ * SUPERSEDED (2026-09-28): the old "four divisions" (incl. Zenith Chapter). Kept only for the /concepts prototypes;
+ * never used in v3. The company structure is `content/verticals.ts` (the chart wins, user decision 2026-10-01).
+ */
 import type { SectionIntro } from "./types";
 
 export type Division = {

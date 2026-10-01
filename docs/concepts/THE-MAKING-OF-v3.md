@@ -1,6 +1,11 @@
 # "The Making of a Legacy", v3: Shot on Location
 
-- **Status:** PROPOSAL, 2026-10-01. **Nothing of v3 is built until you approve it.**
+- **Status:** **APPROVED 2026-10-01**, with all new wording (place names, Enter, Index, action labels).
+- **Changes on approval:**
+  - Kreatif Atelier is "a creative holding company" (chart wording);
+  - the old line "Kreatif Atelier is a full-spectrum creative agency…" moves inside Aurelius;
+  - "four divisions" becomes "five" wherever a number is needed.
+- **First build:** one complete vertical slice at `/experience` (§12).
 - **Replaces:** v2 (a pinned scroll of poster scenes) and the Long Take orrery as the direction.
 - **Inputs:**
   - every decision in `docs/DECISIONS-SO-FAR.md` (including C1–C8 and the unified brief);
@@ -107,10 +112,11 @@ For every place this section gives:
   - **four tall panels** stand on the floor. Approaching or focusing one turns it to face you and builds it from line
     into solid plaster. Each panel has **Enter**, which steps into a small alcove with its full text.
 - **Content:**
-  - "We build brands that actually move people." with the About intro;
+  - "We build brands that actually move people." with the philosophy quote (the About intro, the "full-spectrum
+    creative agency" line, now lives in Aurelius);
   - the four panels are **What We Are · Where We Operate · Who We Work With · Our Philosophy**;
-  - Our Philosophy's alcove also holds the quote "We believe the most powerful brands are built at the intersection
-    of strategy and story…"
+  - the quote "We believe the most powerful brands are built at the intersection of strategy and story…" is set
+    beside the headline.
 - **Move on:** at the far end, a tall doorway is filled with **indigo light**. You walk into the colour, it floods
   the screen as haze, the captions dissolve, and you come out inside the next world.
 
@@ -131,6 +137,8 @@ For every place this section gives:
   - **Enter** on the service model opens the **Brand Strategy & Identity** room.
 - **Content:**
   - **Aurelius;** Brands / Strategy / Growth (stacked); "Builds brands that lead and last.";
+  - the line "Kreatif Atelier is a full-spectrum creative agency operating at the intersection of strategy,
+    storytelling, and execution, built for brands that want more than good-looking content." (moved here from About);
   - the four "what we do" items: Brand Strategy & Identity, Marketing & Communication, Creative Consulting, Business
     Advisory;
   - the process steps **Discovery & Audit** and **Strategy & Positioning**;
@@ -447,7 +455,7 @@ The system cursor always stays visible, so the ink is an effect, not a replaceme
 3. **Fidelity rule.** Every place is compared side by side with its reference image. Drift gets fixed, not
    explained.
 
-## New wording in this proposal (PROPOSED, needs your approval)
+## New wording in this proposal (APPROVED 2026-10-01)
 - **Subtitle:** "Shot on Location".
 - **Place names:** The Gate · The Atrium · The Studio Floor · The Drafting Hall · The Projection Hall · The Concourse
   · The Water Court · The Garden Court · The Glass Lattice · The Roof · The Gallery.

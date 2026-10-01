@@ -44,7 +44,8 @@ export const hero = {
   brandLine: ["Bold", "Radiant", "Timeless"],
   stats: [
     { value: "6+", label: "Core Services" },
-    { value: "4", label: "Divisions" },
+    // Was "4 Divisions"; the chart has five verticals (user decision 2026-10-01).
+    { value: "5", label: "Verticals" },
     /** Drawn as an inline SVG (neither font has ∞); `srValue` is what screen readers hear. */
     { value: "∞", srValue: "Infinite", label: "Creative Vision" },
   ],
