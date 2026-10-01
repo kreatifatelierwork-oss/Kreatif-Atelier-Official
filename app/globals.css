@@ -207,8 +207,15 @@
   .xp-caption button, .xp-caption a, .xp-caption li, .xp-caption .xp-founders { pointer-events: auto; }
   .xp-block { position: absolute; left: var(--xp-gutter); bottom: 120px; width: min(36rem, calc(100vw - 2 * var(--xp-gutter))); }
   .is-atrium .xp-block { width: min(46rem, calc(100vw - 2 * var(--xp-gutter))); bottom: 112px; }
-  .is-studio .xp-block, .is-concourse .xp-block { top: 96px; bottom: auto; }
-  .is-aurelius .xp-block, .is-valora .xp-block, .is-rudra .xp-block { left: auto; right: var(--xp-gutter); top: 88px; bottom: auto; width: min(31rem, 40vw); }
+  .is-concourse .xp-block { top: 96px; bottom: auto; }
+  .is-rudra .xp-block { left: auto; right: var(--xp-gutter); top: 88px; bottom: auto; width: min(31rem, 40vw); }
+  .is-valora .xp-block, .is-aurelius .xp-block { top: 88px; bottom: auto; width: min(31rem, 40vw); }
+  /* Legibility over a busy scene: a soft fade of the canvas colour behind the block (a fade, never a box). */
+  .xp-block::before {
+    content: ""; position: absolute; inset: -4rem -6rem; z-index: -1; pointer-events: none;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--xp-canvas) 72%, transparent) 40%, transparent);
+  }
+  .is-atrium .xp-block::before, .is-post .xp-block::before { inset: -3rem -5rem; }
   .is-ggp .xp-block { width: min(31rem, 40vw); }
   .is-asraya .xp-block { left: 50%; transform: translateX(-50%); text-align: center; width: min(44rem, 80vw); }
   .is-asraya .xp-offerings, .is-asraya .xp-actions, .is-asraya .xp-stacked { justify-content: center; align-items: center; }
@@ -406,6 +413,7 @@
     }
     .is-asraya .xp-block { left: var(--xp-gutter); right: var(--xp-gutter); width: auto; transform: none; }
     .is-post .xp-block { left: var(--xp-gutter); right: var(--xp-gutter); width: auto; top: auto; bottom: 84px; transform: none; }
+    .xp-block::before { inset: -3rem -20px -84px; background: linear-gradient(to top, var(--xp-canvas) 55%, color-mix(in srgb, var(--xp-canvas) 70%, transparent) 78%, transparent); }
     .xp-title.is-hero { font-size: clamp(3rem, 15vw, 4.25rem); }
     .xp-title { font-size: clamp(2rem, 10vw, 2.5rem); }
     .xp-offerings { gap: 0.2rem 1rem; }

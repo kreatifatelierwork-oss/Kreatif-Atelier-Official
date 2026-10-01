@@ -2,6 +2,7 @@
 
 import { advance as advanceR3F, Canvas, useThree } from "@react-three/fiber";
 import { useEffect } from "react";
+import * as THREE from "three";
 import { onFrame } from "@/components/film/loop";
 import { shadowDirty } from "./shadows";
 import type { FilmState } from "@/components/film/state";
@@ -56,7 +57,7 @@ export default function Stage({ rtRef, filmRef, theme, mobile, calm, riseAtRef, 
       // Measure the layout size, not the transformed one: the stage mounts during the opening's zoom.
       resize={{ offsetSize: true }}
       dpr={mobile ? [1, 1.5] : [1, 1.5]}
-      gl={{ antialias: !mobile, powerPreference: "high-performance" }}
+      gl={{ antialias: !mobile, powerPreference: "high-performance", toneMapping: THREE.NeutralToneMapping, toneMappingExposure: 1.05 }}
       camera={{ fov: mobile ? 55 : 42, near: 0.1, far: 400, position: [0, 1.7, 9] }}
     >
       <SharedLoop onReady={onReady} rtRef={rtRef} />

@@ -31,7 +31,7 @@ void main() {
   vec3 a = vec3(0.0, 1.6, 10.0);
   vec3 b = uTargets[k];
   float t = fract(aSeed.y + uTime * (0.045 + aSeed.z * 0.03));
-  vec3 mid = mix(a, b, 0.5) + vec3(sin(aSeed.w * 6.28) * 3.0, 1.2 + aSeed.w * 2.0, 0.0);
+  vec3 mid = mix(a, b, 0.5) + vec3(sin(aSeed.w * 6.28) * 5.0, 2.2 + aSeed.w * 3.0, 0.0);
   vec3 p = mix(mix(a, mid, t), mix(mid, b, t), t);
   p += vec3(sin(t * 12.0 + aSeed.w * 30.0), cos(t * 9.0 + aSeed.w * 21.0), 0.0) * 0.12;
   // Launch waves travel along every stream.
@@ -68,7 +68,7 @@ export function Concourse({ theme, rtRef, mobile, onEnter }: { theme: Theme; rtR
   }), [c, theme]);
   // The middle opening sits exactly where the route walks out of the hall (local x −2.2).
   const targets = useMemo(() => Array.from({ length: OPENINGS }, (_, k) => new THREE.Vector3(OPEN_X(k), 2.6, CONC_OPENINGS_Z)), []);
-  const count = mobile ? 1400 : 4200;
+  const count = mobile ? 2200 : 6500;
   const stream = useMemo(() => {
     const g = new THREE.BufferGeometry();
     const seed = new Float32Array(count * 4);
@@ -85,7 +85,7 @@ export function Concourse({ theme, rtRef, mobile, onEnter }: { theme: Theme; rtR
       transparent: true,
       depthWrite: false,
       uniforms: {
-        uTime: { value: 0 }, uLaunch: { value: new Array(6).fill(-99) }, uPixelRatio: { value: 1 }, uSize: { value: mobile ? 34 : 42 },
+        uTime: { value: 0 }, uLaunch: { value: new Array(6).fill(-99) }, uPixelRatio: { value: 1 }, uSize: { value: mobile ? 48 : 64 },
         uTargets: { value: targets }, uGold: { value: new THREE.Color("#c9a45c") }, uBright: { value: new THREE.Color("#f0d49a") },
       },
     });

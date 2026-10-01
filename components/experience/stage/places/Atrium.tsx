@@ -32,8 +32,8 @@ export function Atrium({ theme, rtRef }: { theme: Theme; rtRef: { current: Runti
   const mats = useMemo(() => ({
     wall: plaster(c.wall),
     floor: stone(c.floor),
-    well: lightSurface(theme === "light" ? "#fffaf0" : "#f4e6c4", theme === "light" ? 1 : 0.9),
-    door: lightSurface("#e8c98a", theme === "light" ? 0.55 : 0.8),
+    well: lightSurface(theme === "light" ? "#fffaf0" : "#f4e6c4", theme === "light" ? 1 : 0.55),
+    door: lightSurface("#e8c98a", theme === "light" ? 0.55 : 0.6),
     gold: goldMetal(),
   }), [c, theme]);
   const wallGeo = useMemo(() => new THREE.CylinderGeometry(R, R, H, 96, 1, true, Math.PI + GAP, Math.PI * 2 - GAP * 2), []);
@@ -42,14 +42,17 @@ export function Atrium({ theme, rtRef }: { theme: Theme; rtRef: { current: Runti
 
   useFrame(({ clock }) => {
     const s = rtRef.current.s;
+    // The doorway's gold dims for the Gallery and the closing scene (the light there is the golden hour, then dusk).
+    const late = Math.min(1, Math.max(0, (s - 8.6) / 0.6));
+    mats.door.color.set("#e8c98a").multiplyScalar((theme === "light" ? 0.55 : 0.6) * (1 - 0.75 * late));
     const g = starRef.current;
     if (!g) return;
     // The ✦ returns only for the post-credits scene.
     const k = Math.min(1, Math.max(0, (s - 9.4) / 0.6));
     g.visible = k > 0.001;
-    g.scale.setScalar(0.42 * k * k * (3 - 2 * k));
+    g.scale.setScalar(0.3 * k * k * (3 - 2 * k));
     g.rotation.y = clock.elapsedTime * 0.25;
-    g.position.y = 1.55 + Math.sin(clock.elapsedTime * 0.9) * 0.05;
+    g.position.y = 4.15 + Math.sin(clock.elapsedTime * 0.9) * 0.04;
   });
 
   // The doorway's returns: two thick wall ends either side of the gap, deep enough to read as a passage.

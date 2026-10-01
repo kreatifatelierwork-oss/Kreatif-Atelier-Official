@@ -33,12 +33,12 @@ type Props = {
 /** Where the Idea floats in each frame (distance ahead, right, up from the camera's hold), clear of the caption. */
 const IDEA_FRAMING: [number, number, number][] = [
   [8, 1.7, 0.2], // Atrium: right of the title
-  [12, -2.6, -0.9], // Studio Floor: low left, below the caption, beside the panels
-  [10, -3.1, 0.4], // Drafting Hall: left (caption right)
+  [12, 1.0, 1.7], // Studio Floor: high, right of centre, above the panels
+  [10, 2.3, -0.4], // Drafting Hall: right of centre, clear of the window (caption left)
   [10, 2.4, 0.6], // Projection Hall: right (caption lower left)
   [12, 2.6, -0.8], // Concourse: low right, where the streams begin
   [10, 2.6, 0.2], // Water Court: right (caption left)
-  [11, 0, 1.6], // Garden Court: high centre (caption centred low)
+  [11, 2.6, 1.9], // Garden Court: high right (caption centred low)
   [10, -3, 1.2], // Glass Lattice: left (caption right)
   [24, 6, 0], // Roof: it condenses into the monument instead
   [9, 0, 0], // Gallery (hidden)

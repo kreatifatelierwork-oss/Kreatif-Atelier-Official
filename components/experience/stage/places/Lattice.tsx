@@ -20,7 +20,8 @@ void main() {
   vec2 p = vUv * vec2(9.0, 11.0);
   vec2 g = abs(fract(vec2(p.x + p.y, p.x - p.y) * 0.5) - 0.5);
   float line = 1.0 - smoothstep(0.0, 0.05, min(g.x, g.y));
-  float reveal = smoothstep(uShow * 1.4 - 0.4, uShow * 1.4, 1.0 - length(vUv - 0.5) * 1.6);
+  // The pattern resolves outward from the middle as more panes come into line.
+  float reveal = uShow * smoothstep(uShow * 0.9 - 0.25, uShow * 0.9, 1.0 - length(vUv - 0.5) * 1.5);
   gl_FragColor = vec4(uCyan, line * reveal * 0.85);
 }`;
 const VERT = /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;

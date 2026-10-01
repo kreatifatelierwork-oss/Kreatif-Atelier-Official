@@ -15,7 +15,7 @@ const PLACE = 5;
 // The court is laid along the route: local −z runs from the entry toward the arch.
 const CENTER: [number, number, number] = [42, 0, -222.5];
 const ROT_Y = -0.626;
-const HALF_W = 11, Z_NEAR = 16, Z_FAR = -20, HH = 9;
+const HALF_W = 11, Z_NEAR = 16, Z_FAR = -20, HH = 12;
 const ARCH_W = 4.6, ARCH_H = 7.2;
 
 /** The far wall as one piece with an arched opening (a rectangle with a round-topped hole). */
@@ -63,6 +63,7 @@ export function WaterCourt({ theme, rtRef }: { theme: Theme; rtRef: { current: R
       mat.emissiveIntensity += (lit - mat.emissiveIntensity) * Math.min(1, dt * 6);
     });
     if (outside.current) {
+      outside.current.visible = rtRef.current.s < 7;
       const k = laid / STONES;
       (outside.current.material as THREE.MeshBasicMaterial).color.set("#ff8a5e").multiplyScalar(1 + k * 0.55);
     }
@@ -94,8 +95,8 @@ export function WaterCourt({ theme, rtRef }: { theme: Theme; rtRef: { current: R
           <mesh material={mats.wall} position={[-0.6, 0.95, 0]} castShadow><boxGeometry args={[1, 0.12, 5.2]} /></mesh>
         </group>
         {/* Outside the arch: the coral light the court is lit by. */}
-        <mesh ref={outside} material={mats.outside} position={[0, 6, Z_FAR - 6]}>
-          <planeGeometry args={[30, 18]} />
+        <mesh ref={outside} material={mats.outside} position={[0, 5.5, Z_FAR - 6]}>
+          <planeGeometry args={[22, 11]} />
         </mesh>
       </group>
       {WATER_STONES.map((p, k) => (

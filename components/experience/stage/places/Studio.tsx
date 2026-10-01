@@ -78,9 +78,9 @@ export function Studio({ theme, rtRef, onEnter }: { theme: Theme; rtRef: { curre
           <boxGeometry args={[0.8, HH, D]} />
         </mesh>
         {/* A ceiling of long beams with light between them. */}
-        {Array.from({ length: 9 }, (_, i) => (
-          <mesh key={i} material={mats.wall} position={[-W / 2 + 2 + i * 3.6, HH + 0.4, 0]} castShadow>
-            <boxGeometry args={[0.9, 0.8, D]} />
+        {Array.from({ length: 5 }, (_, i) => (
+          <mesh key={i} material={mats.wall} position={[-W / 2 + 4 + i * 6, HH + 0.4, 0]}>
+            <boxGeometry args={[0.5, 0.6, D]} />
           </mesh>
         ))}
         {/* Long low tables on the left of the floor. */}

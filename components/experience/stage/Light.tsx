@@ -2,7 +2,7 @@
 
 import { Environment } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { experienceConfig as X } from "@/lib/config";
 import type { Runtime } from "../journey";
@@ -17,6 +17,10 @@ import { LIGHTS, type Theme } from "./look";
 export function PlaceLight({ rtRef, theme, mobile }: { rtRef: { current: Runtime }; theme: Theme; mobile: boolean }) {
   const sun = useRef<THREE.DirectionalLight>(null);
   const fill = useRef<THREE.HemisphereLight>(null);
+  const fills = useMemo(() => X.colour.map((v) => {
+    const base = new THREE.Color(theme === "light" ? "#f6f7fb" : "#1b2234");
+    return v ? base.lerp(new THREE.Color(v), 0.42) : base;
+  }), [theme]);
   const tmp = useRef({ a: new THREE.Color(), b: new THREE.Color(), p: new THREE.Vector3(), q: new THREE.Vector3(), t: new THREE.Vector3(), u: new THREE.Vector3() });
 
   useFrame(() => {
@@ -46,7 +50,11 @@ export function PlaceLight({ rtRef, theme, mobile }: { rtRef: { current: Runtime
     const cam = L.shadow.camera as THREE.OrthographicCamera;
     const span = big ? 90 : 30;
     if (cam.right !== span) { cam.left = -span; cam.right = span; cam.top = span; cam.bottom = -span; cam.updateProjectionMatrix(); }
-    if (fill.current) fill.current.intensity = theme === "light" ? 0.9 : 0.22;
+    // The soft fill takes the world's colour too, so inside a vertical's world its colour is everywhere (C5).
+    if (fill.current) {
+      fill.current.intensity = theme === "light" ? 0.9 : 0.22;
+      fill.current.color.copy(fills[i]).lerp(fills[i + 1], e);
+    }
   });
 
   return (
