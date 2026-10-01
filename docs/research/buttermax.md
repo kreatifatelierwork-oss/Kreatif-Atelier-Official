@@ -289,3 +289,13 @@ Fade curves (area relative to its peak at +0, 100, 200, 300, 400, 600, 800 and 1
 - `ink-record.mjs` (`--mobile`, `--only`, `--eval`, `--shots`, `--raf-hz`, `--port`);
 - `ink-measure.py`, `ink-compare.py`, `ink-sheet.py`, `ink-sidebyside.py`, `ink-hz.mjs`;
 - `film-check.mjs` (both palettes, phone touch, reduced motion).
+
+### Final tail pass (2026-10-01, one attempt, then accepted)
+- **The change:** a wider push than the ink (velocity radius 1.5 × the ink radius, force 0.07).
+- **What it fixed:** slow strokes no longer curl into a crescent (the narrow jet was dragging the middle of the back
+  forward). They now show a pointed back tail just after stopping, and stop-dead strokes form buttermax's teardrop.
+- **Unchanged:** width, continuity, edges, slide distance (157 / 223 / 286 px for slow / stop-dead / flick) and the
+  fade (gone in 0.92–0.95 s).
+- **Accepted difference:** as it fades, a slow stroke flattens into a bean instead of stretching into buttermax's long
+  leaf.
+- **Files:** `ink-ours-tail.json`.

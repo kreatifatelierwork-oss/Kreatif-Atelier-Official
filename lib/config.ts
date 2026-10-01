@@ -350,7 +350,7 @@ export const filmConfig = {
     tau: 28,
     lag: 30,
     /** Velocity splat radius as a share of the ink radius; brush speed (px/s) above which moves push no harder. */
-    velocityRadius: 1,
+    velocityRadius: 1.5,
     maxSpeed: 900,
     /** Brush speed (px/s) below which it lays proportionally less ink. */
     inkSpeed: 240,
@@ -358,7 +358,7 @@ export const filmConfig = {
     radiusH: 0.1,
     radiusW: 0.14,
     /** Share of brush velocity added per step; ink added per step, its cap, and the display threshold. */
-    force: 0.1,
+    force: 0.07,
     amount: 0.8,
     maxInk: 3,
     edge: 0.18,
