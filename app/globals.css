@@ -224,7 +224,7 @@
   .is-asraya .xp-block { left: 50%; transform: translateX(-50%); text-align: center; width: min(44rem, 80vw); }
   .is-asraya .xp-offerings, .is-asraya .xp-actions, .is-asraya .xp-stacked { justify-content: center; align-items: center; }
   .is-roof .xp-block { top: 96px; bottom: auto; width: min(34rem, 42vw); }
-  .is-gallery .xp-block { top: 96px; bottom: auto; width: min(30rem, 36vw); }
+  .is-gallery .xp-block { top: 96px; bottom: auto; width: min(28rem, 33vw); }
   .is-post .xp-block { left: 50%; bottom: auto; top: 50%; transform: translate(-50%, -54%); text-align: center; width: min(44rem, calc(100vw - 2 * var(--xp-gutter))); }
 
   .xp-kicker, .xp-label, .xp-link, .xp-btn, .xp-actbar, .xp-mode, .xp-door-verb, .xp-tags li, .xp-footer, .xp-details dt {
@@ -300,7 +300,7 @@
   .xp-star { color: var(--xp-gold); font-size: 0.6em; }
 
   /* ---- The Gallery: the founders' polaroid arc ---------------------------------------------------------------- */
-  .xp-founders { position: absolute; right: var(--xp-gutter); top: 50%; transform: translateY(-50%); width: min(52rem, 56vw); display: grid; grid-template-columns: auto minmax(0, 17rem); gap: 2.4rem; align-items: center; }
+  .xp-founders { position: absolute; right: var(--xp-gutter); top: 50%; transform: translateY(-50%); width: min(50rem, 54vw); display: grid; grid-template-columns: auto minmax(0, 17rem); gap: 2.4rem; align-items: center; }
   .xp-arc { display: flex; align-items: flex-end; padding-top: 2rem; }
   .xp-arc li { margin-left: -24px; transform: rotate(var(--tilt)) translateY(var(--drop)); transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
   .xp-arc li:first-child { margin-left: 0; }

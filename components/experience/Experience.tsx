@@ -160,6 +160,16 @@ export function Experience() {
 
   useInput(rtRef, reduced);
 
+  // Keep the address bar on the place you have settled at (arrow keys, the wheel and Watch travel without links).
+  useEffect(() => onFrame(() => {
+    const rt = rtRef.current;
+    if (rt.move || rt.room || useUi.getState().phase !== "live") return;
+    const p = Math.round(rt.s);
+    if (Math.abs(rt.s - p) > 1e-3) return;
+    const want = hashFor(p);
+    if (window.location.hash !== want && !window.location.hash.startsWith(`${want}/`)) history.replaceState(null, "", want);
+  }, 3), []);
+
   // ---- Pointer → ink brush, the Idea, parallax ------------------------------------------------------------------------
   useEffect(() => {
     const state = filmRef.current;
@@ -220,7 +230,6 @@ export function Experience() {
     else setStageOn(true);
     useUi.getState().set({ phase: "dip" });
     dipEndRef.current = performance.now() + (reduced ? 200 : F.opening.dipMs + F.opening.dipHoldMs);
-    h1Ref.current?.focus({ preventScroll: true });
   };
 
   const toggleSound = () => {
@@ -264,6 +273,8 @@ export function Experience() {
           if (w) { w.style.transform = ""; w.style.willChange = "auto"; }
           if (eng) { eng.clear(); canvasRef.current?.classList.add("is-ink"); }
           u.set({ phase: "live" });
+          // The film is live: the title takes focus (everything behind the gate was inert until now).
+          requestAnimationFrame(() => h1Ref.current?.focus({ preventScroll: true }));
           const p = pending.current;
           pending.current = null;
           if (p && (p.place > 0 || p.thing)) go(p.place, p.thing, false);
@@ -324,14 +335,14 @@ export function Experience() {
       style={{ ["--xp-gold" as string]: pal.gold }}
     >
       <noscript><style>{`.xp-gate{display:none}.xp-signature{clip-path:none!important}`}</style></noscript>
-      <div ref={worldRef} className="xp-world">
+      <div ref={worldRef} className="xp-world" inert={!live}>
         {stageOn && (
           <Stage rtRef={rtRef} filmRef={filmRef} theme={theme} mobile={mobile} calm={reduced} riseAtRef={riseAtRef} onReady={onStageReady} onEnter={enter} />
         )}
         <Captions ref={h1Ref} reduced={reduced} onEnter={enter} onGo={(p, t) => go(p, t)} onWatch={watch} onDirect={direct} />
       </div>
 
-      <header className="xp-topbar">
+      <header className="xp-topbar" inert={!live}>
         <button type="button" className="xp-wordmark" onClick={() => go(0)}>{site.name}</button>
         <div className="xp-topbar-right">
           {sound !== null && (
@@ -340,7 +351,9 @@ export function Experience() {
           <button ref={indexBtn} type="button" className="xp-link" aria-expanded={ui.indexOpen} onClick={openIndex}>{xp.index}</button>
         </div>
       </header>
-      <ActBar ref={actRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
+      <div inert={!live}>
+        <ActBar ref={actRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
+      </div>
 
       {!still && <LensRing rtRef={rtRef} filmRef={filmRef} />}
       <canvas ref={canvasRef} className="xp-ink" aria-hidden="true" />

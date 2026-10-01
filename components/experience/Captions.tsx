@@ -132,10 +132,10 @@ function Doors({ p, onEnter }: { p: Place; onEnter: (t: string) => void }) {
             onFocus={() => set({ hover: t.id })}
             onBlur={() => set({ hover: null })}
             onClick={() => onEnter(t.id)}
+            aria-label={`${c3(t.label)}, ${xp.enter}`}
           >
             <span>{c3(t.label)}</span>
             <span className="xp-door-verb" aria-hidden="true">{xp.enter}</span>
-            <span className="sr-only">, {xp.enter}</span>
           </button>
         </li>
       ))}
