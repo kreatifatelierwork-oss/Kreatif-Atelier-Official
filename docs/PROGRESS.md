@@ -23,11 +23,11 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
 - [x] 1. Restructure (e302d67): home = the experience, /experience redirects, /film /concepts and old code retired, SEO.
 - [x] 2. Content (1134199): every section placed with real HTML, rooms, moments, founders arc, closing + footer,
       Index, act bar, interaction buttons, still version.
-- [ ] 3. World art (in progress): real 3D places (Atrium, Studio, Drafting Hall + Lens + Find the angle, Projection
-      Hall + Roll, Concourse + streams + Launch, Water Court + stones, Garden + Breathe, Glass Lattice + Spark, Roof +
-      monument + moments), one light per place with shadows, the Idea as a ribbon changing form per act.
-      Note: the test Mac was on battery (17%); Chrome's battery saver caps headless at 30 fps, so frame-time checks
-      need the research Chrome started with --disable-features=BatterySaverModeAvailable (or mains power).
-- [ ] 4. Polish per place against DESIGN.md (compositions, phones, dark theme), interactions verified.
-- [ ] 5. QA: 1440 / 1366 / 390, light / dark, reduced motion, keyboard, screen reader, still version, Lighthouse,
-      final baseline comparison, screenshots, report.
+- [x] 3. World art (e5a998b … 5c947c9): every place built, interactions and rooms verified at 1440
+      (scripts/research/xp-interact.mjs), dark theme and 390 screenshots reviewed. GPU 2–8 ms + script ~3 ms per frame
+      (scripts/research/gpu-time.mjs).
+- [ ] 4. Remaining polish: phone rooms check, the still version (?still test hook), reduced motion pass, 1366×768.
+- [ ] 5. QA + proof: Lighthouse (mobile/desktop), keyboard and screen reader pass, final baseline comparison
+      (nav-record.mjs + nav-compare.py; ink-record.mjs --ink-only + ink-measure/compare; ink-hz.mjs --out +
+      ink-hz-compare.mjs), `git diff 79d5ed6 -- <frozen files>` (only the ?tune hooks), screenshots, report.
+      The machine was on battery at 14%: Chrome caps frames at 30 fps then; re-run frame-time checks on mains power.
