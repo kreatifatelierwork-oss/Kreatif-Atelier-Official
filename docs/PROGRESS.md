@@ -31,3 +31,19 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
       (nav-record.mjs + nav-compare.py; ink-record.mjs --ink-only + ink-measure/compare; ink-hz.mjs --out +
       ink-hz-compare.mjs), `git diff 79d5ed6 -- <frozen files>` (only the ?tune hooks), screenshots, report.
       The machine was on battery at 14%: Chrome caps frames at 30 fps then; re-run frame-time checks on mains power.
+
+## Where I stopped (2026-10-02, battery at 3%)
+- Done since 5c947c9: forms built in a worker (mobile Lighthouse 95 / 100 / 100 / 100, desktop 96 / 100 / 100 / 100),
+  still version (?still), 390 + 1366 checks, keyboard + screen-reader pass (gate now inert-correct), hash follows
+  the settled place.
+- Proof so far: frozen files byte-identical to 164e7d2 (`git diff 164e7d2 -- journey.ts useInput.ts CameraRig.tsx
+  components/film/ink components/film/loop.ts` is empty; experienceConfig and filmConfig.ink hash-identical). Ink
+  masks baseline-vs-final match final-vs-final run noise (docs/research/final/inkhz-final*.json).
+- NOT valid yet: the navigation recording (docs/research/final/nav-final.json). The Mac was at 3% battery: frames
+  capped at 30 fps and script work throttled ×6, so step timings drifted. Re-run on mains power:
+  `node scripts/research/nav-record.mjs docs/research/final/nav-final.json --url http://localhost:4174/` then
+  `python3 scripts/research/nav-compare.py docs/research/baseline/nav-baseline.json docs/research/final/nav-final.json docs/research/final/nav-compare.png`
+  (close any leftover localhost pages in the research Chrome first).
+- Still to do: the 13-stroke ink test on / (`ink-record.mjs ours docs/research/final/ink-final --url "http://localhost:4174/?tune" --ink-only`,
+  then ink-measure + ink-compare against docs/research/baseline/ink-baseline.json); final screenshots of every place
+  at 1440 and 390, light and dark; update CLAUDE.md for the new structure; the report.
