@@ -4,7 +4,7 @@ export const site = {
   name: "Kreatif Atelier",
   wordmark: "KREATIF ATELIER",
   url: "https://kreatifatelier.com",
-  /** PROPOSED (2026-10-01): page title and description for search and sharing. */
+  /** APPROVED 2026-10-03: page title and description for search and sharing. */
   title: "Kreatif Atelier: a creative holding company in Hyderabad",
   description:
     "Kreatif Atelier is a creative holding company in Hyderabad. A creative holding ecosystem for a better tomorrow: Aurelius, Valora, Golden Guardian Productions, Rudra Yugen and Asraya. Multiple verticals. One vision. Exponential impact.",

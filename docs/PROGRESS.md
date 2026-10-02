@@ -47,3 +47,17 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
 - Still to do: the 13-stroke ink test on / (`ink-record.mjs ours docs/research/final/ink-final --url "http://localhost:4174/?tune" --ink-only`,
   then ink-measure + ink-compare against docs/research/baseline/ink-baseline.json); final screenshots of every place
   at 1440 and 390, light and dark; update CLAUDE.md for the new structure; the report.
+
+## Finished (2026-10-03, on mains power; browser verified at 16.7 ms frames on a blank page first)
+- **Navigation vs baseline** (`docs/research/final/nav-final.json`, chart `nav-compare.png`): every scripted step lands
+  at the same moment (within 10 ms); route position differs by 0.004 place on average (max 0.15 during a fast move,
+  from ~10 ms event timing). Frames: 2864, all 16.7 ms, none over 20 ms.
+- **Ink vs baseline** (`ink-final.json`, sheet `ink-baseline-vs-final.png`): fade curves identical to within a few
+  percent; width, slide distance and edge sharpness the same; first-ink within one or two capture frames. Ink masks
+  (`inkhz-final*.json`): baseline-vs-final differences equal final-vs-final run noise. Frozen files byte-identical.
+- **Drawing frame times** with the full world visible: 3703 frames ×2 runs, all 16.7 ms, none over 20 ms. Phone
+  (390, touch, CPU 4× slower): 1761 frames, none over 20 ms.
+- **Lighthouse:** mobile 95 / 100 / 100 / 100, desktop 96 / 100 / 100 / 100 (Performance / Accessibility / Best
+  Practices / SEO).
+- **Screenshots:** `docs/research/final/sheet-*.png` (places and rooms, 1440 and 390, light and dark).
+- Wording approved by the user 2026-10-03 (title, description, Credits / Post-credits, screen-reader labels).

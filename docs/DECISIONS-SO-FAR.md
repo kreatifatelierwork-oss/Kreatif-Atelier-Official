@@ -105,6 +105,8 @@ the user's answers that day).
 | 2026-09-30 | **C1–C8 answered** (see §6) | In force |
 | 2026-10-01 | **The unified idea brief** (this list's points §4–§5). The cursor ink is rebuilt to match buttermax | In force |
 | 2026-10-01 | **v3 "Shot on Location" approved** with all its new wording. The concept pair confirmed as Orrery × Production. The ink gets one more pass on the tail shape only, then is accepted. **Build plan:** one complete vertical slice at `/experience` (opening, Atrium, Studio Floor, Aurelius's Drafting Hall with its Enter room and the Lens, the act bar and the Index), image-first, the rest blocked out. The home page stays untouched | In force |
+| 2026-10-01 | **Build the real site:** the experience becomes the home page with every section; navigation and ink are LOCKED (never changed without asking). Why us #06 rewritten by the user | In force |
+| 2026-10-03 | **Wording approved:** the page title "Kreatif Atelier: a creative holding company in Hyderabad", the search description, "Credits" and "Post-credits", the screen-reader labels. The site is built (see `docs/PROGRESS.md`) | In force |
 
 ## 4. The two concepts that were combined, and what the user liked
 The combination the user chose (2026-09-28) was **The Orrery × The Production** (confirmed by the user 2026-10-01). The House of Light (2026-09-29) is the

@@ -54,7 +54,7 @@ export const xp = {
     breathe: "Breathe",
     spark: "Spark",
   },
-  /** Accessible names only (never shown). PROPOSED */
+  /** Accessible names only (never shown). APPROVED 2026-10-03 */
   sr: {
     filmTime: "Film time",
     route: "Places in the film",

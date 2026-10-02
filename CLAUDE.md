@@ -1,4 +1,4 @@
-# Kreatif Atelier — "The Long Take"
+# Kreatif Atelier: "The Making of a Legacy: Shot on Location"
 
 ## Design sources of truth (added 2026-09-30, OVERRIDE earlier design choices where they conflict)
 These materials define what "premium" means for this project. Read the relevant ones before any design work.
@@ -53,13 +53,24 @@ These materials define what "premium" means for this project. Read the relevant 
 ## What this project is
 The website for **Kreatif Atelier, a creative holding company** ("Ideas | People | Impact"), its beliefs, how it
 works and what it makes possible, with its five verticals as chapters inside that bigger story.
-- **The current direction** is proposed in `docs/concepts/THE-MAKING-OF-v3.md` (one unified idea: the film *is* a world
-  you travel through). It is not built until approved.
-- **Decisions** are collected in `docs/DECISIONS-SO-FAR.md`.
-- **Built so far on `redesign-v2`:**
-  - the home page is still "The Long Take" (orrery, superseded);
-  - `/film` holds the opening sequence + cursor checkpoint.
+- **The site** (built 2026-10-02, on `redesign-v2`) is v3 "Shot on Location" (`docs/concepts/THE-MAKING-OF-v3.md`, approved): one
+  continuous camera through a world that is still being made, eleven places on one route, a buttermax-style opening
+  and the fluid ink cursor. It is the home page (`/`). `/experience` only forwards to `/`.
+- **Retired** (in git history only): the Long Take orrery, `/film` (the opening + ink checkpoint) and `/concepts`.
+- **Decisions** are collected in `docs/DECISIONS-SO-FAR.md`; build log and proofs in `docs/PROGRESS.md`.
 - `main` holds the old build and stays untouched.
+
+## LOCKED by the user (2026-10-01): never change without asking first
+- **Spatial navigation:** how the camera travels, its smoothness, the scroll / swipe / arrow key / Watch feel, the
+  settling on places, the transitions and the timing. Files: `components/experience/journey.ts`, `useInput.ts`,
+  `stage/CameraRig.tsx`, `lib/config.ts` → `experienceConfig` (all of it), and the travel code in `Experience.tsx`
+  (go / enter / leave and the frame's travel block).
+- **The ink cursor:** shape, push, fade, tail, gold edge, brush lag, touch behaviour. Files:
+  `components/film/ink/*`, `components/film/loop.ts`, `lib/config.ts` → `filmConfig.ink`, the ink canvas layer and
+  the pointer → brush wiring.
+- If a feature would need either to change, stop and ask. Proof tools: `scripts/research/nav-record.mjs` +
+  `nav-compare.py`, `ink-record.mjs --ink-only` + `ink-measure.py`, `ink-hz.mjs --out` + `ink-hz-compare.mjs`,
+  against `docs/research/baseline/*.json`.
 
 ## The structure (source of truth: `content/verticals.ts`, transcribed exactly from the company chart)
 - **Kreatif Atelier:** a creative holding company.
@@ -75,6 +86,13 @@ works and what it makes possible, with its five verticals as chapters inside tha
   5. **Asraya**: People. Balance. Wellbeing. Fresh jade `#23C27C`.
 - **Live-site content still in use, word for word:** about and philosophy, the six services, pricing (exactly as
   is), the founders (with cut-outs), why us, process, industries and contact.
+- **Where each section lives on the route** (`components/experience/route.ts`): Atrium (title) → Studio Floor (about,
+  the four About panels as rooms) → Aurelius's Drafting Hall (the agency line, Our Services with all six services,
+  Engagement Models) → Golden Guardian's Projection Hall (Creative Production) → the Concourse (services overview,
+  How We Work, industries) → Valora's Water Court → Asraya's Garden Court → Rudra Yugen's Glass Lattice → the Roof
+  (the holding company; moments for Vision, Pillars, Our ecosystem serves, Impact) → the Gallery (founders arc, Why
+  Kreatif Atelier) → the closing scene (the audit CTA, contact, footer). Links: `/#<place>`, `/#<place>/<room>` and
+  aliases (`/#founders`, `/#pricing`, `/#services`, `/#pillars` …).
 
 ## Visual direction
 Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions above.
@@ -94,15 +112,21 @@ Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions 
 - pnpm
 
 ## Architecture rules
-- Home = `app/page.tsx` → `components/longtake/*`. The DOM shell (all real text, headings, timeline, menus) is
-  server-rendered; the 3D stage is `dynamic(..., { ssr: false })`.
-- The stage mounts only on Begin (it compiles behind the opening white-out). Before that the loader only
-  prefetches the 1K HDRI with real byte progress. This is what keeps mobile Lighthouse ≥ 90; don't mount it earlier.
-- The timeline position `s` (0–7, a ref) is the single source of truth; the camera, colours, haze and text read it.
-  Never read `window.scrollY` in `useFrame`. Per-frame values go through refs, not React state.
-- Camera path, world placement, colours, speeds, interaction timings: `lib/config.ts` (`longTakeConfig`) and
-  `components/longtake/journey.ts`. All copy in `content/*.ts` (UI labels in `content/concepts.ts` → `longTake`).
-- `/concepts` keeps the earlier prototypes (noindex) for reference.
+- Home = `app/page.tsx` → `components/experience/Experience.tsx`. The DOM shell (all real text in `Captions`, rooms in
+  `RoomPanel`, the act bar, the Index, the founders arc) is server-rendered; the 3D stage
+  (`components/experience/stage/*`) is `dynamic(..., { ssr: false })` and mounts only after the gate.
+- Everything behind the gate is `inert` until the film is live; then focus moves to the title.
+- The route position `s` (0 = Atrium … 10 = closing scene, in `rtRef`) is the single source of truth; camera,
+  atmosphere, captions, act bar and the world read it. Per-frame values go through refs, never React state. One
+  shared animation loop (`components/film/loop.ts`): the R3F canvas (`frameloop="never"`) is advanced first, then
+  the ink and the shell.
+- Places are components in `stage/places/*` composed around the fixed camera path; thing positions in
+  `stage/layout.ts`; the one light per place in `stage/Light.tsx` and `stage/look.ts`; world interactions share
+  state through `components/experience/actions.ts`.
+- All copy in `content/*.ts`; site UI labels in `content/experience.ts`; C3 punctuation is applied at render (`c3`).
+- The Idea's point-cloud forms are built in a Web Worker (`components/film/stage/forms.worker.ts`): never move that
+  work back onto the main thread (it cost 1.5 s of blocking on mobile).
+- Weak devices / no WebGL 2 get the still version (`is-still`, preview with `?still`). `?tune` exposes test hooks.
 
 ## Non-negotiables
 - **No logo, crest, emblem, monogram or "KA" mark anywhere**, and no placeholder for one. Brand presence = the words
@@ -113,7 +137,7 @@ Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions 
 - All real copy is real HTML text (never only in the canvas). Accessibility ≥ 95, SEO 100, mobile Performance ≥ 70.
 - `prefers-reduced-motion`: cuts + crossfades, still sculptures, holds become presses. Keyboard reachable, visible focus.
 - Phones: DPR ≤ 1.5, no depth of field, simplified effects, touch versions of every interaction.
-- Weak devices / no WebGL: CSS fallback with the same reels, text and navigation.
+- Weak devices / no WebGL: the still version with the same places, text and navigation.
 - Commercially licensed assets only, logged in `docs/ASSETS.md`. Sound: a generated score only, silent until the visitor
   chooses "Enter with sound", with a mute toggle always visible. No video yet.
 
@@ -128,4 +152,8 @@ Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions 
 - `pnpm lint` · `pnpm typecheck`
 - `pnpm start` — serve `/out` locally with compression (use this for Lighthouse)
 - `pnpm images <dir>` — rebuild founder portraits from PNGs in `<dir>`
-- `node scripts/research/capture-longtake.mjs <baseUrl> <outDir>` — screenshot every reel, both palettes, 1440/390
+- `node scripts/research/xp-check.mjs <outDir> [--w 390 --h 844 --touch] [--dark] [--reduced] [--still]` — screenshot
+  every place (needs the research Chrome on port 9555 and `pnpm start`-style server on 4174)
+- `node scripts/research/xp-interact.mjs <outDir> [...]` — every interaction and room; `xp-keyboard.mjs` — keyboard
+  and screen-reader pass; `gpu-time.mjs` — GPU and script time per frame at each place
+- Frame-time checks need mains power: on low battery Chrome caps headless at 30 fps (check a blank page first).
