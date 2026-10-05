@@ -20,6 +20,9 @@ importers:
       '@react-three/postprocessing':
         specifier: ^3.1.2
         version: 3.1.2(@react-three/fiber@9.8.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(three@0.186.1))(@types/three@0.186.0)(postprocessing@6.39.5(three@0.186.1))(react@19.3.0)(three@0.186.1)
+      '@sparkjsdev/spark':
+        specifier: ^2.3.1
+        version: 2.3.1(three@0.186.1)
       framer-motion:
         specifier: ^13.4.4
         version: 13.4.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -599,6 +602,11 @@ packages:
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
+
+  '@sparkjsdev/spark@2.3.1':
+    resolution: {integrity: sha512-K+SyIbkO/dx1TLLudK8Jp3/noS13z/kdNPo6OK2waxQaGy81HBmKGnNBT/t/K9Ew3dsIXmWqsJXxGfmAu1T5Jg==}
+    peerDependencies:
+      three: '>=0.180.0'
 
   '@swc/helpers@0.5.23':
     resolution: {integrity: sha512-5lSsMOTXURePglDfvuAQUqkGek9Hg2kksOYay2m0+XR++b2NWYL/4sWyuvVBIs8oKnJaxkdi9whaL/sqN13afw==}
@@ -2878,6 +2886,11 @@ snapshots:
       - '@types/three'
 
   '@rtsao/scc@1.1.0': {}
+
+  '@sparkjsdev/spark@2.3.1(three@0.186.1)':
+    dependencies:
+      fflate: 0.8.3
+      three: 0.186.1
 
   '@swc/helpers@0.5.23':
     dependencies:

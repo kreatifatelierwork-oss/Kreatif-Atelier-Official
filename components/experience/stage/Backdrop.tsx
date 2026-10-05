@@ -5,6 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { Runtime } from "../journey";
+import { DepthPlate } from "./DepthPlate";
 import { hold, plate, viewHeight } from "./kit";
 
 const window01 = (s: number, a: number, b: number, fade: number) =>
@@ -15,7 +16,15 @@ const window01 = (s: number, a: number, b: number, fade: number) =>
  * the stretch's holds). The camera moves inside it, so it shifts by real parallax; at the stretch's ends it hands over
  * to the next one. Never fogged: haze is painted in.
  */
-export function Backdrop({ rtRef, name, mobile, from, to, radius = 220, span = 120, lift = 0, yaw = 0, aspect, tint = "#ffffff", night }: {
+/** Plates with a depth map (public/v5/depth): these become displaced dioramas instead of flat panoramas. */
+const DEPTH = new Set(["p01-jungle-bg", "p03-canopy", "p04-cloud-sea", "p05-desert-canyon", "p07-cave", "p08-coast", "p09-reef", "p10-jade-lake", "p12-ice-cave", "p13-aurora", "p14-summit", "p15-night-sky", "p16-dawn-clearing"]);
+
+export function Backdrop(props: Parameters<typeof Panorama>[0]) {
+  if (DEPTH.has(props.name)) return <DepthPlate rtRef={props.rtRef} name={props.name} mobile={props.mobile} from={props.from} to={props.to} aspect={props.aspect} night={props.night} tint={props.tint} />;
+  return <Panorama {...props} />;
+}
+
+function Panorama({ rtRef, name, mobile, from, to, radius = 220, span = 120, lift = 0, yaw = 0, aspect, tint = "#ffffff", night }: {
   rtRef: { current: Runtime }; name: string; mobile: boolean; from: number; to: number; radius?: number; span?: number;
   /** Vertical shift of the plate (fraction of its height). */ lift?: number; /** Extra yaw (degrees). */ yaw?: number;
   /** The plate image's width / height. */ aspect: number; tint?: string; night: boolean;
