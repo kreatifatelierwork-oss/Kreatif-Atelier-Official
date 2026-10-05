@@ -1,4 +1,4 @@
-# Kreatif Atelier: "The Making of a Legacy: Shot on Location"
+# Kreatif Atelier: "One Take Across the World" (v5)
 
 ## Design sources of truth (added 2026-09-30, OVERRIDE earlier design choices where they conflict)
 These materials define what "premium" means for this project. Read the relevant ones before any design work.
@@ -47,30 +47,54 @@ These materials define what "premium" means for this project. Read the relevant 
   atmosphere and materials), so moving between verticals feels like moving between worlds. **Outside** its world,
   gold is the only accent (buttons, links, highlights). One vivid colour per scene, never several competing.
 - **C6 Fonts:** Outfit (display), Cormorant Garamond (voice), IBM Plex Mono (utility). Manrope is retired.
+  **Amended 2026-10-05:** in-world headlines and title cards use the classical serif (Cormorant Garamond 500) as in
+  the v5 reference images; Outfit stays for UI, buttons and text "written in light"; Plex Mono for diagram labels.
 - **C7 Glow:** one light source per scene; no halos on everything.
 - **C8 Edges:** the opening flood rim and the ink cursor's edge are **gold only**, no rainbow.
 
+## v5 decisions (user, 2026-10-05)
+- **Real 3D worlds:** places are built as 3D environments the camera moves THROUGH, primarily Gaussian-splat worlds
+  from World Labs Marble (`design-refs/worlds/wNN-*.spz`, rendered with Spark), stitched into one journey at physical
+  thresholds (canopy break, cave mouth, water surface, ice wall) with fog, light and real 3D foreground covering each
+  handover. Until a world arrives, its place uses the depth-mesh fallback (plates displaced by Depth Anything depth).
+  Never flat image cards.
+- **Text stays:** no blur-in / blur-out on text. Text appears early, stays fully visible while its place is in view
+  and while travelling past it, leaves only when the place is well behind; Watch holds allow reading it twice;
+  entrances are a clean reveal (wipe). Text on screen at every point of the route.
+- **Company pages:** same formula on all five; persistent canvas; each ends with Enquire, "Next" and "Back to the
+  Atlas". Valora, Rudra Yugen and Asraya offering paragraphs are PROPOSED (`content/companies.ts`).
+- **Phones:** M01–M06 were never made; phone views are composed from the desktop references.
+- **Order and checkpoint:** text fix + page shells, then Spark + streaming/stitching + fallback, then worlds as they
+  arrive (w01–w03 first). STOP at the checkpoint when chapters 1–4 run on splat worlds w01–w03: link, short screen
+  recording, side-by-side sheets vs references, frame times on mains power.
+
 ## What this project is
 The website for **Kreatif Atelier, a creative holding company** ("Ideas | People | Impact"), its beliefs, how it
-works and what it makes possible, with its five verticals as chapters inside that bigger story.
-- **The site** (built 2026-10-02, on `redesign-v2`) is v3 "Shot on Location" (`docs/concepts/THE-MAKING-OF-v3.md`, approved): one
-  continuous camera through a world that is still being made, eleven places on one route, a buttermax-style opening
-  and the fluid ink cursor. It is the home page (`/`). `/experience` only forwards to `/`.
-- **Retired** (in git history only): the Long Take orrery, `/film` (the opening + ink checkpoint) and `/concepts`.
+works and what it makes possible, with its five verticals as lands inside that bigger story.
+- **The site** (v5, on `redesign-v2`): `docs/concepts/WORLD-PLAN.md` "One Take Across the World". The home page (`/`)
+  is one uncut camera move through twelve chapters (jungle, climb, clouds, five peaks, the five lands, summit, night
+  sky, return); the five company pages (`/aurelius`, `/golden-guardian-productions`, `/valora`, `/asraya`,
+  `/rudra-yugen`) are journeys through each land. `/experience` only forwards to `/`.
+- **References:** `design-refs/` (gitignored): home/ H01–H36, pages/ A/G/V/S/R, graphics/ X01–X10, plates/ P01–P18;
+  analysed in `docs/design/REFS-ANALYSIS.md`. Splat worlds go in `design-refs/worlds/`.
+- **Retired** (in git history only): v3 "Shot on Location" (rooms), the Long Take orrery, `/film`, `/concepts`.
 - **Decisions** are collected in `docs/DECISIONS-SO-FAR.md`; build log and proofs in `docs/PROGRESS.md`.
 - `main` holds the old build and stays untouched.
 
 ## LOCKED by the user (2026-10-01): never change without asking first
 - **Spatial navigation:** how the camera travels, its smoothness, the scroll / swipe / arrow key / Watch feel, the
   settling on places, the transitions and the timing. Files: `components/experience/journey.ts`, `useInput.ts`,
-  `stage/CameraRig.tsx`, `lib/config.ts` → `experienceConfig` (all of it), and the travel code in `Experience.tsx`
-  (go / enter / leave and the frame's travel block).
+  `stage/CameraRig.tsx`, `lib/config.ts` → `experienceFeel` (all of it), and the travel code in `Experience.tsx`
+  (go / enter / leave and the frame's travel block). The per-place route data (holds, camera, anchors, colours,
+  atmosphere) is separate (user decision 2026-10-05): `lib/route-data.ts` (home) and
+  `components/experience/journeys/*` (company pages); only that data changes for a new route, never the engine.
 - **The ink cursor:** shape, push, fade, tail, gold edge, brush lag, touch behaviour. Files:
   `components/film/ink/*`, `components/film/loop.ts`, `lib/config.ts` → `filmConfig.ink`, the ink canvas layer and
   the pointer → brush wiring.
 - If a feature would need either to change, stop and ask. Proof tools: `scripts/research/nav-record.mjs` +
   `nav-compare.py`, `ink-record.mjs --ink-only` + `ink-measure.py`, `ink-hz.mjs --out` + `ink-hz-compare.mjs`,
-  against `docs/research/baseline/*.json`.
+  against `docs/research/baseline-v5/*.json` (recorded 2026-10-05 on mains power), plus the route-independent
+  `scripts/research/engine-trace.mjs` (must report IDENTICAL against `baseline-v5/engine-baseline.json`).
 
 ## The structure (source of truth: `content/verticals.ts`, transcribed exactly from the company chart)
 - **Kreatif Atelier:** a creative holding company.
@@ -86,13 +110,14 @@ works and what it makes possible, with its five verticals as chapters inside tha
   5. **Asraya**: People. Balance. Wellbeing. Fresh jade `#23C27C`.
 - **Live-site content still in use, word for word:** about and philosophy, the six services, pricing (exactly as
   is), the founders (with cut-outs), why us, process, industries and contact.
-- **Where each section lives on the route** (`components/experience/route.ts`): Atrium (title) → Studio Floor (about,
-  the four About panels as rooms) → Aurelius's Drafting Hall (the agency line, Our Services with all six services,
-  Engagement Models) → Golden Guardian's Projection Hall (Creative Production) → the Concourse (services overview,
-  How We Work, industries) → Valora's Water Court → Asraya's Garden Court → Rudra Yugen's Glass Lattice → the Roof
-  (the holding company; moments for Vision, Pillars, Our ecosystem serves, Impact) → the Gallery (founders arc, Why
-  Kreatif Atelier) → the closing scene (the audit CTA, contact, footer). Links: `/#<place>`, `/#<place>/<room>` and
-  aliases (`/#founders`, `/#pricing`, `/#services`, `/#pillars` …).
+- **Where each section lives** (`components/experience/journeys/home.ts`): The Seed (title, H02 line, positioning,
+  the four About panels as field-guide callouts, Where We Operate map) → The Climb (philosophy quote up the trunk,
+  Ideas | People | Impact, 5 Verticals / ∞ Creative Vision) → Above the Canopy (the holding company, Vision) → The
+  Five Peaks (pillars, the atlas) → Aurelius (six services, portal) → Golden Guardian Productions → Valora → Asraya →
+  Rudra Yugen (each: name, tagline, offerings, value, portal) → The Summit (tomorrow line, serves, impact, why us) →
+  The Night Sky (founders as credits, industries star chart, process) → Return (contact). Company pages:
+  `journeys/companies.ts` (Aurelius also carries the agency line, services, engagement models, process, industries;
+  GGP the Creative Production service and showreel frames). Links: `/#<place>`, `/#<place>/<room>`, aliases.
 
 ## Visual direction
 Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions above.
@@ -112,21 +137,27 @@ Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions 
 - pnpm
 
 ## Architecture rules
-- Home = `app/page.tsx` → `components/experience/Experience.tsx`. The DOM shell (all real text in `Captions`, rooms in
-  `RoomPanel`, the act bar, the Index, the founders arc) is server-rendered; the 3D stage
-  (`components/experience/stage/*`) is `dynamic(..., { ssr: false })` and mounts only after the gate.
+- `app/layout.tsx` renders `components/experience/Experience.tsx` once for every page, so the canvas persists across
+  page changes; each page (`app/page.tsx`, `app/[company]/page.tsx`) adds its metadata and JSON-LD only. The journey
+  is chosen from the path (`journeyFor`, `setJourney` in `components/experience/route.ts`: live bindings, so the
+  locked engine reads the active journey's `LAST` and route data unchanged). Portal links call `cross()`
+  (`threshold.ts`): the world pushes on, the next world's haze rises, the page changes.
+- All real text is server-rendered HTML in `Scenes.tsx` / `SceneItems.tsx` (items: card, head, voice, callouts, pins,
+  numerals, arc, list, button, onward, closing), anchored to world points (`stage/layout.ts` `anchorFor`, onto
+  collider surfaces when a splat world's collider is loaded) and projected every frame. Text drawn in 3D (troika)
+  keeps a visually hidden DOM copy. Field-guide pages: `FieldGuide.tsx`.
+- The 3D stage (`components/experience/stage/*`) is `dynamic(..., { ssr: false })` and mounts after the gate.
+  Worlds: splat worlds (`stage/Splats.tsx`, manifest `lib/worlds.ts`, files from `scripts/v5/worlds.mjs`) stream in
+  two places ahead and unload two behind; until a world arrives, `Backdrop` → `DepthPlate` dioramas; hand-built sets
+  in `stage/sets/*` add 3D foreground and the in-world text; `Threshold.tsx` covers splat-world handovers.
 - Everything behind the gate is `inert` until the film is live; then focus moves to the title.
-- The route position `s` (0 = Atrium … 10 = closing scene, in `rtRef`) is the single source of truth; camera,
-  atmosphere, captions, act bar and the world read it. Per-frame values go through refs, never React state. One
-  shared animation loop (`components/film/loop.ts`): the R3F canvas (`frameloop="never"`) is advanced first, then
-  the ink and the shell.
-- Places are components in `stage/places/*` composed around the fixed camera path; thing positions in
-  `stage/layout.ts`; the one light per place in `stage/Light.tsx` and `stage/look.ts`; world interactions share
-  state through `components/experience/actions.ts`.
-- All copy in `content/*.ts`; site UI labels in `content/experience.ts`; C3 punctuation is applied at render (`c3`).
-- The Idea's point-cloud forms are built in a Web Worker (`components/film/stage/forms.worker.ts`): never move that
-  work back onto the main thread (it cost 1.5 s of blocking on mobile).
-- Weak devices / no WebGL 2 get the still version (`is-still`, preview with `?still`). `?tune` exposes test hooks.
+- The route position `s` (in `rtRef`) is the single source of truth; per-frame values go through refs, never React
+  state. One shared animation loop (`components/film/loop.ts`): the R3F canvas (`frameloop="never"`) is advanced
+  first, then the ink and the shell.
+- All copy in `content/*.ts`; v5 UI labels in `content/journey.ts`, company page copy in `content/companies.ts`,
+  `content/pages.ts`; C3 punctuation is applied at render (`c3`).
+- Weak devices / no WebGL 2 get the still version (`is-still`, preview with `?still`). `?tune` exposes test hooks;
+  `?author` is the free-fly route-authoring camera; `?splat=test` shows the pipeline test splat world.
 
 ## Non-negotiables
 - **No logo, crest, emblem, monogram or "KA" mark anywhere**, and no placeholder for one. Brand presence = the words
@@ -152,8 +183,22 @@ Follow `DESIGN.md` and `docs/design/PHILOSOPHY.md`, as amended by the decisions 
 - `pnpm lint` · `pnpm typecheck`
 - `pnpm start` — serve `/out` locally with compression (use this for Lighthouse)
 - `pnpm images <dir>` — rebuild founder portraits from PNGs in `<dir>`
+- v5: `node scripts/v5/shots.mjs <dir> [--path /aurelius] [--places 0,1.5,3] [--mobile] [--q splat=test]` (screens
+  at holds), `scripts/v5/sheets.mjs <shots> <out>` (side by side with the references), `scripts/v5/probe.mjs '<js>'`,
+  `scripts/v5/plates.mjs` (plates → WebP), `scripts/v5/depth.py` (depth maps; needs an onnxruntime venv and the
+  Depth Anything V2 Small ONNX), `scripts/v5/worlds.mjs` (splat worlds in), `scripts/v5/hold-times.mjs`
 - `node scripts/research/xp-check.mjs <outDir> [--w 390 --h 844 --touch] [--dark] [--reduced] [--still]` — screenshot
   every place (needs the research Chrome on port 9555 and `pnpm start`-style server on 4174)
 - `node scripts/research/xp-interact.mjs <outDir> [...]` — every interaction and room; `xp-keyboard.mjs` — keyboard
   and screen-reader pass; `gpu-time.mjs` — GPU and script time per frame at each place
 - Frame-time checks need mains power: on low battery Chrome caps headless at 30 fps (check a blank page first).
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
