@@ -26,12 +26,12 @@ export function Canopy({ rtRef, mobile, calm, night }: P) {
   return (
     <group>
       <Backdrop rtRef={rtRef} name="p03-canopy" mobile={mobile} from={7} to={8} radius={230} span={124} lift={0.02} aspect={1.777} night={night} />
-      <Backdrop rtRef={rtRef} name="p04-cloud-sea" mobile={mobile} from={9} to={11} radius={260} span={150} lift={-0.02} aspect={2.532} night={night} />
+      <Backdrop rtRef={rtRef} name="p04-cloud-sea" mobile={mobile} from={9} to={10} radius={260} span={150} lift={-0.02} aspect={2.532} night={night} />
       <Tree mobile={mobile} />
       <Near rtRef={rtRef} place={6} range={1.2}><Quote mobile={mobile} /></Near>
       <Crowns mobile={mobile} />
       <Ceiling mobile={mobile} />
-      <Near rtRef={rtRef} place={7} range={1.2}><Tiers mobile={mobile} /></Near>
+      <Near rtRef={rtRef} place={7} range={0.75}><Tiers mobile={mobile} /></Near>
       <BreakLeaves calm={calm} />
       <Clouds mobile={mobile} calm={calm} night={night} />
       <Peaks mobile={mobile} />
@@ -231,6 +231,8 @@ function Clouds({ mobile, calm, night }: { mobile: boolean; calm: boolean; night
   return (
     <>
       <Mist box={{ min: [-200, 50, -480], max: [200, 62, -150] }} count={mobile ? 50 : 110} size={[30, 70]} color="#FFE4BE" opacity={0.6} seed={51} calm={calm} night={night} fog={false} />
+      {/* The cloud floor the five peaks rise from (H12). */}
+      <Mist box={{ min: [-180, 34, -520], max: [180, 46, -300] }} count={mobile ? 40 : 90} size={[40, 90]} color="#FFE2BC" opacity={0.85} seed={54} calm={calm} night={night} fog={false} />
       <Mist box={{ min: [-40, 60, -140], max: [40, 70, -100] }} count={mobile ? 5 : 10} size={[8, 16]} color="#FFFFFF" opacity={0.35} seed={53} calm={calm} night={night} fog={false} />
     </>
   );

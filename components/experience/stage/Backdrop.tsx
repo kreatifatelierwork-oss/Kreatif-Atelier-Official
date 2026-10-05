@@ -20,10 +20,14 @@ const window01 = (s: number, a: number, b: number, fade: number) =>
  */
 /** Plates with a depth map (public/v5/depth): these become displaced dioramas instead of flat panoramas. */
 const DEPTH = new Set(["p01-jungle-bg", "p03-canopy", "p04-cloud-sea", "p05-desert-canyon", "p07-cave", "p08-coast", "p09-reef", "p10-jade-lake", "p12-ice-cave", "p13-aurora", "p14-summit", "p15-night-sky", "p16-dawn-clearing"]);
+/** Where each open-sky plate's horizon sits (0 = bottom, 1 = top): the painted sky above stays far. */
+const HORIZON: Record<string, number> = {
+  "p03-canopy": 0.6, "p04-cloud-sea": 0.55, "p08-coast": 0.62, "p13-aurora": 0.45, "p14-summit": 0.5, "p15-night-sky": 0.35, "p05-desert-canyon": 0.62,
+};
 
-export function Backdrop(props: Parameters<typeof Panorama>[0]) {
+export function Backdrop(props: Parameters<typeof Panorama>[0] & { anchor?: number }) {
   if (splatCovers(active.id, props.from, props.to)) return null;
-  if (DEPTH.has(props.name)) return <DepthPlate rtRef={props.rtRef} name={props.name} mobile={props.mobile} from={props.from} to={props.to} aspect={props.aspect} night={props.night} tint={props.tint} />;
+  if (DEPTH.has(props.name)) return <DepthPlate rtRef={props.rtRef} name={props.name} mobile={props.mobile} from={props.from} to={props.to} anchor={props.anchor} horizon={HORIZON[props.name]} aspect={props.aspect} night={props.night} tint={props.tint} />;
   return <Panorama {...props} />;
 }
 

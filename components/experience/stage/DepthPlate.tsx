@@ -15,14 +15,15 @@ import { hold, plate } from "./kit";
  */
 const vert = /* glsl */ `
 uniform sampler2D uDepth;
-uniform float uNear, uFar, uTanX, uTanY;
+uniform float uNear, uFar, uTanX, uTanY, uHorizon;
 uniform vec2 uTexel;
 varying vec2 vUv;
 varying float vEdge;
 varying float vDist;
 #include <fog_pars_vertex>
 float distAt(vec2 uv) {
-  float d = texture2D(uDepth, uv).r;
+  // Above the plate's horizon the painted sky is a distant backdrop, never geometry overhead.
+  float d = texture2D(uDepth, uv).r * (1.0 - smoothstep(uHorizon - 0.14, uHorizon + 0.04, uv.y));
   // Disparity (white = near) → distance, interpolating in inverse depth.
   return 1.0 / mix(1.0 / uFar, 1.0 / uNear, pow(d, 1.35));
 }
@@ -49,6 +50,8 @@ void main() {
   vec4 c = texture2D(uMap, vUv);
   // Stretched faces across a depth edge fade out (the layer behind shows through).
   float keep = 1.0 - smoothstep(0.08, 0.3, vEdge);
+  // The plate's top and side edges dissolve into the sky, so no edge is ever seen from inside the diorama.
+  keep *= smoothstep(1.0, 0.82, vUv.y) * smoothstep(0.0, 0.06, vUv.x) * smoothstep(1.0, 0.94, vUv.x);
   gl_FragColor = vec4(c.rgb * uTint * uDim, uOpacity * keep);
   #include <colorspace_fragment>
 }`;
@@ -62,8 +65,10 @@ export function plateAnchor(from: number, to: number, back = 30) {
   return { position, quaternion };
 }
 
-export function DepthPlate({ rtRef, name, mobile, from, to, back = 30, near = 14, far = 420, fovX = 112, aspect, night, tint = "#ffffff" }: {
+export function DepthPlate({ rtRef, name, mobile, from, to, anchor, horizon = 1.1, back = 30, near = 14, far = 420, fovX = 112, aspect, night, tint = "#ffffff" }: {
   rtRef: { current: Runtime }; name: string; mobile: boolean; from: number; to: number;
+  /** The place the diorama is anchored behind (default: the stretch's first). */ anchor?: number;
+  /** The plate's horizon (0 = bottom, 1 = top); sky above it stays far. */ horizon?: number;
   /** How far behind the stretch's first hold the anchor sits (m): the camera then moves inside the diorama. */
   back?: number; near?: number; far?: number; fovX?: number; aspect: number; night: boolean; tint?: string;
 }) {
@@ -77,16 +82,16 @@ export function DepthPlate({ rtRef, name, mobile, from, to, back = 30, near = 14
     const mat = new THREE.ShaderMaterial({
       vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: true, side: THREE.DoubleSide, fog: false,
       uniforms: {
-        uMap: { value: map }, uDepth: { value: depth }, uNear: { value: near }, uFar: { value: far }, uTanX: { value: tanX },
+        uMap: { value: map }, uDepth: { value: depth }, uNear: { value: near }, uFar: { value: far }, uTanX: { value: tanX }, uHorizon: { value: horizon },
         uTanY: { value: tanX / aspect }, uTexel: { value: new THREE.Vector2(1 / 1022, 1 / (1022 / aspect)) },
         uOpacity: { value: 1 }, uDim: { value: 1 }, uTint: { value: new THREE.Color(tint) },
       },
     });
     const n = mobile ? [160, 90] : [320, 180];
     const geo = new THREE.PlaneGeometry(1, 1, n[0], Math.round(n[0] / aspect));
-    const { position: pos, quaternion: quat } = plateAnchor(from, to, back);
+    const { position: pos, quaternion: quat } = plateAnchor(anchor ?? from, to, back);
     return { mat, geo, pos, quat };
-  }, [map, depth, near, far, fovX, aspect, mobile, from, to, back, tint]);
+  }, [map, depth, near, far, fovX, aspect, mobile, from, to, anchor, horizon, back, tint]);
   const ref = useRef<THREE.Mesh>(null);
   useFrame(() => {
     const s = rtRef.current.s;
