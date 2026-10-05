@@ -5,6 +5,7 @@ import { Suspense, useMemo, useRef, useState } from "react";
 import { liveWorlds, TEST_WORLD, testSplat } from "@/lib/worlds";
 import { plateAnchor } from "./DepthPlate";
 import { SparkLayer, SplatWorld } from "./Splats";
+import { Threshold } from "./Threshold";
 import * as THREE from "three";
 import { useUi, type Runtime } from "../journey";
 import { active, chapters, LAST, route } from "../route";
@@ -118,6 +119,9 @@ export function World({ rtRef, theme, mobile, calm, riseAtRef }: Props) {
         <Suspense key={w.id} fallback={null}>
           {near(place, w.from, w.to) && <SplatWorld rtRef={rtRef} world={w} mobile={mobile} night={night} />}
         </Suspense>
+      ))}
+      {splats.filter((w) => w.threshold && w.threshold !== "portal").map((w) => (
+        near(place, w.to, w.to + 1) && <Threshold key={`t${w.id}`} rtRef={rtRef} world={w} calm={calm} night={night} />
       ))}
       {test && near(place, TEST_WORLD.from, TEST_WORLD.to) && <SplatWorld rtRef={rtRef} world={TEST_WORLD} mobile={mobile} night={night} anchor={plateAnchor(0, 6)} />}
       <Ribbon rtRef={rtRef} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />

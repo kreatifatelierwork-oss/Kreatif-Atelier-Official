@@ -8,6 +8,7 @@ import type { FilmState } from "@/components/film/state";
 import type { Runtime } from "../journey";
 import { journeyKey } from "../route";
 import { CameraRig } from "./CameraRig";
+import { Author } from "./Author";
 import { Effects } from "./Effects";
 import { FOV, stageView } from "./layout";
 import { World } from "./World";
@@ -41,6 +42,8 @@ function SharedLoop({ onReady }: { onReady: () => void }) {
 }
 
 /** The one 3D canvas for /experience (lazy-loaded after the gate). */
+const authoring = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("author");
+
 export default function Stage({ rtRef, theme, mobile, calm, riseAtRef, onReady }: Props) {
   return (
     <Canvas
@@ -55,6 +58,7 @@ export default function Stage({ rtRef, theme, mobile, calm, riseAtRef, onReady }
       <SharedLoop onReady={onReady} />
       <CameraRig key={`c${journeyKey}`} rtRef={rtRef} theme={theme} />
       <World key={`w${journeyKey}`} rtRef={rtRef} theme={theme} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />
+      {authoring && <Author />}
       <Effects rtRef={rtRef} mobile={mobile} calm={calm} />
     </Canvas>
   );

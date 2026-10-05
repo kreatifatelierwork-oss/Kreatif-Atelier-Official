@@ -100,3 +100,23 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
 - PROPOSED copy waiting for approval: content/companies.ts (offering paragraphs for Valora, Asraya, Rudra Yugen;
   chapter names; the Enquire subject) and content/pages.ts (company page titles and descriptions).
 - Next: step (b) Spark + streaming/stitching + depth-mesh fallback.
+
+## v5 feedback round: step (b) done (2026-10-05)
+- Spark 2.3.1 (`@sparkjsdev/spark`), loaded only when a splat world is in use. `components/experience/stage/Splats.tsx`:
+  one SparkRenderer (phones: lodSplatScale 0.5), `SplatWorld` streams in two places ahead and is disposed two places
+  behind; `.rad` files stream LoD pages (`paged`), `.spz` builds LoD in a worker. Spark's own depth of field over
+  splats (the post-process depth of field can't see them: no depth writes).
+- `lib/worlds.ts`: the w01–w17 manifest (journey, places, transform, threshold); `scripts/v5/worlds.mjs` brings
+  design-refs/worlds/*.spz (+ -collider.glb) into public/v5/worlds and lib/worlds.files.json. `.rad` conversion
+  needs Spark's Rust build-lod tool: set SPARK_REPO to a built Spark checkout (Rust is not installed on this Mac).
+- Pipeline proven with a test splat world (`?splat=test`): the jungle plate + depth as 586k Gaussian splats written by
+  `scripts/v5/test-splat.mjs` (own SPZ encoder), loaded and rendered by Spark on the route.
+- Thresholds (`stage/Threshold.tsx`): leaf ring, rock ring, water surface, ice ring, cloud banks at each splat world's
+  handover. Colliders: text anchors raycast onto the world's collider surface when one is loaded (`stage/layout.ts`).
+- Depth-mesh fallback (`stage/DepthPlate.tsx`): Depth Anything V2 Small depth maps (`scripts/v5/depth.py`, ONNX, CPU)
+  for every plate; plates become deep displaced dioramas until each splat arrives.
+- `?author`: free-fly camera over the same engine (WASD/RF, drag to look, P logs a route-data pose, Esc returns);
+  `__worlds.set(id, {position, rotation, scale})` places a splat world live.
+- Engine trace: IDENTICAL. Disk: deleted old v3 ink-tuning frame captures and .next/cache (≈2.4 GB) when free space
+  fell to 4 GB.
+- Next: step (c) — waiting for design-refs/worlds/w01-w03 from World Labs Marble.

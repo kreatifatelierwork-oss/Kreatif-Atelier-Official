@@ -6,7 +6,7 @@ import { onFrame } from "@/components/film/loop";
 import { useUi, type Runtime } from "./journey";
 import { route } from "./route";
 import { SceneItem } from "./SceneItems";
-import { anchorFor, FOV, phoneAt, stageView } from "./stage/layout";
+import { anchorFor, colliders, FOV, phoneAt, stageView } from "./stage/layout";
 
 type Props = {
   rtRef: { current: Runtime };
@@ -60,6 +60,7 @@ export const Scenes = forwardRef<HTMLHeadingElement, Props>(function Scenes({ rt
         return { el, place: Number(el.closest<HTMLElement>("[data-place]")!.dataset.place), from: byKey.get(a)!, to: byKey.get(b)!, side: el.dataset.side ?? "right" };
       }).filter((l) => l.from && l.to);
     };
+    let seen = colliders.version;
     collect();
     const pos = new Map<Anchored, [number, number]>();
     const project = (a: Anchored, cam: THREE.PerspectiveCamera | null): [number, number] | null => {
@@ -69,7 +70,7 @@ export const Scenes = forwardRef<HTMLHeadingElement, Props>(function Scenes({ rt
       return [((v.x + 1) / 2) * w, ((1 - v.y) / 2) * h];
     };
     const off = onFrame(() => {
-      if (window.innerWidth !== w || window.innerHeight !== h) collect();
+      if (window.innerWidth !== w || window.innerHeight !== h || colliders.version !== seen) { seen = colliders.version; collect(); }
       const s = rtRef.current.s;
       const cam = stageView.camera;
       // Visibility by camera position: fully there around the hold, gone a little past half a passage either side.

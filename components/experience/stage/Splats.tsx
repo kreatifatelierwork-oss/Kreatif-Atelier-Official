@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { worldFile, type World } from "@/lib/worlds";
 import type { Runtime } from "../journey";
+import { colliders } from "./layout";
 
 /** Spark (World Labs' three.js splat renderer), loaded only when a splat world is in use. */
 type SparkModule = typeof import("@sparkjsdev/spark");
@@ -57,7 +58,23 @@ export function SplatWorld({ rtRef, world, mobile, night, anchor }: {
       meshRef.current = m as unknown as typeof meshRef.current;
       setMesh(m);
     }).catch((e) => console.error("[splat]", world.id, e));
-    return () => { gone = true; meshRef.current?.dispose?.(); meshRef.current = null; setMesh(null); };
+    // The collider (when the world has one): invisible, used to set text onto real surfaces.
+    let collider: THREE.Object3D | null = null;
+    if (f.collider) {
+      import("three/examples/jsm/loaders/GLTFLoader.js").then(({ GLTFLoader }) => new GLTFLoader().loadAsync(f.collider!)).then((g) => {
+        if (gone || !group.current) return;
+        collider = g.scene;
+        collider.visible = false;
+        group.current.add(collider);
+        group.current.updateMatrixWorld(true);
+        colliders.meshes.push(collider);
+        colliders.version++;
+      }).catch((e) => console.error("[collider]", world.id, e));
+    }
+    return () => {
+      gone = true; meshRef.current?.dispose?.(); meshRef.current = null; setMesh(null);
+      if (collider) { colliders.meshes = colliders.meshes.filter((c) => c !== collider); colliders.version++; }
+    };
   }, [world.id, mobile]);
   useFrame(() => {
     const s = rtRef.current.s, m = meshRef.current;

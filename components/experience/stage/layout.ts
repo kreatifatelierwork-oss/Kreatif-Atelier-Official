@@ -33,10 +33,25 @@ export function holdCamera(i: number, fov: number, aspect: number) {
   return tmpCam;
 }
 
-/** The world point seen at frame point `at` from place `i`'s hold, `depth` metres away. */
+/**
+ * Collider meshes of the splat worlds that have arrived (invisible, loaded with each world). When one is present, a
+ * text anchor sits where its frame point's ray meets the real surface (carved into the canyon, on the cave wall),
+ * provided that surface is within the item's depth budget; otherwise it floats at its authored depth.
+ */
+export const colliders = { meshes: [] as THREE.Object3D[], version: 0 };
+const ray = new THREE.Raycaster();
+
+/** The world point seen at frame point `at` from place `i`'s hold, `depth` metres away (or on a collider surface). */
 export function anchorFor(i: number, at: readonly [number, number], depth: number, fov: number, aspect: number, out = new THREE.Vector3()) {
   const cam = holdCamera(i, fov, aspect);
   v.set(at[0] * 2 - 1, 1 - at[1] * 2, 0.5).unproject(cam).sub(cam.position).normalize();
+  if (colliders.meshes.length) {
+    ray.set(cam.position, v);
+    ray.far = depth * 1.6;
+    const hit = ray.intersectObjects(colliders.meshes, true)[0];
+    // Sit a hair in front of the surface so the words read as carved or painted onto it.
+    if (hit) return out.copy(hit.point).addScaledVector(v, -0.05);
+  }
   // Depth along the line of sight (not along the ray), so a row of labels at one depth stays level.
   const fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(cam.quaternion);
   return out.copy(cam.position).addScaledVector(v, depth / Math.max(0.2, v.dot(fwd)));
