@@ -336,7 +336,7 @@ function Legacy({ mobile }: { mobile: boolean }) {
   const lineH = viewHeight(depth, camera.fov) * (mobile ? 0.034 : 0.062);
   const rot = new THREE.Euler().setFromQuaternion(h.quat);
   const vine = anchorFor(3, mobile ? [0.3, 0.4] : [0.3, 0.4], 7, camera.fov, aspect);
-  const props = { font: "/fonts/outfit-300.ttf", fontSize: lineH, color: "#FBE3A6", outlineColor: "#E5A94B", outlineBlur: lineH * 0.35, outlineOpacity: 0.55, anchorX: "center", anchorY: "middle", letterSpacing: 0.01 } as const;
+  const props = { font: "/fonts/outfit-300.ttf", fontSize: lineH, color: "#FBE3A6", outlineColor: "#E5A94B", outlineBlur: lineH * 0.12, outlineOpacity: 0.45, anchorX: "center", anchorY: "middle", letterSpacing: 0.01 } as const;
   return (
     <group>
       <group position={pos} rotation={rot}>

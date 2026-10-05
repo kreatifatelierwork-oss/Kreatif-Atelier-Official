@@ -34,7 +34,7 @@ export function Effects({ rtRef, mobile, calm }: { rtRef: { current: Runtime }; 
     const d = focusAt(rtRef.current.s);
     const m = e.cocMaterial as unknown as { worldFocusDistance: number; worldFocusRange: number };
     m.worldFocusDistance = d;
-    m.worldFocusRange = Math.max(1.2, d * 0.55);
+    m.worldFocusRange = Math.max(1.6, d * 1.1);
   });
   const lite = mobile || calm;
   return (

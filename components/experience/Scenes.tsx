@@ -21,6 +21,8 @@ type Anchored = { el: HTMLElement | SVGElement; place: number; at: [number, numb
 type Leader = { el: SVGPathElement; place: number; from: Anchored; to: Anchored; side: string };
 
 const v = new THREE.Vector3();
+/** Text lifetime in places: full from `before` ahead of the hold to `after` past it; wipes take `wipe`. */
+const TEXT = { before: 0.72, after: 0.62, wipe: 0.18 };
 const smooth = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t));
 
 /**
@@ -74,9 +76,16 @@ export const Scenes = forwardRef<HTMLHeadingElement, Props>(function Scenes({ rt
       for (const sec of sections) {
         const p = Number(sec.dataset.place);
         const d = Math.abs(s - p);
-        const o = reduced ? (Math.round(s) === p ? 1 : 0) : Math.max(1 - smooth((d - 0.16) / 0.5), sec.dataset.card && s < p ? 1 - smooth((p - s - 0.75) / 0.1) : 0);
-        sec.style.opacity = o.toFixed(3);
-        sec.style.visibility = o < 0.01 ? "hidden" : "visible";
+        // Text stays (user decision 2026-10-05): fully there from well before the place until well after it, with a
+        // clean wipe in and out at the far ends. Never a blur, never a fade while it can still be read.
+        const rel = s - p;
+        const reveal = reduced ? (Math.round(s) === p ? 1 : 0)
+          : rel < 0 ? smooth((rel + TEXT.before + TEXT.wipe) / TEXT.wipe)
+          : 1 - smooth((rel - TEXT.after) / TEXT.wipe);
+        const r = Math.max(0, Math.min(1, reveal));
+        sec.style.setProperty("--reveal", r.toFixed(3));
+        sec.style.visibility = r < 0.002 && !(sec.dataset.card && rel < 0 && rel > -0.8) ? "hidden" : "visible";
+        sec.style.opacity = "1";
         sec.style.setProperty("--near", (1 - smooth(d / 0.6)).toFixed(3));
         // A chapter's title card plays on the way in (letterbox bars and title), and is gone by the hold; the very
         // first card is the opening's title and stays at the hold.

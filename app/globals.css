@@ -176,7 +176,10 @@
   /* ---- The text layer ------------------------------------------------------------------------------------------ */
   .xp-scenes { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
   .xp-root:not(.is-live) .xp-scene:not([data-place="0"]) { visibility: hidden; }
-  .xp-scene { position: absolute; inset: 0; opacity: 0; visibility: hidden; }
+  .xp-scene { position: absolute; inset: 0; visibility: hidden; --reveal: 0; }
+  /* The reveal: a left-to-right wipe with a short rise (never a blur). */
+  .xp-scene .xp-a-in > *, .xp-scene .xp-card > * { clip-path: inset(-20% calc((1 - var(--reveal)) * 102%) -20% -2%); translate: 0 calc((1 - var(--reveal)) * 0.5em); }
+  .xp-scene .xp-ring .xp-a-in, .xp-scene .xp-leaders { opacity: min(1, calc(var(--reveal) * 3)); }
   .xp-leaders { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
   .xp-leaders path { fill: none; stroke: var(--gold-hi); stroke-width: 1; opacity: 0.9; filter: drop-shadow(0 0 3px rgb(240 180 90 / 0.7)); }
   /* A block pinned to a world point: the loop sets its transform; `is-left/right/center` says which edge sits there. */

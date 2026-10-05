@@ -15,17 +15,19 @@ export const routeData = {
   /** Film-time per place (s): how long Watch holds there; the passage to the next takes experienceFeel.travelSeconds.
    *  Set so the act bar reads about the times in the reference frames (H01 00:04 … H36 06:55). */
   holdSeconds: [
-    4, 6, 6, 6, 3, 7, // 1 The Seed
-    6, 4, 8, // 2 The Climb
-    6, 8, // 3 Above the Canopy
-    6, 12, // 4 The Five Peaks
-    6, 4, 2, // 5 Aurelius
-    4, 6, 6, // 6 Golden Guardian Productions
-    4, 6, 6, // 7 Valora
-    4, 4, 6, // 8 Asraya
-    4, 6, 12, // 9 Rudra Yugen
-    4, 4, 4, 8, // 10 The Summit
-    6, 6, 11, // 11 The Night Sky
+    // Long enough to read everything at the place twice (~3.3 words/s, plus 2 s for the frame; user decision
+    // 2026-10-05). Counted from route.ts; recount with node scripts/v5/hold-times.mjs when copy changes.
+    6, 7, 8, 7, 9, 9, // 1 The Seed
+    20, 6, 6, // 2 The Climb
+    12, 15, // 3 Above the Canopy
+    9, 7, // 4 The Five Peaks
+    6, 12, 15, // 5 Aurelius
+    6, 6, 16, // 6 Golden Guardian Productions
+    6, 6, 12, // 7 Valora
+    6, 6, 15, // 8 Asraya
+    6, 12, 10, // 9 Rudra Yugen
+    7, 8, 10, 95, // 10 The Summit
+    20, 23, 60, // 11 The Night Sky
     30, // 12 Return
   ],
   /** Camera holds: position and look target per place (index = place). */
