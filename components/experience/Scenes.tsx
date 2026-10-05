@@ -47,7 +47,7 @@ export const Scenes = forwardRef<HTMLHeadingElement, Props>(function Scenes({ rt
       anchored = Array.from(box.querySelectorAll<HTMLElement | SVGElement>("[data-at]")).map((el) => {
         const place = Number(el.closest<HTMLElement>("[data-place]")!.dataset.place);
         const raw = el.dataset.at!.split(",").map(Number) as [number, number];
-        const at = mobile ? phoneAt(raw) : raw;
+        const at = mobile && !el.closest(".xp-pins") ? phoneAt(raw) : raw;
         const depth = Number(el.dataset.depth);
         const a: Anchored = { el, place, at, depth, world: anchorFor(place, at, depth, fov, aspect), svg: el instanceof SVGElement };
         if (el.dataset.key) byKey.set(el.dataset.key, a);

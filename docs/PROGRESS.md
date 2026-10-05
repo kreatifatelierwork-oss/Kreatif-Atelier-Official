@@ -73,3 +73,17 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
   - ink 13 strokes: rim, fade curves, drift match within noise; ink-hz IoU slow 0.998-0.999, flick 0.93-1.00,
     circle 0.992-0.999 (same range as baseline-vs-v3).
 - Next: step 2 replaces route-data.ts with the v5 12-chapter route.
+
+## v5 chapters 1–4 (2026-10-05): built, NOT yet at checkpoint quality
+- Commits: 7811f08 (chapters 1–4 world + text system) + this one (phone layout fixes).
+- Engine trace vs baseline-v5: IDENTICAL. Locked files changed only in their import line (journey.ts, useInput.ts,
+  CameraRig.tsx); ink and loop untouched.
+- Still to do before the checkpoint report:
+  - H07/H08 canopy still stylised;
+  - H13 atlas is a stylised relief;
+  - phone pillar labels are small;
+  - side-by-side sheets vs references at 1440/390;
+  - frame times on AC power (the Mac is on battery now);
+  - browser nav + ink re-run.
+- Tools: `node scripts/v5/shots.mjs <dir> [--mobile] --places 0,1,…` and `scripts/v5/probe.mjs`. Needs `pnpm build`,
+  `pnpm dlx serve@14 out -l 4174` and the research Chrome on 9555.

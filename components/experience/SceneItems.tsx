@@ -135,6 +135,7 @@ export function SceneItem({ item: it, place, j, h1Ref, onEnter }: Props) {
         <A a={[0.5, 0.3]} depth={it.depth} className="xp-arc">
           <p className="xp-arc-label">{it.label}</p>
           <Ornament />
+          <p className="xp-arc-flat">{c3(it.text)}</p>
           <svg viewBox="0 0 1000 260" className="xp-arc-svg" role="img" aria-label={it.text}>
             <defs>
               <path id={`arc-${place.id}`} d="M10 78 C 250 8, 720 34, 1010 118" />

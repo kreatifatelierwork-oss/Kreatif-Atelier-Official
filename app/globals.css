@@ -245,6 +245,7 @@
   .xp-arc .xp-ornament { margin-top: 0.2em; }
   .xp-arc-svg { display: block; width: 100%; height: auto; overflow: visible; margin-top: -2.4vh; }
   .xp-arc-svg text { font-family: var(--serif); font-weight: 500; font-size: 26.5px; fill: #fff0cc; filter: drop-shadow(0 0 1px rgb(60 30 0 / 0.6)) drop-shadow(0 0 9px rgb(255 190 100 / 0.85)); }
+  .xp-arc-flat { display: none; }
   .xp-arc-loop { fill: none; stroke: #ffd894; stroke-width: 2.4; opacity: 0.85; filter: drop-shadow(0 0 6px rgb(255 200 110 / 0.9)); }
 
   /* Lists: carved (H16), credits (H19, H33), journal (H32), stars (H34), profile (H35). */
@@ -355,7 +356,15 @@
     .xp-head.is-left .xp-a-in { text-align: center; transform: translate(-50%, -50%); }
     .xp-voice .xp-a-in { max-width: 80vw; }
     .xp-voice p { font-size: calc(var(--size) * 0.7vh); }
-    .xp-callout-label span:first-child { font-size: 0.95rem; white-space: normal; max-width: 9em; }
+    .xp-callout-label span:first-child { font-size: 0.9rem; white-space: nowrap; }
+    .xp-callout .xp-a-in { max-width: 46vw; }
+    .xp-pin-label { font-size: 0.78rem !important; }
+    .is-operate .xp-pins-head .xp-a-in { transform: translate(-50%, 260%); }
+    .is-pillars .xp-pin:nth-child(odd) .xp-pin-tick { height: 9vh; }
+    .xp-arc .xp-a-in { width: 88vw; }
+    .xp-arc-svg { display: none; }
+    .xp-arc-flat { display: block !important; margin: 0.6rem 0 0; font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.3; color: #fff0cc; text-shadow: var(--glow); }
+    .is-pillars .xp-pin-label, .is-atlas .xp-pin-label { max-width: 5.6em; }
     .xp-pin-label { font-size: 0.9rem; white-space: normal; text-align: center; max-width: 7.5em; padding: 0 0.2em 0.2em; }
     .xp-pins-head h2 { font-size: calc(var(--size) * 0.6vh); }
     .xp-numerals li { padding: 0 6vw; }

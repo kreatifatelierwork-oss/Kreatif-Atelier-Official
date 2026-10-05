@@ -4,7 +4,7 @@ import { useThree } from "@react-three/fiber";
 import { useMemo } from "react";
 import * as THREE from "three";
 import { route } from "../../route";
-import { FOV, holdCamera, phoneAt } from "../layout";
+import { FOV, holdCamera } from "../layout";
 import { rng } from "../kit";
 
 const idx = () => route.findIndex((p) => p.id === "atlas");
@@ -39,7 +39,7 @@ export function Atlas({ mobile, night }: { mobile: boolean; night: boolean }) {
     const pins = item && item.k === "pins" ? item.items : [];
     const centres = LANDS.map((l) => {
       const pin = pins.find((p) => p.label === l.name)!;
-      const at = mobile ? phoneAt(pin.at) : pin.at;
+      const at = pin.at;
       return ground([at[0], at[1] + 0.075], fov, aspect);
     });
     const mid = centres.reduce((a, c) => a.add(c), new THREE.Vector3()).multiplyScalar(1 / centres.length);

@@ -12,7 +12,7 @@ import { route } from "../../route";
 import { Mist } from "../Atmos";
 import { Backdrop } from "../Backdrop";
 import { crownForest, crownTexture, hold, plate, rng, viewHeight } from "../kit";
-import { anchorFor, phoneAt } from "../layout";
+import { anchorFor } from "../layout";
 
 type P = { rtRef: { current: Runtime }; mobile: boolean; calm: boolean; night: boolean };
 
@@ -182,7 +182,7 @@ function Tiers({ mobile }: { mobile: boolean }) {
       {holding.motto.map((w, t) => {
         const sp = spots[t];
         const a = anchorFor(i, mobile ? [0.5, sp.at[1]] : sp.at, sp.depth, camera.fov, aspect);
-        const fs = viewHeight(sp.depth, camera.fov) * sp.h * (mobile ? 0.6 : 1);
+        const fs = viewHeight(sp.depth, camera.fov) * sp.h * (mobile ? 0.42 : 1);
         return (
           <group key={w} position={a} rotation={rot}>
             <Text font="/fonts/outfit-400.ttf" fontSize={fs} rotation={[-0.5, 0, 0]} color="#FFD98A" outlineColor="#F0A640" outlineBlur={fs * 0.3} outlineOpacity={0.6} anchorX="center" anchorY="middle">
@@ -281,7 +281,7 @@ function Peaks({ mobile }: { mobile: boolean }) {
   return (
     <group>
       {item.items.map((pin, k) => {
-        const at = mobile ? phoneAt(pin.at) : pin.at;
+        const at = pin.at;
         const summit = anchorFor(i, [at[0], at[1] + 0.085], pin.depth, camera.fov, aspect);
         const base = 36, hgt = (summit.y - base) / 1.05;
         return (
