@@ -8,19 +8,17 @@ import { InkEngine, type InkSettings } from "@/components/film/ink/engine";
 import { loopStats, onFrame } from "@/components/film/loop";
 import { Score } from "@/components/film/sound/score";
 import { createFilmState, notePointer } from "@/components/film/state";
-import { prewarmForms } from "@/components/film/stage/forms";
-import { xp } from "@/content/experience";
+import { journey } from "@/content/journey";
 import { film } from "@/content/film";
 import { site } from "@/content/site";
 import { useReducedMotion } from "@/lib/a11y/useReducedMotion";
 import { filmConfig as F } from "@/lib/config";
 import { ActBar, type ActBarHandle } from "./ActBar";
-import { Captions } from "./Captions";
 import { IndexPlan } from "./IndexPlan";
-import { LensRing } from "./LensRing";
 import { advance, createRuntime, jumpTo, useUi } from "./journey";
-import { RoomPanel } from "./RoomPanel";
+import { FieldGuide } from "./FieldGuide";
 import { filmTimeAt, hashFor, parseHash, route } from "./route";
+import { Scenes } from "./Scenes";
 import { useInput } from "./useInput";
 
 const Stage = dynamic(() => import(/* webpackPrefetch: true */ "./stage/Stage"), { ssr: false });
@@ -191,13 +189,6 @@ export function Experience() {
     return () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerdown", down); };
   }, [brush]);
 
-  // Build the Idea's forms while the visitor reads the gate.
-  useEffect(() => {
-    const count = mobile ? F.idea.count.mobile : F.idea.count.desktop;
-    const id = setTimeout(() => { if (canRender3D()) prewarmForms(count); }, 1200);
-    return () => clearTimeout(id);
-  }, [mobile]);
-
   useEffect(() => {
     const resize = () => engineRef.current?.resize(window.innerWidth, window.innerHeight, inkRatio());
     window.addEventListener("resize", resize);
@@ -286,14 +277,6 @@ export function Experience() {
       const rise = riseAtRef.current;
       if (!fl.written && rise != null && t0 != null && now >= Math.max(t0 + (reduced ? 0 : O.writeAt), rise + (reduced ? 0 : 350))) {
         fl.written = true;
-        const el = rootRef.current?.querySelector<HTMLElement>(".is-atrium .xp-signature");
-        if (el) {
-          if (reduced) el.style.clipPath = "none";
-          else el.animate(
-            [{ clipPath: "inset(-10% 100% -20% 0)", filter: "blur(3px)" }, { clipPath: "inset(-10% -8% -20% 0)", filter: "blur(0px)" }],
-            { duration: O.writeMs, easing: "cubic-bezier(0.3, 0.1, 0.45, 1)", fill: "forwards" },
-          );
-        }
         scoreRef.current?.write(O.writeMs);
       }
       if (!fl.live) return;
@@ -334,31 +317,30 @@ export function Experience() {
       data-room={room ? room.kind : undefined}
       style={{ ["--xp-gold" as string]: pal.gold }}
     >
-      <noscript><style>{`.xp-gate{display:none}.xp-signature{clip-path:none!important}`}</style></noscript>
+      <noscript><style>{`.film-gate{display:none}.xp-scene{opacity:1!important;visibility:visible!important}`}</style></noscript>
       <div ref={worldRef} className="xp-world" inert={!live}>
         {stageOn && (
           <Stage rtRef={rtRef} filmRef={filmRef} theme={theme} mobile={mobile} calm={reduced} riseAtRef={riseAtRef} onReady={onStageReady} onEnter={enter} />
         )}
-        <Captions ref={h1Ref} reduced={reduced} onEnter={enter} onGo={(p, t) => go(p, t)} onWatch={watch} onDirect={direct} />
+        <Scenes ref={h1Ref} rtRef={rtRef} reduced={reduced} still={still} mobile={mobile} onEnter={enter} onGo={(p) => go(p)} />
       </div>
 
       <header className="xp-topbar" inert={!live}>
         <button type="button" className="xp-wordmark" onClick={() => go(0)}>{site.name}</button>
         <div className="xp-topbar-right">
+          <button ref={indexBtn} type="button" className="xp-link" aria-expanded={ui.indexOpen} onClick={openIndex}>{journey.index}</button>
           {sound !== null && (
-            <button type="button" className="xp-link" aria-pressed={sound} onClick={toggleSound}>{sound ? film.sound.on : film.sound.off}</button>
+            <button type="button" className="xp-link" aria-pressed={!!sound} onClick={toggleSound}>{film.sound.label}</button>
           )}
-          <button ref={indexBtn} type="button" className="xp-link" aria-expanded={ui.indexOpen} onClick={openIndex}>{xp.index}</button>
         </div>
       </header>
       <div inert={!live}>
-        <ActBar ref={actRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
+        <ActBar ref={actRef} rtRef={rtRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
       </div>
 
-      {!still && <LensRing rtRef={rtRef} filmRef={filmRef} />}
       <canvas ref={canvasRef} className="xp-ink" aria-hidden="true" />
 
-      {room && <RoomPanel room={room} onBack={leave} onEnter={enter} />}
+      {room && <FieldGuide room={room} index={route[ui.place].things.findIndex((t) => t.id === ui.room)} onBack={leave} />}
       {ui.indexOpen && <IndexPlan onJump={(p, t) => go(p, t)} onClose={closeIndex} onWatch={watch} />}
       {ui.phase !== "live" && (
         <Gate mode={ui.phase === "gate" ? "gate" : ui.phase === "dip" ? "leaving" : inkReady ? "clear" : "fading"} onChoose={choose} />

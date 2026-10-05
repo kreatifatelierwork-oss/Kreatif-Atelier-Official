@@ -1,62 +1,59 @@
 /**
- * Where things stand in the world (world units), by place and thing id. The camera holds and the route are fixed
- * (navigation is frozen); everything here is composed around them so the passages stay clear.
+ * Where things stand in the world. Scene text and callouts are placed from their reference frames: a point `at`
+ * (fractions of the frame) at `depth` metres from a place's hold camera becomes a fixed world point, so at the hold it
+ * sits exactly where the reference shows it and in between it moves with real parallax.
  */
+import * as THREE from "three";
+import { experienceConfig as X } from "@/lib/experience";
 import { route } from "../route";
 
-type V3 = [number, number, number];
+/** The camera the stage is drawing with (set by the stage, read by the DOM text layer each frame). */
+export const stageView: { camera: THREE.PerspectiveCamera | null } = { camera: null };
 
-/** Studio Floor: the four About panels stand in a diagonal row on the right of the floor. */
-export const STUDIO_PANELS: V3[] = [[-1, 0, -47], [2, 0, -44.5], [5, 0, -42], [8, 0, -39.5]];
-/** Drafting Hall: the drafting table and the four models on it; the services lectern; the formats plinth. */
-export const DRAFT_TABLE: V3 = [-8.6, 0, -79.2];
-export const DRAFT_MODELS: V3[] = [[-10.9, 1.12, -79.4], [-9.4, 1.12, -79.2], [-7.9, 1.12, -79.0], [-6.4, 1.12, -78.8]];
-export const DRAFT_SERVICES: V3 = [-15.5, 1.2, -86];
-export const DRAFT_FORMATS: V3 = [-5.4, 1.1, -87];
-/** Projection Hall: four frames down the right wall; the screen across the far end (you walk through it). */
-export const PROJ_FRAMES: V3[] = [[-21.6, 3.1, -127], [-21.6, 3.1, -130.5], [-21.6, 3.1, -134], [-21.6, 3.1, -137.5]];
-export const PROJ_SCREEN: V3 = [-30, 4.6, -139.5];
-/** Concourse (local to its group, which faces the camera's line of sight): the far wall's thirteen openings. */
-export const CONC_OPENINGS_Z = -18;
-/** Water Court: the stepping stones from the near edge to the arch; the arch itself (on the route). */
-export const WATER_STONES: V3[] = [
-  [35.2, 0, -214.5], [37.4, 0, -217.6], [39.8, 0, -220.4], [42.4, 0, -223.2],
-  [44.9, 0, -226.1], [47.2, 0, -229.1], [49.4, 0, -232.2], [51.2, 0, -235.2],
-];
-export const WATER_ARCH: V3 = [53.6, 0, -238.6];
-/** Garden Court: the pool and its four stones. */
-export const GARDEN_POOL: V3 = [64.6, 0, -266.5];
-export const GARDEN_STONES: V3[] = [[57.6, 0, -264.5], [61.2, 0, -258.4], [68.2, 0, -258.6], [71.4, 0, -265.2]];
-/** Glass Lattice: four clusters of panes in the void. */
-export const LATTICE_CLUSTERS: V3[] = [[57.5, 6, -312], [61.5, 10.5, -316], [66.5, 7.5, -314], [70.5, 11.5, -318]];
-/** The Roof: a terrace above the Atrium's level with the monument on it, right of centre in the aerial view. */
-export const ROOF_TERRACE: V3 = [27.2, 53.2, -79.4];
-export const MONUMENT: V3 = [26.8, 56, -79.2];
-/** Where the camera leans for a Roof moment: just left of the monument, so it stands right of the words. */
-export const ROOF_MOMENT: V3 = [21, 55.6, -77.5];
-/** Gallery: the prints hang on the Atrium's curved wall. */
-export const GALLERY_WALL: V3 = [-9, 2.2, -2];
+/** On phones the reference frames' x positions are drawn in toward the centre so text fits the tall screen. */
+export const phoneAt = (at: readonly [number, number]): [number, number] => [0.5 + (at[0] - 0.5) * 0.58, at[1]];
 
-const at = (list: V3[], k: number) => list[Math.max(0, Math.min(list.length - 1, k))];
+/** Lens per device (the stage's camera uses the same values). */
+export const FOV = { desktop: 42, mobile: 55 } as const;
 
-/** The camera dollies toward this point when a thing's room is entered. */
-export function thingAnchor(place: number, k: number): V3 | null {
+const tmpCam = new THREE.PerspectiveCamera();
+const v = new THREE.Vector3();
+
+/** A camera at place `i`'s hold (no pointer parallax), with the given lens and aspect. */
+export function holdCamera(i: number, fov: number, aspect: number) {
+  const c = X.camera[i];
+  tmpCam.fov = fov;
+  tmpCam.aspect = aspect;
+  tmpCam.near = 0.1;
+  tmpCam.far = 400;
+  tmpCam.position.set(...c.pos);
+  tmpCam.lookAt(...c.look);
+  tmpCam.updateProjectionMatrix();
+  tmpCam.updateMatrixWorld();
+  return tmpCam;
+}
+
+/** The world point seen at frame point `at` from place `i`'s hold, `depth` metres away. */
+export function anchorFor(i: number, at: readonly [number, number], depth: number, fov: number, aspect: number, out = new THREE.Vector3()) {
+  const cam = holdCamera(i, fov, aspect);
+  v.set(at[0] * 2 - 1, 1 - at[1] * 2, 0.5).unproject(cam).sub(cam.position).normalize();
+  // Depth along the line of sight (not along the ray), so a row of labels at one depth stays level.
+  const fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(cam.quaternion);
+  return out.copy(cam.position).addScaledVector(v, depth / Math.max(0.2, v.dot(fwd)));
+}
+
+/** Used by the (locked) camera rig: entering a thing dollies toward its callout. */
+export function thingAnchor(place: number, thing: number): [number, number, number] | null {
   const p = route[place];
-  if (!p || k < 0) return null;
-  const t = p.things[k];
-  const offering = p.things.filter((x) => !x.room && !x.founder).findIndex((x) => x.id === t.id);
-  switch (p.id) {
-    case "studio": return at(STUDIO_PANELS, k).map((v, i) => (i === 1 ? 1.7 : v)) as V3;
-    case "aurelius":
-      if (offering >= 0) return at(DRAFT_MODELS, offering);
-      return t.id === "engagement-models" ? DRAFT_FORMATS : DRAFT_SERVICES;
-    case "ggp": return offering >= 0 ? at(PROJ_FRAMES, offering) : PROJ_SCREEN;
-    case "concourse": return [23.8, 3, -199.8]; // the middle of the far wall's openings
-    case "valora": return at(WATER_STONES, 4 + Math.max(0, offering));
-    case "asraya": return at(GARDEN_STONES, Math.max(0, offering));
-    case "rudra": return at(LATTICE_CLUSTERS, Math.max(0, offering));
-    case "roof": return ROOF_MOMENT;
-    case "gallery": return GALLERY_WALL;
-    default: return null;
+  const t = p?.things[thing];
+  if (!t) return null;
+  for (const it of p.items) {
+    if (it.k !== "callouts") continue;
+    const c = it.items.find((x) => x.room === t.id);
+    if (c) {
+      const a = anchorFor(place, c.ring, c.depth, FOV.desktop, 16 / 9);
+      return [a.x, a.y - 0.4, a.z];
+    }
   }
+  return null;
 }
