@@ -1,4 +1,3 @@
-import { Experience } from "@/components/experience/Experience";
 import { founders } from "@/content/founders";
 import { site } from "@/content/site";
 import { holding, verticals } from "@/content/verticals";
@@ -22,7 +21,7 @@ const organizationJsonLd = {
     name: v.name,
     slogan: v.tagline.join(" "),
     description: v.value,
-    url: `${site.url}/#${v.slug === "golden-guardian-productions" ? "ggp" : v.slug === "rudra-yugen" ? "rudra" : v.slug}`,
+    url: `${site.url}/${v.slug}`,
     parentOrganization: { "@id": `${site.url}/#organization` },
   })),
 };
@@ -36,13 +35,10 @@ const websiteJsonLd = {
   inLanguage: "en-IN",
 };
 
-/** Home: "The Making of a Legacy: Shot on Location" (docs/concepts/THE-MAKING-OF-v3.md). */
+/** Home: "One Take Across the World" (docs/concepts/WORLD-PLAN.md). The experience itself lives in the layout. */
 export default function Home() {
   return (
     <>
-      <main id="main">
-        <Experience />
-      </main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationJsonLd, websiteJsonLd]) }} />
     </>
   );

@@ -4,16 +4,20 @@
  */
 import * as THREE from "three";
 import { experienceConfig as X } from "@/lib/experience";
-import { LAST } from "../route";
+import { journeyKey, LAST } from "../route";
 
 /** The camera's path: identical to CameraRig's curve, so things placed "along the route" are where the camera goes. */
-export const routeCurve = new THREE.CatmullRomCurve3(X.camera.map((c) => new THREE.Vector3(...c.pos)), false, "centripetal");
+let curve: { key: number; c: THREE.CatmullRomCurve3 } | null = null;
+export const routeCurve = () => {
+  if (!curve || curve.key !== journeyKey) curve = { key: journeyKey, c: new THREE.CatmullRomCurve3(X.camera.map((c) => new THREE.Vector3(...c.pos)), false, "centripetal") };
+  return curve.c;
+};
 const smooth = (t: number) => t * t * (3 - 2 * t);
 /** The camera position at route position s (same parameterisation as the rig, without pointer parallax). */
 export function pointAt(s: number, out = new THREE.Vector3()) {
   const c = Math.max(0, Math.min(LAST, s));
   const i = Math.min(LAST - 1, Math.floor(c));
-  return routeCurve.getPoint((i + smooth(c - i)) / LAST, out);
+  return routeCurve().getPoint((i + smooth(c - i)) / LAST, out);
 }
 
 export const hold = (i: number) => {

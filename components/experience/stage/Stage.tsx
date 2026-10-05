@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { onFrame } from "@/components/film/loop";
 import type { FilmState } from "@/components/film/state";
 import type { Runtime } from "../journey";
+import { journeyKey } from "../route";
 import { CameraRig } from "./CameraRig";
 import { Effects } from "./Effects";
 import { FOV, stageView } from "./layout";
@@ -52,8 +53,8 @@ export default function Stage({ rtRef, theme, mobile, calm, riseAtRef, onReady }
       camera={{ fov: mobile ? FOV.mobile : FOV.desktop, near: 0.1, far: 400, position: [0, 1, 0] }}
     >
       <SharedLoop onReady={onReady} />
-      <CameraRig rtRef={rtRef} theme={theme} />
-      <World rtRef={rtRef} theme={theme} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />
+      <CameraRig key={`c${journeyKey}`} rtRef={rtRef} theme={theme} />
+      <World key={`w${journeyKey}`} rtRef={rtRef} theme={theme} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />
       <Effects rtRef={rtRef} mobile={mobile} calm={calm} />
     </Canvas>
   );

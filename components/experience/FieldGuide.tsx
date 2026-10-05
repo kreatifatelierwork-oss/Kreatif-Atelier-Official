@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { c3 } from "@/content/experience";
 import { journey } from "@/content/journey";
+import { servicesIntro } from "@/content/services";
 import type { Room } from "./route";
 
 /**
@@ -30,9 +31,22 @@ export function FieldGuide({ room, index, onBack }: { room: Room; index: number;
     <div ref={box} className="xp-guide" role="dialog" aria-modal="true" aria-labelledby="xp-guide-title">
       <div className="xp-guide-sheet">
         <p className="xp-guide-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</p>
-        <h2 id="xp-guide-title" ref={head} tabIndex={-1} className="xp-guide-title">{c3(room.title)}</h2>
+        <h2 id="xp-guide-title" ref={head} tabIndex={-1} className="xp-guide-title">{c3(room.kind === "text" ? room.title : room.service.title)}</h2>
         <span className="xp-guide-rule" aria-hidden="true" />
-        <p className="xp-guide-body">{c3(room.body)}</p>
+        {room.kind === "text" ? (
+          <p className="xp-guide-body">{c3(room.body)}</p>
+        ) : (
+          <>
+            <p className="xp-guide-tagline">{c3(room.service.tagline)}</p>
+            <div className="xp-guide-cols">
+              <section><h3>{servicesIntro.whatLabel}</h3><p>{c3(room.service.whatItIs)}</p></section>
+              <section><h3>{servicesIntro.howLabel}</h3><p>{c3(room.service.howItWorks)}</p></section>
+            </div>
+            <ul className="xp-guide-features">
+              {room.service.features.map((f) => <li key={f.title}><b>{c3(f.title)}</b><span>{c3(f.body)}</span></li>)}
+            </ul>
+          </>
+        )}
         <button type="button" className="xp-btn" onClick={onBack}><span aria-hidden="true">‹</span> {journey.back}</button>
       </div>
     </div>

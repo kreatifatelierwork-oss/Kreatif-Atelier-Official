@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { onFrame } from "@/components/film/loop";
 import { film } from "@/content/film";
 import { journey } from "@/content/journey";
@@ -15,10 +15,12 @@ type Props = { rtRef: { current: Runtime }; onJump: (place: number) => void; onT
 const two = (n: number) => String(n).padStart(2, "0");
 
 /** The journey trail: the camera's real altitude along the route, drawn as an elevation line (0..1 box). */
-const ys = X.camera.map((c) => c.pos[1]);
-const lo = Math.min(...ys), hi = Math.max(...ys);
-const TRAIL = ys.map((y, i) => [i / LAST, 1 - (Math.log1p(y - lo) / Math.log1p(hi - lo))] as const);
-const TRAIL_D = TRAIL.map(([x, y], i) => `${i ? "L" : "M"}${(x * 100).toFixed(2)} ${(y * 100).toFixed(2)}`).join(" ");
+function trailPath() {
+  const ys = X.camera.map((c) => c.pos[1]);
+  const lo = Math.min(...ys), hi = Math.max(...ys);
+  const t = ys.map((y, i) => [i / Math.max(1, LAST), hi - lo < 1 ? 0.6 - Math.sin(i * 1.3) * 0.25 : 1 - Math.log1p(y - lo) / Math.log1p(hi - lo)] as const);
+  return t.map(([x, y], i) => `${i ? "L" : "M"}${(x * 100).toFixed(2)} ${(y * 100).toFixed(2)}`).join(" ");
+}
 
 /**
  * The act bar (C2): one hairline across the bottom with the chapter and the real film time under it; the journey
@@ -44,7 +46,9 @@ export const ActBar = forwardRef<ActBarHandle, Props>(function ActBar({ rtRef, o
       dot.current?.style.setProperty("--k", String(k));
     }, 3);
   }, [rtRef]);
-  const p = route[place];
+  const p = route[Math.min(place, LAST)];
+  // The component is keyed on the journey, so this is computed once per journey.
+  const [TRAIL_D] = useState(trailPath);
   return (
     <nav className="xp-actbar" aria-label={journey.sr.chapters}>
       <svg className="xp-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">

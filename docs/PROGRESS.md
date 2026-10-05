@@ -87,3 +87,16 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
   - browser nav + ink re-run.
 - Tools: `node scripts/v5/shots.mjs <dir> [--mobile] --places 0,1,…` and `scripts/v5/probe.mjs`. Needs `pnpm build`,
   `pnpm dlx serve@14 out -l 4174` and the research Chrome on 9555.
+
+## v5 feedback round (2026-10-05): step (a) done
+- Text stays: no fades or blur on DOM text; a wipe reveal from 0.72 places before a hold to 0.62 after; Watch holds
+  long enough to read each place twice (scripts/v5/hold-times.mjs). Text is on screen at every point of the route.
+- Five company pages: /aurelius, /golden-guardian-productions, /valora, /asraya, /rudra-yugen (app/[company]),
+  each with its own title, description, share image and JSON-LD; sitemap updated. The experience moved into the
+  layout, so the canvas persists across pages (verified: same canvas element after crossing).
+- Journeys: components/experience/journeys/{home,companies,index}.ts; route.ts holds the active journey as live
+  bindings (the locked engine reads LAST/X unchanged). Engine trace still IDENTICAL.
+- Portal crossing: the world pushes on, the next world's haze rises, the page changes, the haze clears at the start.
+- PROPOSED copy waiting for approval: content/companies.ts (offering paragraphs for Valora, Asraya, Rudra Yugen;
+  chapter names; the Enquire subject) and content/pages.ts (company page titles and descriptions).
+- Next: step (b) Spark + streaming/stitching + depth-mesh fallback.

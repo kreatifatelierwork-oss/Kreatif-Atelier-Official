@@ -274,6 +274,20 @@
   .xp-credit-name { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin-top: 0.6rem; text-shadow: var(--glow); }
   .xp-credit-role { font-size: 0.95rem; color: var(--cream-dim); text-shadow: var(--glow-soft); }
 
+  /* Strata (X07): the engagement models as rock bands with exact prices. */
+  .xp-list.is-strata ul { display: grid; gap: 0; margin-top: 1.4rem; width: min(52rem, 80vw); text-align: left; }
+  .xp-list.is-strata li { padding: 1.1rem 1.6rem; border-top: 1px solid var(--gold-hi); }
+  .xp-list.is-strata li:nth-child(1) { background: linear-gradient(90deg, rgb(214 196 160 / 0.55), rgb(214 196 160 / 0.15)); }
+  .xp-list.is-strata li:nth-child(2) { background: linear-gradient(90deg, rgb(150 70 46 / 0.6), rgb(150 70 46 / 0.18)); }
+  .xp-list.is-strata li:nth-child(3) { background: linear-gradient(90deg, rgb(40 36 40 / 0.75), rgb(40 36 40 / 0.25)); border-bottom: 1px solid var(--gold-hi); }
+  .xp-list.is-strata .xp-list-title { font-family: var(--serif), var(--font-rupee); }
+  .xp-list.is-strata .xp-list-body { max-width: none; font-size: 0.9rem; }
+  /* Showreel (G05): empty frames with blank paper inserts. */
+  .xp-list.is-reel ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4rem; margin-top: 1.6rem; width: min(70rem, 88vw); }
+  .xp-reel-frame { display: block; aspect-ratio: 16 / 9; background: #e3dccd; border: 2px solid var(--gold-hi); border-radius: 4px; box-shadow: 0 0 18px rgb(240 180 90 / 0.4); margin-bottom: 0.6rem; }
+  /* Onward (A06): Next, Back to the Atlas, Enquire, stacked on the right third. */
+  .xp-onward-in { display: grid; gap: 0.8rem; justify-items: stretch; min-width: 19rem; }
+
   /* Buttons. */
   .xp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem; min-height: 52px; padding: 0 28px; border-radius: 999px; font-family: var(--serif); font-weight: 500; font-size: 1.15rem; color: var(--cream); background: rgb(14 10 6 / 0.55); border: 1px solid var(--gold-hi); box-shadow: 0 0 16px rgb(240 180 90 / 0.35); backdrop-filter: none; transition: background-color 0.2s ease, transform 0.15s ease; white-space: nowrap; }
   .xp-btn:hover { background: rgb(40 28 12 / 0.7); }
@@ -302,6 +316,14 @@
   .xp-card-title { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 8vh, 6rem); letter-spacing: 0.02em; color: #f8e3b6; text-shadow: var(--glow); }
   .xp-card .xp-ornament i { width: 9em; }
   .xp-card-sub { margin: 0.7em 0 0; font-family: var(--serif); font-weight: 500; font-size: clamp(1rem, 2.8vh, 1.5rem); letter-spacing: 0.24em; color: #f8e3b6; text-shadow: var(--glow-soft); }
+
+  /* Crossing a portal into another page's world: the world pushes on, the next world's haze and light rise, the page
+     changes under it, then the haze clears onto the new land. */
+  .xp-threshold { position: fixed; inset: 0; z-index: 25; pointer-events: none; opacity: 0; background: radial-gradient(40% 40% at 50% 46%, rgb(255 236 190 / 0.9), transparent 70%), var(--cross); transition: opacity 0.7s cubic-bezier(0.5, 0, 0.8, 0.4); }
+  .xp-root[data-crossing="out"] .xp-threshold { opacity: 1; }
+  .xp-root[data-crossing="in"] .xp-threshold { animation: xp-clear 1.1s cubic-bezier(0.2, 0.6, 0.3, 1) both; }
+  .xp-root[data-crossing="out"] .xp-world { transform: scale(1.18); transition: transform 0.75s cubic-bezier(0.5, 0, 0.9, 0.5); }
+  @media (prefers-reduced-motion: reduce) { .xp-threshold { transition: none; } .xp-root[data-crossing] .xp-world { transform: none; } }
 
   /* ---- The top bar and the act bar (identical in every reference frame) ------------------------------------- */
   .xp-topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 30; height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--edge); border-bottom: 1px solid var(--hair); background: linear-gradient(rgb(0 0 0 / 0.22), transparent); }
@@ -335,6 +357,15 @@
   .xp-guide-title { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 5vh, 3rem); line-height: 1.05; color: #f6d79c; }
   .xp-guide-rule { display: block; width: 3rem; height: 1px; margin: 1.2rem 0; background: var(--gold-hi); }
   .xp-guide-body { margin: 0 0 1.8rem; font-size: 1.08rem; line-height: 1.65; max-width: 38em; }
+  .xp-guide-sheet { max-height: 86vh; overflow-y: auto; touch-action: pan-y; }
+  .xp-guide-tagline { margin: -0.4rem 0 1.4rem; font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: #f6d79c; }
+  .xp-guide-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .xp-guide-cols h3, .xp-guide-features b { display: block; margin: 0 0 0.4rem; font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-hi); }
+  .xp-guide-cols p { margin: 0; font-size: 0.98rem; line-height: 1.6; }
+  .xp-guide-features { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem; margin: 1.8rem 0; padding: 1.4rem 0 0; border-top: 1px solid rgb(243 201 119 / 0.3); }
+  .xp-guide-features b { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0; text-transform: none; color: #f6d79c; }
+  .xp-guide-features span { font-size: 0.88rem; line-height: 1.5; }
+  @media (max-width: 767px) { .xp-guide-cols, .xp-guide-features { grid-template-columns: 1fr; } }
   .xp-label { margin: 0; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-hi); }
   .xp-panel { z-index: 40; }
   .xp-index { position: fixed; inset: 0; padding: 0 var(--edge) 2rem; overflow-y: auto; touch-action: pan-y; background: rgb(10 8 5 / 0.92); color: var(--cream); }
@@ -385,10 +416,13 @@
     .xp-guide-sheet { padding: 2.2rem 1.4rem 1.6rem; }
     .xp-index-body { grid-template-columns: 1fr; gap: 1.6rem; }
     .xp-btn { min-height: 48px; padding: 0 22px; font-size: 1.05rem; }
+    .xp-list.is-reel ul { grid-template-columns: 1fr 1fr; }
+    .xp-onward-in { min-width: 0; width: 84vw; }
   }
   @media (prefers-reduced-motion: reduce) {
     .xp-guide-sheet { animation: none; }
   }
 }
 
+@keyframes xp-clear { from { opacity: 1; } to { opacity: 0; } }
 @keyframes xp-unfold { from { opacity: 0; transform: perspective(1400px) rotateY(-24deg) scale(0.96); } to { opacity: 1; transform: none; } }

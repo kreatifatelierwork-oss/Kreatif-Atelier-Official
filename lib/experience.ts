@@ -1,5 +1,6 @@
 /** The navigation engine's config: the locked feel (lib/config.ts) plus the current route's place data. */
 import { experienceFeel } from "./config";
-import { routeData } from "./route-data";
+import { routeData, type RouteData } from "./route-data";
 
-export const experienceConfig = { ...experienceFeel, ...routeData };
+/** Mutable: the active journey swaps the per-place lists in (components/experience/route.ts setJourney). */
+export const experienceConfig: typeof experienceFeel & RouteData = { ...experienceFeel, ...routeData };

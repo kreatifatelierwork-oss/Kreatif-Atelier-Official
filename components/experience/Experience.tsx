@@ -1,6 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { usePathname, useRouter } from "next/navigation";
+import "./journeys";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Gate } from "@/components/film/Gate";
 import { Brush } from "@/components/film/ink/brush";
@@ -17,7 +19,8 @@ import { ActBar, type ActBarHandle } from "./ActBar";
 import { IndexPlan } from "./IndexPlan";
 import { advance, createRuntime, jumpTo, useUi } from "./journey";
 import { FieldGuide } from "./FieldGuide";
-import { filmTimeAt, hashFor, parseHash, route } from "./route";
+import { filmTimeAt, hashFor, journeyFor, journeyKey, LAST, parseHash, route, setJourney } from "./route";
+import { setThreshold } from "./threshold";
 import { Scenes } from "./Scenes";
 import { useInput } from "./useInput";
 
@@ -68,6 +71,12 @@ function inkSettings(mobile: boolean, calm: boolean): InkSettings {
  * move the same position; things in a place can be Entered and left again; every place and room has its own link.
  */
 export function Experience() {
+  // The page decides the journey (the home page or one company's); the canvas and everything else stay mounted.
+  const pathname = usePathname();
+  const router = useRouter();
+  const current = journeyFor(pathname);
+  setJourney(current);
+  const jkey = journeyKey;
   const reduced = useReducedMotion();
   const mobile = useSyncExternalStore(subscribeMobile, () => window.matchMedia(MOBILE).matches, () => false);
   const theme = useSyncExternalStore(noop, () => {
@@ -157,6 +166,44 @@ export function Experience() {
   }, [go]);
 
   useInput(rtRef, reduced);
+
+  // Arriving in another journey (a portal, Next, Back to the Atlas, the browser's Back): start at its beginning or at
+  // the linked place, and let the threshold's haze settle.
+  const firstJourney = useRef(current.id);
+  /** The place link a crossing asked for ("#atlas"); null when the journey changed some other way (Back, Forward). */
+  const arriveHash = useRef<string | null>(null);
+  const [crossing, setCrossing] = useState<null | "out" | "in">(null);
+  const [crossColour, setCrossColour] = useState("#000");
+  useEffect(() => {
+    if (firstJourney.current === current.id) return;
+    firstJourney.current = "";
+    const rt = rtRef.current;
+    const h = parseHash(arriveHash.current ?? window.location.hash);
+    arriveHash.current = null;
+    rt.move = null;
+    rt.room = null;
+    rt.s = rt.target = Math.min(h?.place ?? 0, LAST);
+    rt.holdElapsed = 0;
+    useUi.getState().set({ place: Math.round(rt.s), room: null, indexOpen: false, hover: null });
+    setCrossing("in");
+    const id = setTimeout(() => setCrossing(null), reduced ? 10 : 1100);
+    if (useUi.getState().phase === "live") requestAnimationFrame(() => h1Ref.current?.focus({ preventScroll: true }));
+    return () => clearTimeout(id);
+  }, [current.id, reduced]);
+
+  // Crossing: the world pushes on into the portal and the next world's haze rises, then the page changes.
+  useEffect(() => {
+    setThreshold((href) => {
+      const [path, hash = ""] = href.split("#");
+      const to = journeyFor(path || "/");
+      if (to === current) { if (hash) { const h = parseHash(`#${hash}`); if (h) go(h.place, h.thing); } return; }
+      arriveHash.current = hash ? `#${hash}` : "";
+      setCrossColour(to.data.atmosphere[theme === "dark" ? "dark" : "light"][0]);
+      setCrossing("out");
+      setTimeout(() => router.push(href), reduced ? 10 : 750);
+    });
+    return () => setThreshold(null);
+  }, [current, go, reduced, router, theme]);
 
   // Keep the address bar on the place you have settled at (arrow keys, the wheel and Watch travel without links).
   useEffect(() => onFrame(() => {
@@ -306,27 +353,30 @@ export function Experience() {
     }, 1);
   }, [brush, go, mobile, pal.dark, pal.goldBright, pal.page, reduced, theme]);
 
-  const room = ui.room ? route[ui.place].things.find((t) => t.id === ui.room)?.room : undefined;
+  const here = route[Math.min(ui.place, LAST)];
+  const room = ui.room ? here.things.find((t) => t.id === ui.room)?.room : undefined;
   const live = ui.phase === "live";
 
   return (
     <div
       ref={rootRef}
       className={`xp-root theme-${theme}${live ? " is-live" : ""}${still ? " is-still" : ""}`}
-      data-place={route[ui.place].id}
+      data-place={here.id}
+      data-journey={current.id}
+      data-crossing={crossing ?? undefined}
       data-room={room ? room.kind : undefined}
-      style={{ ["--xp-gold" as string]: pal.gold }}
+      style={{ ["--xp-gold" as string]: pal.gold, ["--cross" as string]: crossColour }}
     >
       <noscript><style>{`.film-gate{display:none}.xp-scene{opacity:1!important;visibility:visible!important}`}</style></noscript>
       <div ref={worldRef} className="xp-world" inert={!live}>
         {stageOn && (
           <Stage rtRef={rtRef} filmRef={filmRef} theme={theme} mobile={mobile} calm={reduced} riseAtRef={riseAtRef} onReady={onStageReady} onEnter={enter} />
         )}
-        <Scenes ref={h1Ref} rtRef={rtRef} reduced={reduced} still={still} mobile={mobile} onEnter={enter} onGo={(p) => go(p)} />
+        <Scenes key={`s${jkey}`} ref={h1Ref} rtRef={rtRef} reduced={reduced} still={still} mobile={mobile} onEnter={enter} onGo={(p) => go(p)} />
       </div>
 
       <header className="xp-topbar" inert={!live}>
-        <button type="button" className="xp-wordmark" onClick={() => go(0)}>{site.name}</button>
+        <button type="button" className="xp-wordmark" onClick={() => (current.id === "home" ? go(0) : router.push("/"))}>{site.name}</button>
         <div className="xp-topbar-right">
           <button ref={indexBtn} type="button" className="xp-link" aria-expanded={ui.indexOpen} onClick={openIndex}>{journey.index}</button>
           {sound !== null && (
@@ -335,12 +385,13 @@ export function Experience() {
         </div>
       </header>
       <div inert={!live}>
-        <ActBar ref={actRef} rtRef={rtRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
+        <ActBar key={`a${jkey}`} ref={actRef} rtRef={rtRef} onJump={(p) => go(p)} onToggleMode={() => (rtRef.current.mode === "watch" ? direct() : watch())} />
       </div>
 
       <canvas ref={canvasRef} className="xp-ink" aria-hidden="true" />
 
-      {room && <FieldGuide room={room} index={route[ui.place].things.findIndex((t) => t.id === ui.room)} onBack={leave} />}
+      <div className="xp-threshold" aria-hidden="true" />
+      {room && <FieldGuide room={room} index={here.things.findIndex((t) => t.id === ui.room)} onBack={leave} />}
       {ui.indexOpen && <IndexPlan onJump={(p, t) => go(p, t)} onClose={closeIndex} onWatch={watch} />}
       {ui.phase !== "live" && (
         <Gate mode={ui.phase === "gate" ? "gate" : ui.phase === "dip" ? "leaving" : inkReady ? "clear" : "fading"} onChoose={choose} />

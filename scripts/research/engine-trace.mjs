@@ -23,6 +23,7 @@ if (a[0] === "--compare") {
 }
 const jiti = createJiti(import.meta.url, { alias: { "@": root } });
 const J = await jiti.import(root + "components/experience/journey.ts");
+await jiti.import(root + "components/experience/journeys/index.ts");
 const { experienceConfig: X } = await jiti.import(root + "lib/experience.ts");
 const dt = 1 / 60, ms = 1000 / 60, START = 2;
 const run = (script, frames, { watch = false } = {}) => {

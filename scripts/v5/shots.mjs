@@ -21,7 +21,7 @@ const errs = [];
 page.on("pageerror", (e) => errs.push(e.message));
 page.on("console", (m) => m.type() === "error" && errs.push(m.text()));
 const q = ["tune", a.includes("--dark") ? "theme=dark" : "", a.includes("--still") ? "still" : ""].filter(Boolean).join("&");
-await page.goto(`http://localhost:4174/?${q}`, { waitUntil: "domcontentloaded" });
+await page.goto(`http://localhost:4174${opt("--path", "/")}?${q}`, { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(2600);
 await page.getByRole("button", { name: /enter in silence/i }).click();
 await page.waitForFunction(() => document.querySelector(".xp-root.is-live"), null, { timeout: 20000 });

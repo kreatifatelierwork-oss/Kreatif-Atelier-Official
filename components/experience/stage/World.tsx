@@ -4,10 +4,11 @@ import { useFrame } from "@react-three/fiber";
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useUi, type Runtime } from "../journey";
-import { LAST, route } from "../route";
+import { active, chapters, LAST, route } from "../route";
 import { Ribbon } from "./Ribbon";
 import { Atlas } from "./sets/Atlas";
 import { Canopy } from "./sets/Canopy";
+import { Company } from "./sets/Company";
 import { Jungle } from "./sets/Jungle";
 import { Land, LAND_PLATES } from "./sets/Lands";
 import { Sky, sunAt } from "./Sky";
@@ -36,6 +37,15 @@ const LIGHT: { sun: string; k: number; sky: string; ground: string; fill: number
   { sun: "#FFE0AE", k: 2.4, sky: "#F5DDB8", ground: "#23321C", fill: 0.9 }, // Return
 ];
 
+/** Each company land's one light (its vivid colour, dominant in its world). */
+const COMPANY_LIGHT: Record<string, (typeof LIGHT)[number]> = {
+  aurelius: { sun: "#FFA866", k: 2.0, sky: "#4B4C9A", ground: "#2A1A12", fill: 0.75 },
+  "golden-guardian-productions": { sun: "#FF6FB0", k: 1.6, sky: "#4A1036", ground: "#14060E", fill: 0.6 },
+  valora: { sun: "#FFB384", k: 2.2, sky: "#F2A07C", ground: "#1E4A50", fill: 0.9 },
+  asraya: { sun: "#FFEACC", k: 2.0, sky: "#CFE4D4", ground: "#1E3A2A", fill: 1.0 },
+  "rudra-yugen": { sun: "#BFF4FF", k: 1.8, sky: "#9EDCEB", ground: "#0B2430", fill: 0.8 },
+};
+
 /** Which stretches are mounted: the current place ± 2 (assets stream per chapter as the camera nears them). */
 const near = (place: number, from: number, to: number) => place >= from - 2 && place <= to + 2;
 
@@ -48,7 +58,9 @@ export function World({ rtRef, theme, mobile, calm, riseAtRef }: Props) {
   const night = theme === "dark";
   const sunRef = useRef<THREE.DirectionalLight>(null);
   const hemiRef = useRef<THREE.HemisphereLight>(null);
-  const data = useMemo(() => LIGHT.map((l) => ({ sun: new THREE.Color(l.sun), sky: new THREE.Color(l.sky), ground: new THREE.Color(l.ground), k: l.k, fill: l.fill })), []);
+  const home = active.id === "home";
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const data = useMemo(() => (home ? LIGHT : chapters.map(() => COMPANY_LIGHT[active.id])).map((l) => ({ sun: new THREE.Color(l.sun), sky: new THREE.Color(l.sky), ground: new THREE.Color(l.ground), k: l.k, fill: l.fill })), []);
   const tmp = useMemo(() => new THREE.Vector3(), []);
   useFrame(({ camera }) => {
     const s = rtRef.current.s;
@@ -75,6 +87,12 @@ export function World({ rtRef, theme, mobile, calm, riseAtRef }: Props) {
       <Sky rtRef={rtRef} night={night} />
       <directionalLight ref={sunRef} />
       <hemisphereLight ref={hemiRef} />
+      {!home && (
+        <Suspense fallback={null}>
+          <Company id={active.id} rtRef={rtRef} mobile={mobile} calm={calm} night={night} />
+        </Suspense>
+      )}
+      {home && <>
       <Suspense fallback={null}>
         {near(place, 0, 6) && <Jungle rtRef={rtRef} mobile={mobile} calm={calm} night={night} />}
       </Suspense>
@@ -89,6 +107,7 @@ export function World({ rtRef, theme, mobile, calm, riseAtRef }: Props) {
           {near(place, L.from, L.to) && <Land k={k} rtRef={rtRef} mobile={mobile} calm={calm} night={night} />}
         </Suspense>
       ))}
+      </>}
       <Ribbon rtRef={rtRef} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />
     </>
   );

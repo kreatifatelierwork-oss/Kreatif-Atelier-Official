@@ -1,20 +1,13 @@
 /**
- * The v5 home route: one place per reference frame (H01–H36), in twelve chapters. Each place lists what it says
+ * The journeys (the home page and the five company pages) and the active one. The v5 home route: one place per reference frame (H01–H36), in twelve chapters. Each place lists what it says
  * (word for word from the content files; C3 punctuation at render) as scene items, each item set where its reference
  * frame shows it. `at` is the item's point in the reference frame (fractions of width and height); `depth` is how far
  * from the camera it sits in the world (metres), which gives it real parallax as the camera passes. A thing with a
  * room is a field-guide page that unfolds over the scene (Enter / Back, own link).
  */
-import { about } from "@/content/about";
-import { chapterNumber, chapters, journey } from "@/content/journey";
-import { founders, foundersIntro } from "@/content/founders";
-import { industries, industriesIntro } from "@/content/industries";
-import { processIntro, steps } from "@/content/process";
-import { services } from "@/content/services";
-import { contact, hero } from "@/content/site";
-import { holding, impact, serves, verticals } from "@/content/verticals";
-import { reasons, whyIntro } from "@/content/why";
+import type { Service } from "@/content/services";
 import { experienceConfig as X } from "@/lib/experience";
+import type { RouteData } from "@/lib/route-data";
 
 export const unnumbered = (marker: string) => marker.split(" · ").slice(1).join(" · ");
 export const slugify = (s: string) => s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -42,13 +35,15 @@ export type Item =
   /** Text along a curve across the sky (H11). */
   | { k: "arc"; label: string; text: string; depth: number }
   /** A list carved or set as a column (H16 services, H33 credits, H32 notes). */
-  | { k: "list"; heading?: string; items: readonly { title: string; body?: string }[]; at: At; depth: number; style: "carved" | "credits" | "journal" | "stars" | "profile" }
+  | { k: "list"; heading?: string; items: readonly { title: string; body?: string }[]; at: At; depth: number; style: "carved" | "credits" | "journal" | "stars" | "profile" | "strata" | "reel" }
   /** A quiet pill (portal) or the gold button. */
   | { k: "button"; label: string; at: At; depth: number; href?: string; primary?: boolean }
+  /** A company page's closing: Enquire (mail), Next, Back to the Atlas (stacked buttons, A06). */
+  | { k: "onward"; at: At; depth: number; enquire: { label: string; href: string }; next: { label: string; href: string }; back: { label: string; href: string } }
   /** The closing scene's contact block (H36). */
   | { k: "closing"; at: At; depth: number };
 
-export type Room = { kind: "text"; title: string; body: string };
+export type Room = { kind: "text"; title: string; body: string } | { kind: "service"; service: Service };
 export type Thing = { id: string; label: string; room?: Room };
 
 export type Place = {
@@ -62,186 +57,63 @@ export type Place = {
   things: Thing[];
 };
 
-const pillar = (i: number) => about.pillars[i];
-const room = (i: number): Thing => ({ id: slugify(pillar(i).title), label: pillar(i).title, room: { kind: "text", title: pillar(i).title, body: pillar(i).body } });
-const v = (slug: string) => verticals.find((x) => x.slug === slug)!;
-const tagline = (slug: string) => v(slug).tagline.map((w) => `${w}.`).join(" ");
-const card = (chapter: number, tag: "h1" | "h2" = "h2"): Item => ({ k: "card", title: chapters[chapter], sub: chapterNumber(chapter), tag });
 
-type Def = { id: string; chapter: number; items: Item[]; things?: Thing[] };
+export type Def = { id: string; chapter: number; items: Item[]; things?: Thing[] };
 
-const defs: Def[] = [
-  // ---- 1 The Seed -------------------------------------------------------------------------------------------------
-  { id: "seed", chapter: 0, items: [{ k: "card", title: holding.name, sub: `${chapters[0]} · ${chapterNumber(0)}`, tag: "h1" }] },
-  { id: "drop", chapter: 0, items: [
-    { k: "voice", text: contact.body.split(". ")[0] + ".", at: [0.595, 0.29], size: 4.6, align: "left", depth: 5 },
-  ] },
-  { id: "title", chapter: 0, items: [
-    { k: "head", text: holding.name, sub: holding.lines.ecosystem, tag: "p", face: "light", at: [0.5, 0.335], size: 7.6, depth: 26, tilt: 3, echo: true },
-  ] },
-  { id: "legacy", chapter: 0, items: [
-    { k: "head", text: hero.positioning[0], sub: hero.positioning[1], tag: "h2", face: "light", at: [0.47, 0.385], size: 6.2, depth: 13, drawn: true },
-  ] },
-  { id: "about", chapter: 0, things: [room(0), room(1), room(2), room(3)], items: [
-    { k: "callouts", items: [
-      { label: pillar(0).title, ring: [0.15, 0.14], at: [0.24, 0.21], depth: 7, room: slugify(pillar(0).title), side: "right" },
-      { label: pillar(1).title, ring: [0.435, 0.31], at: [0.49, 0.335], depth: 16, room: slugify(pillar(1).title), side: "right" },
-      { label: pillar(2).title, ring: [0.72, 0.32], at: [0.745, 0.28], depth: 20, room: slugify(pillar(2).title), side: "right" },
-      { label: pillar(3).title, ring: [0.8, 0.53], at: [0.845, 0.462], depth: 11, room: slugify(pillar(3).title), side: "right" },
-    ] },
-  ] },
-  { id: "operate", chapter: 0, things: [room(1)], items: [
-    { k: "pins", heading: { text: pillar(1).title, at: [0.75, 0.37], size: 5.6 }, items: [
-      // West to east as on a map of Hyderabad (X05).
-      { label: "Gachibowli", at: [0.17, 0.52], depth: 5.5 },
-      { label: "HITEC City", at: [0.25, 0.38], depth: 5.5 },
-      { label: "Jubilee Hills", at: [0.36, 0.45], depth: 5.5 },
-      { label: "Banjara Hills", at: [0.43, 0.56], depth: 5.5 },
-      { label: "Secunderabad", at: [0.53, 0.29], depth: 5.5 },
-    ] },
-  ] },
-  // ---- 2 The Climb ------------------------------------------------------------------------------------------------
-  { id: "climb", chapter: 1, items: [
-    card(1),
-    { k: "voice", text: about.quote.text, at: [0.55, 0.45], size: 5, depth: 10, drawn: true },
-  ] },
-  { id: "motto", chapter: 1, items: [
-    { k: "head", text: holding.motto.join(" | "), tag: "p", face: "light", at: [0.5, 0.45], size: 9, depth: 40, drawn: true },
-  ] },
-  { id: "numerals", chapter: 1, items: [{ k: "numerals", at: [0.5, 0.27], depth: 120 }] },
-  // ---- 3 Above the Canopy -----------------------------------------------------------------------------------------
-  { id: "holding", chapter: 2, items: [
-    card(2),
-    { k: "head", text: holding.name, sub: holding.descriptor, line: holding.lines.verticals, tag: "h2", face: "serif", at: [0.5, 0.23], size: 11.5, depth: 140, ornament: true },
-  ] },
-  { id: "vision", chapter: 2, items: [{ k: "arc", label: holding.labels.vision, text: holding.vision, depth: 120 }] },
-  // ---- 4 The Five Peaks -------------------------------------------------------------------------------------------
-  { id: "pillars", chapter: 3, items: [
-    card(3),
-    { k: "pins", heading: { text: journey.fivePillars, at: [0.5, 0.16], size: 8.5 }, items: [
-      { label: holding.pillars[0], at: [0.13, 0.31], depth: 120 },
-      { label: holding.pillars[1], at: [0.32, 0.345], depth: 112 },
-      { label: holding.pillars[2], at: [0.5, 0.275], depth: 130 },
-      { label: holding.pillars[3], at: [0.7, 0.345], depth: 112 },
-      { label: holding.pillars[4], at: [0.89, 0.345], depth: 120 },
-    ] },
-  ] },
-  { id: "atlas", chapter: 3, items: [
-    { k: "pins", items: [
-      { label: "Aurelius", at: [0.19, 0.25], depth: 230 },
-      { label: "Golden Guardian Productions", at: [0.5, 0.17], depth: 270 },
-      { label: "Valora", at: [0.84, 0.32], depth: 240 },
-      { label: "Asraya", at: [0.268, 0.53], depth: 200 },
-      { label: "Rudra Yugen", at: [0.78, 0.6], depth: 205 },
-    ] },
-  ] },
-  // ---- 5 Aurelius -------------------------------------------------------------------------------------------------
-  { id: "aurelius", chapter: 4, items: [
-    card(4),
-    { k: "head", text: v("aurelius").name, sub: tagline("aurelius"), tag: "h2", face: "serif", at: [0.745, 0.3], size: 12.5, depth: 60 },
-  ] },
-  { id: "aurelius-offerings", chapter: 4, items: [
-    { k: "pins", items: v("aurelius").whatWeDo.map((w, i) => ({ label: w, at: [[0.33, 0.475, 0.67, 0.86][i], [0.28, 0.17, 0.17, 0.14][i]] as const, depth: 40 })) },
-    { k: "voice", text: v("aurelius").value, at: [0.5, 0.8], size: 5, depth: 30 },
-  ] },
-  { id: "aurelius-portal", chapter: 4, items: [
-    { k: "list", items: services.map((s) => ({ title: s.title })), at: [0.85, 0.36], depth: 18, style: "carved" },
-    { k: "button", label: journey.enter("Aurelius"), at: [0.685, 0.535], depth: 14, href: "/aurelius" },
-  ] },
-  // ---- 6 Golden Guardian Productions ------------------------------------------------------------------------------
-  { id: "ggp-mouth", chapter: 5, items: [card(5)] },
-  { id: "ggp", chapter: 5, items: [
-    { k: "head", text: v("golden-guardian-productions").name, sub: tagline("golden-guardian-productions"), tag: "h2", face: "serif", at: [0.5, 0.2], size: 6, depth: 50 },
-  ] },
-  { id: "ggp-projection", chapter: 5, items: [
-    { k: "list", items: v("golden-guardian-productions").whatWeDo.map((w) => ({ title: w })), at: [0.64, 0.38], depth: 40, style: "credits" },
-    { k: "voice", text: v("golden-guardian-productions").value, at: [0.59, 0.75], size: 3.2, depth: 30 },
-    { k: "button", label: journey.enter("Golden Guardian Productions"), at: [0.59, 0.815], depth: 26, href: "/golden-guardian-productions" },
-  ] },
-  // ---- 7 Valora ---------------------------------------------------------------------------------------------------
-  { id: "valora-coast", chapter: 6, items: [card(6)] },
-  { id: "valora", chapter: 6, items: [
-    { k: "head", text: v("valora").name, sub: tagline("valora"), tag: "h2", face: "serif", at: [0.54, 0.6], size: 13, depth: 90 },
-  ] },
-  { id: "valora-reef", chapter: 6, items: [
-    { k: "pins", items: v("valora").whatWeDo.map((w, i) => ({ label: w, at: [[0.145, 0.43, 0.68, 0.875][i], [0.31, 0.44, 0.48, 0.55][i]] as const, depth: 14 })) },
-    { k: "voice", text: v("valora").value, at: [0.5, 0.71], size: 3.2, depth: 12 },
-    { k: "button", label: journey.enter("Valora"), at: [0.5, 0.795], depth: 10, href: "/valora" },
-  ] },
-  // ---- 8 Asraya ---------------------------------------------------------------------------------------------------
-  { id: "asraya-surface", chapter: 7, items: [card(7)] },
-  { id: "asraya", chapter: 7, items: [
-    { k: "head", text: v("asraya").name, sub: tagline("asraya"), tag: "h2", face: "serif", at: [0.54, 0.43], size: 11, depth: 70, ornament: true },
-  ] },
-  { id: "asraya-lanterns", chapter: 7, items: [
-    { k: "pins", items: v("asraya").whatWeDo.map((w, i) => ({ label: w, at: [[0.245, 0.43, 0.68, 0.865][i], [0.56, 0.535, 0.545, 0.56][i]] as const, depth: 20 })) },
-    { k: "voice", text: v("asraya").value, at: [0.5, 0.73], size: 3.2, depth: 16 },
-    { k: "button", label: journey.enter("Asraya"), at: [0.5, 0.8], depth: 14, href: "/asraya" },
-  ] },
-  // ---- 9 Rudra Yugen ----------------------------------------------------------------------------------------------
-  { id: "rudra-glacier", chapter: 8, items: [card(8)] },
-  { id: "rudra", chapter: 8, items: [
-    { k: "head", text: v("rudra-yugen").name, sub: tagline("rudra-yugen"), tag: "h2", face: "serif", at: [0.52, 0.5], size: 9, depth: 45, ornament: true },
-    { k: "callouts", items: v("rudra-yugen").whatWeDo.map((w, i) => ({ label: w, ring: [[0.38, 0.29, 0.66, 0.75][i], [0.3, 0.51, 0.32, 0.52][i]] as const, at: [[0.2, 0.14, 0.75, 0.85][i], [0.2, 0.42, 0.22, 0.43][i]] as const, depth: 40, side: (i % 2 ? "right" : "left") as "left" | "right" })) },
-  ] },
-  { id: "rudra-aurora", chapter: 8, items: [
-    { k: "voice", text: v("rudra-yugen").value, at: [0.5, 0.71], size: 3.2, depth: 30 },
-    { k: "button", label: journey.enter("Rudra Yugen"), at: [0.5, 0.8], depth: 26, href: "/rudra-yugen" },
-  ] },
-  // ---- 10 The Summit ----------------------------------------------------------------------------------------------
-  { id: "summit", chapter: 9, items: [
-    card(9),
-    { k: "head", text: holding.lines.tomorrow, tag: "h2", face: "serif", at: [0.5, 0.22], size: 8, depth: 120, ornament: true },
-  ] },
-  { id: "serves", chapter: 9, items: [
-    { k: "pins", heading: { text: holding.labels.serves, at: [0.5, 0.165], size: 7 }, items: serves.map((s, i) => ({ label: s, at: [[0.29, 0.21, 0.27, 0.74, 0.86, 0.78][i], [0.305, 0.485, 0.67, 0.325, 0.485, 0.685][i]] as const, depth: 120 })) },
-  ] },
-  { id: "impact", chapter: 9, items: [
-    { k: "pins", heading: { text: holding.labels.impact, at: [0.5, 0.16], size: 9 }, items: impact.map((s, i) => ({ label: s, at: [[0.22, 0.15, 0.18, 0.78, 0.84, 0.82][i], [0.285, 0.475, 0.69, 0.265, 0.48, 0.695][i]] as const, depth: 110 })) },
-  ] },
-  { id: "why-us", chapter: 9, items: [
-    { k: "list", heading: `${whyIntro.headline.lead} ${whyIntro.headline.emphasis}`, items: reasons.map((r) => ({ title: r.title, body: r.body })), at: [0.65, 0.48], depth: 10, style: "journal" },
-  ] },
-  // ---- 11 The Night Sky -------------------------------------------------------------------------------------------
-  { id: "founders", chapter: 10, items: [
-    card(10),
-    { k: "list", heading: `${foundersIntro.headline.lead} ${foundersIntro.headline.emphasis}`, items: founders.map((f) => ({ title: f.name, body: f.role })), at: [0.5, 0.45], depth: 60, style: "credits" },
-  ] },
-  { id: "industries", chapter: 10, items: [
-    { k: "list", heading: `${industriesIntro.headline.lead} ${industriesIntro.headline.emphasis}`, items: industries.map((t) => ({ title: t })), at: [0.5, 0.45], depth: 200, style: "stars" },
-  ] },
-  { id: "process", chapter: 10, items: [
-    { k: "list", heading: `${processIntro.headline.lead} ${processIntro.headline.emphasis}`, items: steps.map((s) => ({ title: s.title, body: s.body })), at: [0.5, 0.42], depth: 80, style: "profile" },
-  ] },
-  // ---- 12 Return --------------------------------------------------------------------------------------------------
-  { id: "contact", chapter: 11, items: [card(11), { k: "closing", at: [0.72, 0.4], depth: 20 }] },
-];
+/** A journey: its places, the route data its camera flies (same engine), and its shareable links. */
+export type Journey = {
+  id: string;
+  /** The page it lives on ("/", "/aurelius" …). */
+  path: string;
+  chapters: string[];
+  /** The act bar's name for a chapter ("The Seed", "Aurelius · Arrival"). */
+  chapterName: (c: number) => string;
+  defs: Def[];
+  data: RouteData;
+  aliases: Record<string, { place: string; thing?: string }>;
+};
 
-export const route: Place[] = defs.map((d, index) => ({
-  id: d.id,
-  index,
-  chapter: d.chapter,
-  name: chapters[d.chapter],
-  colour: X.colour[index],
-  items: d.items,
-  things: d.things ?? [],
-}));
+const journeys = new Map<string, Journey>();
+export const registerJourney = (j: Journey) => journeys.set(j.path, j);
+export const journeyFor = (path: string) => journeys.get(path.replace(/\/$/, "") || "/") ?? journeys.get("/")!;
 
-export const LAST = route.length - 1;
+// ---- The active journey ------------------------------------------------------------------------------------------
+// Live bindings: every module that imports these (including the locked engine, which reads LAST) sees the journey
+// that is active now. Switching swaps the route data under the same engine and the same feel.
+export let active: Journey;
+export let route: Place[] = [];
+export let LAST = 0;
+export let chapters: string[] = [];
+export let chapterStart: number[] = [];
+export let placeStart: number[] = [];
+export let runningTime = 0;
+/** Bumped on every switch, so caches and components keyed on it rebuild. */
+export let journeyKey = 0;
 
-/** Each chapter's first place. */
-export const chapterStart = chapters.map((_, c) => route.findIndex((p) => p.chapter === c));
-
-/** Film-time (s) at which each place's hold begins, and the total running time. */
-export const placeStart: number[] = [];
-{
+export function setJourney(j: Journey) {
+  if (active === j) return;
+  active = j;
+  journeyKey++;
+  // The engine reads its per-place lists from experienceConfig: swap them (the feel constants are untouched).
+  X.holdSeconds = j.data.holdSeconds;
+  X.camera = j.data.camera;
+  X.anchors = j.data.anchors;
+  X.colour = j.data.colour;
+  X.atmosphere = j.data.atmosphere;
+  route = j.defs.map((d, index) => ({
+    id: d.id, index, chapter: d.chapter, name: j.chapterName(d.chapter), colour: X.colour[index], items: d.items, things: d.things ?? [],
+  }));
+  LAST = route.length - 1;
+  chapters = j.chapters;
+  chapterStart = chapters.map((_, c) => route.findIndex((p) => p.chapter === c));
+  placeStart = [];
   let t = 0;
   for (let i = 0; i < route.length; i++) {
     placeStart.push(t);
     t += X.holdSeconds[i] + (i < LAST ? X.travelSeconds : 0);
   }
+  runningTime = placeStart[LAST] + X.holdSeconds[LAST];
 }
-export const runningTime = placeStart[LAST] + X.holdSeconds[LAST];
 
 /** Film-time at route position s (passage time is proportional to progress through the passage). */
 export function filmTimeAt(s: number, holdElapsed = 0) {
@@ -251,31 +123,14 @@ export function filmTimeAt(s: number, holdElapsed = 0) {
   return placeStart[i] + X.holdSeconds[i] + f * X.travelSeconds;
 }
 
-/** Section links people will share (`/#founders`, `/#pricing` …) → a place and (optionally) a room. */
-export const aliases: Record<string, { place: string; thing?: string }> = {
-  home: { place: "seed" },
-  "who-we-are": { place: "about" },
-  "what-we-are": { place: "about", thing: "what-we-are" },
-  "our-philosophy": { place: "about", thing: "our-philosophy" },
-  services: { place: "aurelius-portal" },
-  pricing: { place: "aurelius" },
-  "engagement-models": { place: "aurelius" },
-  "golden-guardian-productions": { place: "ggp" },
-  "rudra-yugen": { place: "rudra" },
-  pillars: { place: "pillars" },
-  ecosystem: { place: "atlas" },
-  "why-us": { place: "why-us" },
-  "how-we-work": { place: "process" },
-};
-
 /** Deep links: `#about`, `#about/our-philosophy`, or an alias (`#founders`, `#pricing`). */
 export function parseHash(hash: string): { place: number; thing?: string } | null {
   const [pid, tid] = decodeURIComponent(hash.replace(/^#/, "")).split("/");
-  const alias = aliases[pid];
+  const alias = active.aliases[pid];
   const place = route.findIndex((p) => p.id === (alias ? alias.place : pid));
   if (place < 0) return null;
   const want = tid ?? alias?.thing;
   const thing = want && route[place].things.some((t) => t.id === want && t.room) ? want : undefined;
   return { place, thing };
 }
-export const hashFor = (place: number, thing?: string | null) => `#${route[place].id}${thing ? `/${thing}` : ""}`;
+export const hashFor = (place: number, thing?: string | null) => `#${route[Math.max(0, Math.min(place, LAST))].id}${thing ? `/${thing}` : ""}`;

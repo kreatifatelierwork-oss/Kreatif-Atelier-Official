@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useMemo } from "react";
 import * as THREE from "three";
 import type { Runtime } from "../journey";
-import { LAST, route } from "../route";
+import { active, chapters, journeyKey, LAST, route } from "../route";
 import { hold } from "./kit";
 
 /** Per chapter: zenith, horizon, sun colour, and the sun's place (yaw from the chapter's first view, elevation). */
@@ -22,6 +22,18 @@ export const SKIES: { zenith: string; horizon: string; sun: string; yaw: number;
   { zenith: "#030716", horizon: "#18224A", sun: "#FFB070", yaw: -60, elev: -2, size: 0.03 }, // The Night Sky
   { zenith: "#A6B8CB", horizon: "#F7D6A6", sun: "#FFF0CC", yaw: -12, elev: 8, size: 0.05 }, // Return
 ];
+
+type SkyDef = (typeof SKIES)[number];
+/** Each company land's one sky (dominant in its colour: C5). */
+const COMPANY_SKIES: Record<string, SkyDef> = {
+  aurelius: { zenith: "#14175A", horizon: "#D86A44", sun: "#FFA070", yaw: 30, elev: 2, size: 0.04 },
+  "golden-guardian-productions": { zenith: "#12040C", horizon: "#5A1038", sun: "#FF6FB0", yaw: 0, elev: 35, size: 0.02 },
+  valora: { zenith: "#5E5596", horizon: "#FF8C5E", sun: "#FFD49A", yaw: 20, elev: 3, size: 0.05 },
+  asraya: { zenith: "#8FB2B0", horizon: "#EAE3C8", sun: "#FFF1D2", yaw: 15, elev: 12, size: 0.04 },
+  "rudra-yugen": { zenith: "#041226", horizon: "#1E6A86", sun: "#B8F2FF", yaw: -30, elev: 8, size: 0.03 },
+};
+/** The skies of the active journey, one per chapter. */
+export const skyList = (): SkyDef[] => (active.id === "home" ? SKIES : chapters.map(() => COMPANY_SKIES[active.id]));
 
 const vert = /* glsl */ `
 varying vec3 vDir;
@@ -50,16 +62,20 @@ void main() {
 const sunDirOf = (chapter: number) => {
   const first = route.findIndex((p) => p.chapter === chapter);
   const { dir } = hold(Math.max(0, first));
-  const yaw = Math.atan2(dir.x, -dir.z) + THREE.MathUtils.degToRad(SKIES[chapter].yaw);
-  const e = THREE.MathUtils.degToRad(SKIES[chapter].elev);
+  const yaw = Math.atan2(dir.x, -dir.z) + THREE.MathUtils.degToRad(skyList()[chapter].yaw);
+  const e = THREE.MathUtils.degToRad(skyList()[chapter].elev);
   return new THREE.Vector3(Math.sin(yaw) * Math.cos(e), Math.sin(e), -Math.cos(yaw) * Math.cos(e));
 };
-let dirs: THREE.Vector3[] | null = null;
-const sunDir = (chapter: number) => (dirs ??= SKIES.map((_, c) => sunDirOf(c)))[chapter];
+let dirs: { key: number; d: THREE.Vector3[] } | null = null;
+const sunDir = (chapter: number) => {
+  if (!dirs || dirs.key !== journeyKey) dirs = { key: journeyKey, d: chapters.map((_, c) => sunDirOf(c)) };
+  return dirs.d[Math.min(chapter, dirs.d.length - 1)];
+};
 
 /** The sky around the camera: its colours and the one sun blend from chapter to chapter with the camera's position. */
 export function Sky({ rtRef, night }: { rtRef: { current: Runtime }; night: boolean }) {
-  const data = useMemo(() => SKIES.map((k, c) => ({
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const data = useMemo(() => skyList().map((k, c) => ({
     zenith: new THREE.Color(k.zenith), horizon: new THREE.Color(k.horizon), sun: new THREE.Color(k.sun), dir: sunDir(c), size: k.size,
   })), []);
   const mat = useMemo(() => new THREE.ShaderMaterial({

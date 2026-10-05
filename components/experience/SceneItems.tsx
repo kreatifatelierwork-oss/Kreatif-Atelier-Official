@@ -5,6 +5,7 @@ import type { CSSProperties, ReactNode, Ref } from "react";
 import { c3 } from "@/content/experience";
 import { journey } from "@/content/journey";
 import { contact, footer, mailtoHref, site } from "@/content/site";
+import { cross } from "./threshold";
 import type { Item, Place } from "./route";
 
 type Props = { item: Item; place: Place; j: number; h1Ref?: Ref<HTMLHeadingElement>; onEnter: (t: string) => void; onGo: (p: number) => void };
@@ -81,7 +82,7 @@ export function SceneItem({ item: it, place, j, h1Ref, onEnter }: Props) {
           {it.items.map((c, k) => (
             <div key={k}>
               <A a={c.ring} depth={c.depth} k={key(k, "r")} className="xp-ring" />
-              <A a={c.at} depth={c.depth} k={key(k, "l")} align={c.side === "left" ? "right" : "left"} className="xp-callout">
+              <A a={c.at} depth={c.depth} k={key(k, "l")} align={c.side === "left" ? "right" : c.side === "up" ? "center" : "left"} className="xp-callout">
                 {c.room ? (
                   <button type="button" className="xp-callout-label" onClick={() => onEnter(c.room!)} aria-label={`${c3(c.label)}, ${journey.read}`}>
                     <span>{c3(c.label)}</span>
@@ -154,10 +155,20 @@ export function SceneItem({ item: it, place, j, h1Ref, onEnter }: Props) {
       return (
         <A a={it.at} depth={it.depth} className="xp-portal">
           {it.href ? (
-            <Link className={`xp-btn${it.primary ? " is-primary" : ""}`} href={it.href}>
+            <Link className={`xp-btn${it.primary ? " is-primary" : ""}`} href={it.href} onClick={(e) => { if (cross(it.href!)) e.preventDefault(); }}>
               {c3(it.label)} <span aria-hidden="true">›</span>
             </Link>
           ) : null}
+        </A>
+      );
+    case "onward":
+      return (
+        <A a={it.at} depth={it.depth} className="xp-onward">
+          <div className="xp-onward-in">
+            <Link className="xp-btn" href={it.next.href} onClick={(e) => { if (cross(it.next.href)) e.preventDefault(); }}>{c3(it.next.label)} <span aria-hidden="true">›</span></Link>
+            <Link className="xp-btn" href={it.back.href} onClick={(e) => { if (cross(it.back.href)) e.preventDefault(); }}><span aria-hidden="true">‹</span> {it.back.label}</Link>
+            <a className="xp-btn is-primary" href={it.enquire.href}>{it.enquire.label} <span aria-hidden="true">✦</span></a>
+          </div>
         </A>
       );
     case "closing":
@@ -179,6 +190,23 @@ function List({ it }: { it: Extract<Item, { k: "list" }> }) {
               <span className="xp-frame" aria-hidden="true" />
               <span className="xp-credit-name">{c3(x.title)}</span>
               <span className="xp-credit-role">{c3(x.body!)}</span>
+            </li>
+          ))}
+        </ul>
+      </A>
+    );
+  }
+  if (it.style === "reel") {
+    // Showreel: empty 16:9 frames with blank paper inserts, ready for footage.
+    return (
+      <A a={it.at} depth={it.depth} className="xp-list is-reel">
+        {head}
+        <Ornament />
+        <ul>
+          {it.items.map((x) => (
+            <li key={x.title}>
+              <span className="xp-reel-frame" aria-hidden="true" />
+              <span className="xp-list-title">{c3(x.title)}</span>
             </li>
           ))}
         </ul>

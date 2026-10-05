@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 /** The old preview address: forwards to the home page, keeping any place link (#aurelius, #founders …). */
 export default function ExperienceRedirect() {
   return (
-    <main id="main">
+    <>
       <noscript>
         <meta httpEquiv="refresh" content="0; url=/" />
       </noscript>
       <Redirect />
-    </main>
+    </>
   );
 }

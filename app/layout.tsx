@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Experience } from "@/components/experience/Experience";
 import { site } from "@/content/site";
 import { cormorant, outfit, plexMono, rupee } from "./fonts";
 import "./globals.css";
@@ -34,6 +35,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-IN" className={`${cormorant.variable} ${outfit.variable} ${plexMono.variable} ${rupee.variable}`}>
       <body>
+        {/* One experience for every page: the canvas persists across page changes (never a blank load). Each page
+            chooses its journey by its path and adds its own metadata and structured data. */}
+        <main id="main">
+          <Experience />
+        </main>
         {children}
         <div className="grain" aria-hidden="true" />
       </body>

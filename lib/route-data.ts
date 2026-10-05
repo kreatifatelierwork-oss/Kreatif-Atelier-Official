@@ -11,7 +11,16 @@
  */
 type V3 = [number, number, number];
 
-export const routeData = {
+/** The per-place lists one journey supplies to the engine. */
+export type RouteData = {
+  holdSeconds: number[];
+  camera: { pos: V3; look: V3 }[];
+  anchors: V3[];
+  colour: (string | null)[];
+  atmosphere: { light: string[]; dark: string[] };
+};
+
+export const routeData: RouteData = {
   /** Film-time per place (s): how long Watch holds there; the passage to the next takes experienceFeel.travelSeconds.
    *  Set so the act bar reads about the times in the reference frames (H01 00:04 … H36 06:55). */
   holdSeconds: [
