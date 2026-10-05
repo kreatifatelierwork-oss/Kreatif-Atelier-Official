@@ -1,7 +1,10 @@
 "use client";
 
 import { useFrame } from "@react-three/fiber";
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef, useState } from "react";
+import { liveWorlds, TEST_WORLD, testSplat } from "@/lib/worlds";
+import { plateAnchor } from "./DepthPlate";
+import { SparkLayer, SplatWorld } from "./Splats";
 import * as THREE from "three";
 import { useUi, type Runtime } from "../journey";
 import { active, chapters, LAST, route } from "../route";
@@ -59,6 +62,8 @@ export function World({ rtRef, theme, mobile, calm, riseAtRef }: Props) {
   const sunRef = useRef<THREE.DirectionalLight>(null);
   const hemiRef = useRef<THREE.HemisphereLight>(null);
   const home = active.id === "home";
+  const splats = liveWorlds(active.id);
+  const [test] = useState(testSplat);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const data = useMemo(() => (home ? LIGHT : chapters.map(() => COMPANY_LIGHT[active.id])).map((l) => ({ sun: new THREE.Color(l.sun), sky: new THREE.Color(l.sky), ground: new THREE.Color(l.ground), k: l.k, fill: l.fill })), []);
   const tmp = useMemo(() => new THREE.Vector3(), []);
@@ -108,6 +113,13 @@ export function World({ rtRef, theme, mobile, calm, riseAtRef }: Props) {
         </Suspense>
       ))}
       </>}
+      {(splats.length > 0 || test) && <SparkLayer mobile={mobile} />}
+      {splats.map((w) => (
+        <Suspense key={w.id} fallback={null}>
+          {near(place, w.from, w.to) && <SplatWorld rtRef={rtRef} world={w} mobile={mobile} night={night} />}
+        </Suspense>
+      ))}
+      {test && near(place, TEST_WORLD.from, TEST_WORLD.to) && <SplatWorld rtRef={rtRef} world={TEST_WORLD} mobile={mobile} night={night} anchor={plateAnchor(0, 6)} />}
       <Ribbon rtRef={rtRef} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />
     </>
   );

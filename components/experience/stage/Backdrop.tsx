@@ -6,6 +6,8 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { Runtime } from "../journey";
 import { DepthPlate } from "./DepthPlate";
+import { splatCovers } from "@/lib/worlds";
+import { active } from "../route";
 import { hold, plate, viewHeight } from "./kit";
 
 const window01 = (s: number, a: number, b: number, fade: number) =>
@@ -20,6 +22,7 @@ const window01 = (s: number, a: number, b: number, fade: number) =>
 const DEPTH = new Set(["p01-jungle-bg", "p03-canopy", "p04-cloud-sea", "p05-desert-canyon", "p07-cave", "p08-coast", "p09-reef", "p10-jade-lake", "p12-ice-cave", "p13-aurora", "p14-summit", "p15-night-sky", "p16-dawn-clearing"]);
 
 export function Backdrop(props: Parameters<typeof Panorama>[0]) {
+  if (splatCovers(active.id, props.from, props.to)) return null;
   if (DEPTH.has(props.name)) return <DepthPlate rtRef={props.rtRef} name={props.name} mobile={props.mobile} from={props.from} to={props.to} aspect={props.aspect} night={props.night} tint={props.tint} />;
   return <Panorama {...props} />;
 }

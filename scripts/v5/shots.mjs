@@ -20,7 +20,7 @@ await cdp.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduc
 const errs = [];
 page.on("pageerror", (e) => errs.push(e.message));
 page.on("console", (m) => m.type() === "error" && errs.push(m.text()));
-const q = ["tune", a.includes("--dark") ? "theme=dark" : "", a.includes("--still") ? "still" : ""].filter(Boolean).join("&");
+const q = ["tune", a.includes("--dark") ? "theme=dark" : "", a.includes("--still") ? "still" : "", opt("--q", "")].filter(Boolean).join("&");
 await page.goto(`http://localhost:4174${opt("--path", "/")}?${q}`, { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(2600);
 await page.getByRole("button", { name: /enter in silence/i }).click();

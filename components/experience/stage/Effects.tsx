@@ -6,6 +6,7 @@ import { useRef } from "react";
 import type { DepthOfFieldEffect } from "postprocessing";
 import type { Runtime } from "../journey";
 import { LAST } from "../route";
+import { splatState } from "./Splats";
 
 /**
  * Focus distance per place (metres): the sharp subject of each reference frame. Everything nearer (the foreground
@@ -27,16 +28,21 @@ const focusAt = (s: number) => {
  * a soft vignette and a warm grade. Phones and reduced motion get bloom and the grade only (no depth of field).
  */
 export function Effects({ rtRef, mobile, calm }: { rtRef: { current: Runtime }; mobile: boolean; calm: boolean }) {
+  const lite = mobile || calm;
   const dof = useRef<DepthOfFieldEffect>(null);
   useFrame(() => {
+    const d = focusAt(rtRef.current.s);
+    // Splat worlds take Spark's own depth of field; the post-process one steps aside while they are on screen.
+    const sp = splatState.renderer, k = splatState.amount;
+    splatState.amount = 0; // re-raised by each visible splat world this frame (they update before the effects)
+    if (sp) { sp.focalDistance = d; sp.apertureAngle = lite ? 0 : 0.012 * k; }
     const e = dof.current;
     if (!e) return;
-    const d = focusAt(rtRef.current.s);
+    e.bokehScale = 3.2 * (1 - k);
     const m = e.cocMaterial as unknown as { worldFocusDistance: number; worldFocusRange: number };
     m.worldFocusDistance = d;
     m.worldFocusRange = Math.max(1.6, d * 1.1);
   });
-  const lite = mobile || calm;
   return (
     <EffectComposer multisampling={0} enableNormalPass={false}>
       {lite ? <></> : <DepthOfField ref={dof} bokehScale={3.2} resolutionScale={0.5} />}

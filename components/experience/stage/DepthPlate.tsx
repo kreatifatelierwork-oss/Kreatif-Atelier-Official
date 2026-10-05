@@ -53,6 +53,15 @@ void main() {
   #include <colorspace_fragment>
 }`;
 
+/** Where a stretch's diorama is anchored: behind its first hold, looking along the stretch. */
+export function plateAnchor(from: number, to: number, back = 30) {
+  const a = hold(from), b = hold(to);
+  const dir = b.pos.clone().sub(a.pos).add(a.dir.clone().multiplyScalar(40)).normalize();
+  const position = a.pos.clone().addScaledVector(dir, -back);
+  const quaternion = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(position, position.clone().add(dir), new THREE.Vector3(0, 1, 0)));
+  return { position, quaternion };
+}
+
 export function DepthPlate({ rtRef, name, mobile, from, to, back = 30, near = 14, far = 420, fovX = 112, aspect, night, tint = "#ffffff" }: {
   rtRef: { current: Runtime }; name: string; mobile: boolean; from: number; to: number;
   /** How far behind the stretch's first hold the anchor sits (m): the camera then moves inside the diorama. */
@@ -75,11 +84,7 @@ export function DepthPlate({ rtRef, name, mobile, from, to, back = 30, near = 14
     });
     const n = mobile ? [160, 90] : [320, 180];
     const geo = new THREE.PlaneGeometry(1, 1, n[0], Math.round(n[0] / aspect));
-    // The anchor: behind the first hold, looking along the stretch's mean direction.
-    const a = hold(from), b = hold(to);
-    const dir = b.pos.clone().sub(a.pos).add(a.dir.clone().multiplyScalar(40)).normalize();
-    const pos = a.pos.clone().addScaledVector(dir, -back);
-    const quat = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(pos, pos.clone().add(dir), new THREE.Vector3(0, 1, 0)));
+    const { position: pos, quaternion: quat } = plateAnchor(from, to, back);
     return { mat, geo, pos, quat };
   }, [map, depth, near, far, fovX, aspect, mobile, from, to, back, tint]);
   const ref = useRef<THREE.Mesh>(null);
