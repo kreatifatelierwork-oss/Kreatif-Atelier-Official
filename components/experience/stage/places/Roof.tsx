@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { ribbonPoint } from "@/components/film/stage/forms";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 import { useUi, type Runtime } from "../../journey";
 import { MONUMENT, ROOF_TERRACE } from "../layout";
 import { lightSurface, placeColours, stone, type Theme } from "../look";

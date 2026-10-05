@@ -15,7 +15,7 @@ import { services, servicesIntro, type Service } from "@/content/services";
 import { contact } from "@/content/site";
 import { holding, impact, serves, verticals, type Vertical } from "@/content/verticals";
 import { reasons, whyIntro } from "@/content/why";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 
 /** "07 · How We Work" → "How We Work" (the live site's section names, without their numbers). */
 export const unnumbered = (marker: string) => marker.split(" · ").slice(1).join(" · ");

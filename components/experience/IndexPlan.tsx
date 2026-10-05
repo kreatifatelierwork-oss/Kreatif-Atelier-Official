@@ -5,7 +5,7 @@ import { about } from "@/content/about";
 import { xp } from "@/content/experience";
 import { film } from "@/content/film";
 import { industriesIntro } from "@/content/industries";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 import { useUi } from "./journey";
 import { aliases, route, unnumbered } from "./route";
 

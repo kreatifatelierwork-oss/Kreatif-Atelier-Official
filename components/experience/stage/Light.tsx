@@ -4,7 +4,7 @@ import { Environment } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 import type { Runtime } from "../journey";
 import { LAST } from "../route";
 import { LIGHTS, type Theme } from "./look";

@@ -4,7 +4,7 @@
  * state); the UI store below changes only on discrete events (a new place, a room, the Index, the mode).
  */
 import { create } from "zustand";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 import { LAST } from "./route";
 
 export type Mode = "watch" | "direct";

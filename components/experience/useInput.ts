@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 import { jumpTo, nudge, useUi, type Runtime } from "./journey";
 import { LAST } from "./route";
 

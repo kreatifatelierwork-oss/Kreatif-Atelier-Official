@@ -5,7 +5,7 @@ import { useMemo, useRef, type ReactNode } from "react";
 import * as THREE from "three";
 import type { FilmState } from "@/components/film/state";
 import { Idea } from "@/components/film/stage/Idea";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 import type { Runtime } from "../journey";
 import { LAST } from "../route";
 import { MONUMENT } from "./layout";

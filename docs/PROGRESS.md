@@ -61,3 +61,15 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
   Practices / SEO).
 - **Screenshots:** `docs/research/final/sheet-*.png` (places and rooms, 1440 and 390, light and dark).
 - Wording approved by the user 2026-10-03 (title, description, Credits / Post-credits, screen-reader labels).
+
+## v5 (2026-10-05): data/feel split, step 1 (current place data moved unchanged)
+- `lib/config.ts` keeps only the locked feel as `experienceFeel`; the per-place lists (holdSeconds, camera, anchors,
+  colour, atmosphere) moved unchanged to `lib/route-data.ts`; `lib/experience.ts` merges them as `experienceConfig`.
+  Readers (incl. locked journey.ts, CameraRig.tsx, useInput.ts) changed only their import line.
+- Proof against the fresh baseline (`docs/research/baseline-v5/`, recorded on AC power):
+  - engine trace (`scripts/research/engine-trace.mjs`, 11 scripted inputs, fixed 60 Hz): IDENTICAL.
+  - browser nav: mean |Δs| 0.013 / 0.015 places over two runs; same-code cross-session noise is 0.027 (v3 baseline vs
+    v5 baseline), run-to-run in one session 0.003. All frames 16.7 ms (0 over 20 ms).
+  - ink 13 strokes: rim, fade curves, drift match within noise; ink-hz IoU slow 0.998-0.999, flick 0.93-1.00,
+    circle 0.992-0.999 (same range as baseline-vs-v3).
+- Next: step 2 replaces route-data.ts with the v5 12-chapter route.

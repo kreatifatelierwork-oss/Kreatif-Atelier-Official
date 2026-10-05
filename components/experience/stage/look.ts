@@ -4,7 +4,7 @@
  * materials (C5); every place has exactly one light (C7). Values here are art direction, not navigation.
  */
 import * as THREE from "three";
-import { experienceConfig as X } from "@/lib/config";
+import { experienceConfig as X } from "@/lib/experience";
 
 export type Theme = "light" | "dark";
 
