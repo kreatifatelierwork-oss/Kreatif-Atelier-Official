@@ -120,3 +120,12 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
 - Engine trace: IDENTICAL. Disk: deleted old v3 ink-tuning frame captures and .next/cache (≈2.4 GB) when free space
   fell to 4 GB.
 - Next: step (c) — waiting for design-refs/worlds/w01-w03 from World Labs Marble.
+
+## 2026-10-06: while waiting for the worlds
+- CLAUDE.md rewritten for v5 (decisions of 2026-10-05, structure, architecture, commands); asset log updated.
+- Re-study of igloo.inc and oryzo.ai (`docs/research/v5-restudy.md`): Oryzo keeps a line readable for a median
+  1,300 px of scroll (p90 2,400); ours ≈ 1,200 px fully visible plus wipes, with read-twice Watch holds. Handover rule
+  taken from Igloo: the threshold must cover nearly the whole frame for a moment; add route props that pass at 1–3 m.
+- Depth fallback fixes: plate edges dissolve into the sky; the sky above each plate's horizon stays far (no cloud
+  ceiling over H11/H12); cloud floor for the peaks; the H08 words no longer leak into H09.
+- Still waiting: design-refs/worlds/w01–w03 (then `node scripts/v5/worlds.mjs`, place, stitch, author, checkpoint).
