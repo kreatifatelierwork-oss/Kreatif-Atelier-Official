@@ -54,8 +54,8 @@ export function Backdrop({ rtRef, name, mobile, from, to, radius = 220, span = 1
  * A foreground cut-out (leaves, rock, bamboo) a few metres in front of a hold, framing it. Coming in you approach it;
  * going on you fly through it.
  */
-export function FrameCard({ name, mobile, place, ahead = 3, cover = 1.18, aspect, night, drop = 0 }: {
-  name: string; mobile: boolean; place: number; ahead?: number; cover?: number; aspect: number; night: boolean; drop?: number;
+export function FrameCard({ rtRef, name, mobile, place, ahead = 3, cover = 1.18, aspect, night, drop = 0 }: {
+  rtRef: { current: Runtime }; name: string; mobile: boolean; place: number; ahead?: number; cover?: number; aspect: number; night: boolean; drop?: number;
 }) {
   const tex = useTexture(plate(name, mobile));
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
@@ -65,6 +65,12 @@ export function FrameCard({ name, mobile, place, ahead = 3, cover = 1.18, aspect
     return new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, alphaTest: 0.02, toneMapped: false });
   }, [tex]);
   mat.color.setScalar(night ? 0.38 : 0.92);
+  // Seen only around its own hold: it fades in as the place approaches and the camera flies through it after.
+  useFrame(() => {
+    const d = rtRef.current.s - place;
+    mat.opacity = d < 0 ? THREE.MathUtils.smoothstep(d, -0.75, -0.35) : 1;
+    mat.visible = d > -0.75 && d < 0.8;
+  });
   const h = hold(place);
   const vh = viewHeight(ahead, camera.fov) * cover;
   const view = size.width / size.height;

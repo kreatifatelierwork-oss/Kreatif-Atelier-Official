@@ -39,7 +39,7 @@ export const routeData = {
     { pos: [1.8, 1.5, -78], look: [-2.2, 2.0, -86] }, // H06 the map on the giant leaf
     // 2 The Climb: up the colossal tree at (0, 0, -100).
     { pos: [0.5, 9, -91.5], look: [0, 42, -100] }, // H07 the quote spirals up the trunk
-    { pos: [7, 44, -94], look: [3, 60, -132] }, // H08 Ideas, People, Impact (beside the trunk)
+    { pos: [6, 58, -100], look: [3, 64, -150] }, // H08 Ideas, People, Impact (at the canopy top, tiers rising ahead)
     { pos: [4, 80, -116], look: [0, 80, -218] }, // H09 out of the canopy: 5 and ∞ (open sky; the rig's long fog)
     // 3 Above the Canopy: the cloud sea at sunrise.
     { pos: [0, 82, -150], look: [0, 86, -320] }, // H10 a creative holding company
@@ -95,7 +95,7 @@ export const routeData = {
    *  (default), dark = the Cinema night grade. */
   atmosphere: {
     light: [
-      "#4C4F39", "#454A35", "#4E4F3A", "#4B4D38", "#494C37", "#474B36",
+      "#8A7A4E", "#6E6644", "#8C7C50", "#88784C", "#85764B", "#80734A",
       "#E7E8D2", "#F1E6C8", "#F6DDB4",
       "#F5D9AE", "#F3D2A8",
       "#F1CDA4", "#E9D4B8",

@@ -29,7 +29,7 @@ export function Land({ rtRef, mobile, calm, night, k }: P & { k: number }) {
     <group>
       <Backdrop rtRef={rtRef} name={L.name} mobile={mobile} from={L.from} to={L.to} radius={200} span={118} aspect={L.aspect} night={night} />
       {L.fg?.places.map((p) => (
-        <FrameCard key={p} name={L.fg!.name} mobile={mobile} place={p} ahead={2.6} aspect={L.fg!.aspect} night={night} drop={0.05} />
+        <FrameCard rtRef={rtRef} key={p} name={L.fg!.name} mobile={mobile} place={p} ahead={2.6} aspect={L.fg!.aspect} night={night} drop={0.05} />
       ))}
       <Mist box={{ min: [h.x - 30, h.y - 4, h.z - 90], max: [h.x + 30, h.y + 8, h.z + 10] }} count={mobile ? 8 : 18} size={[6, 16]} opacity={0.35} seed={k + 100} calm={calm} night={night} />
     </group>

@@ -11,6 +11,7 @@ import type { Runtime } from "../../journey";
 import { route } from "../../route";
 import { Mist } from "../Atmos";
 import { Backdrop } from "../Backdrop";
+import { Near } from "../Near";
 import { crownForest, crownTexture, hold, plate, rng, viewHeight } from "../kit";
 import { anchorFor } from "../layout";
 
@@ -27,10 +28,10 @@ export function Canopy({ rtRef, mobile, calm, night }: P) {
       <Backdrop rtRef={rtRef} name="p03-canopy" mobile={mobile} from={7} to={8} radius={230} span={124} lift={0.02} aspect={1.777} night={night} />
       <Backdrop rtRef={rtRef} name="p04-cloud-sea" mobile={mobile} from={9} to={11} radius={260} span={150} lift={-0.02} aspect={2.532} night={night} />
       <Tree mobile={mobile} />
-      <Quote mobile={mobile} />
+      <Near rtRef={rtRef} place={6} range={1.2}><Quote mobile={mobile} /></Near>
       <Crowns mobile={mobile} />
       <Ceiling mobile={mobile} />
-      <Tiers mobile={mobile} />
+      <Near rtRef={rtRef} place={7} range={1.2}><Tiers mobile={mobile} /></Near>
       <BreakLeaves calm={calm} />
       <Clouds mobile={mobile} calm={calm} night={night} />
       <Peaks mobile={mobile} />
@@ -166,11 +167,11 @@ function Tiers({ mobile }: { mobile: boolean }) {
       const vh = viewHeight(sp.depth, camera.fov);
       // The word is the subject: crowns stand either side of it and below it, never across it.
       const half = vh * sp.h * (mobile ? 0.6 : 1) * holding.motto[t].length * 0.3;
-      for (let q = 0; q < 26; q++) {
-        const sc = vh * (0.16 + r() * 0.12), side = q % 2 ? 1 : -1;
-        const x = q < 6 ? a.x + (r() - 0.5) * half * 2 : a.x + side * (half + sc * 0.3 + r() * vh * 0.9);
-        const y = q < 6 ? a.y - vh * sp.h * 0.6 - sc * 0.7 : a.y - sc * (0.45 + r() * 0.3);
-        spots.push({ x, y, z: a.z + vh * 0.05 + r() * vh * 0.25, s: sc });
+      for (let q = 0; q < 34; q++) {
+        const sc = vh * (0.14 + r() * 0.12);
+        const x = a.x + (r() - 0.5) * half * 3.2;
+        const y = a.y - vh * sp.h * 0.55 - sc * (0.55 + r() * 0.35) - Math.abs(x - a.x) / (half * 1.6) * vh * 0.08;
+        spots.push({ x, y, z: a.z + (r() - 0.2) * vh * 0.35, s: sc });
       }
     });
     return crownForest(spots, hold(i).pos);
@@ -185,7 +186,7 @@ function Tiers({ mobile }: { mobile: boolean }) {
         const fs = viewHeight(sp.depth, camera.fov) * sp.h * (mobile ? 0.42 : 1);
         return (
           <group key={w} position={a} rotation={rot}>
-            <Text font="/fonts/outfit-400.ttf" fontSize={fs} rotation={[-0.5, 0, 0]} color="#FFD98A" outlineColor="#F0A640" outlineBlur={fs * 0.3} outlineOpacity={0.6} anchorX="center" anchorY="middle">
+            <Text font="/fonts/outfit-400.ttf" fontSize={fs} rotation={[-0.35, 0, 0]} color="#FFD98A" outlineColor="#F0A640" outlineBlur={fs * 0.3} outlineOpacity={0.6} anchorX="center" anchorY="middle">
               {w}
             </Text>
           </group>

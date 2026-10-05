@@ -13,6 +13,7 @@ import { Backdrop, FrameCard } from "../Backdrop";
 import { hold, plate, pointAt, rng, viewHeight } from "../kit";
 import { anchorFor } from "../layout";
 import { Leaf } from "../Leaf";
+import { Near } from "../Near";
 import { sunAt } from "../Sky";
 
 type P = { rtRef: { current: Runtime }; mobile: boolean; calm: boolean; night: boolean };
@@ -46,17 +47,18 @@ export function Jungle({ rtRef, mobile, calm, night }: P) {
       <Mist box={{ min: [-20, 1.5, -110], max: [20, 9, -8] }} count={mobile ? 10 : 22} size={[6, 14]} color="#FFF1D6" opacity={0.22} seed={3} calm={calm} night={night} />
       {!mobile && <Rays sun={sun} points={[[-3, 30, -40], [4, 30, -54], [7, 30, -70], [-5, 30, -84], [1, 30, -100]]} length={30} width={3.2} opacity={0.14} night={night} />}
       {/* H01, H03, H04, H05: foreground leaves framing the hold; the camera flies through them on the way on. */}
-      <FrameCard name="p02-jungle-fg" mobile={mobile} place={0} ahead={2.4} aspect={1.773} night={night} drop={0.08} />
-      <FrameCard name="p02-jungle-fg" mobile={mobile} place={2} ahead={2.6} aspect={1.773} night={night} drop={0.04} />
-      <FrameCard name="p02-jungle-fg" mobile={mobile} place={4} ahead={2.2} aspect={1.773} night={night} drop={0.1} />
+      <FrameCard rtRef={rtRef} name="p02-jungle-fg" mobile={mobile} place={0} ahead={2.4} aspect={1.773} night={night} drop={0.08} />
+      <FrameCard rtRef={rtRef} name="p02-jungle-fg" mobile={mobile} place={2} ahead={2.6} aspect={1.773} night={night} drop={0.04} />
+      <FrameCard rtRef={rtRef} name="p02-jungle-fg" mobile={mobile} place={4} ahead={2.2} aspect={1.773} night={night} drop={0.1} />
       <Seed calm={calm} night={night} />
       <MapLeaf calm={calm} night={night} mobile={mobile} />
-      <Legacy mobile={mobile} />
+      <Near rtRef={rtRef} place={3}><Legacy mobile={mobile} /></Near>
     </group>
   );
 }
 
 function Ground({ night }: { night: boolean }) {
+  const moss = useTexture(plate("tex-sand", false));
   const geo = useMemo(() => {
     const g = new THREE.PlaneGeometry(90, 140, 60, 90);
     g.rotateX(-Math.PI / 2);
@@ -66,7 +68,7 @@ function Ground({ night }: { night: boolean }) {
       const x = p.getX(i), z = p.getZ(i) - 45;
       const off = Math.abs(x - pathX(z));
       p.setY(i, (off > 3 ? Math.min(1.2, (off - 3) * 0.12) : -0.15) + (r() - 0.5) * 0.25);
-      c.setHSL(0.22 + r() * 0.06, 0.35, 0.03 + r() * 0.03);
+      c.setHSL(0.2 + r() * 0.06, 0.4, 0.06 + r() * 0.05);
       c.toArray(col, i * 3);
     }
     g.translate(0, 0, -45);
@@ -75,7 +77,15 @@ function Ground({ night }: { night: boolean }) {
     return g;
   }, []);
   // Lambert: a matte forest floor (a standard material's grazing-angle sheen turned the whole floor tan).
-  return <mesh geometry={geo}><meshLambertMaterial vertexColors color={night ? "#6a7a6a" : "#ffffff"} /></mesh>;
+  const map = useMemo(() => {
+    const t = moss.clone();
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    t.repeat.set(22, 34);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.needsUpdate = true;
+    return t;
+  }, [moss]);
+  return <mesh geometry={geo}><meshLambertMaterial vertexColors map={map} color={night ? "#6a7a6a" : "#9aa07a"} /></mesh>;
 }
 
 const waterFrag = /* glsl */ `
@@ -90,7 +100,7 @@ float noise(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * 
   return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y); }
 void main() {
   vec3 V = normalize(vView);
-  float fres = pow(1.0 - clamp(V.y, 0.0, 1.0), 5.0) * 0.55;
+  float fres = pow(1.0 - clamp(V.y, 0.0, 1.0), 4.0) * 0.9;
   vec2 q = vWorld.xz * vec2(1.6, 0.7) + vec2(0.0, uTime * 0.6);
   float rip = noise(q) * 0.6 + noise(q * 2.7 + 3.1) * 0.4;
   vec3 col = mix(uDeep, uSky, clamp(fres * 0.9 + rip * 0.06, 0.0, 1.0));
@@ -134,7 +144,7 @@ function Stream({ calm, night }: { calm: boolean; night: boolean }) {
     const m = new THREE.ShaderMaterial({
       vertexShader: waterVert, fragmentShader: waterFrag, transparent: true, fog: true,
       uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
-        uTime: { value: 0 }, uNight: { value: 0 }, uSky: { value: new THREE.Color("#B9AE86") }, uDeep: { value: new THREE.Color("#050804") },
+        uTime: { value: 0 }, uNight: { value: 0 }, uSky: { value: new THREE.Color("#F4C870") }, uDeep: { value: new THREE.Color("#0A0C06") },
       }]),
     });
     return { geo: g, mat: m };
@@ -268,7 +278,7 @@ function Seed({ calm, night }: { calm: boolean; night: boolean }) {
       v[k * 3] = Math.cos(a) * s; v[k * 3 + 1] = 0.6 + r() * 1.2; v[k * 3 + 2] = Math.sin(a) * s * 0.6;
     }
     g.setAttribute("position", new THREE.BufferAttribute(p, 3));
-    const m = new THREE.PointsMaterial({ color: "#FFD27A", size: 0.018, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+    const m = new THREE.PointsMaterial({ color: "#FFE0A0", size: 0.03, toneMapped: false, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
     const pts = new THREE.Points(g, m);
     pts.position.copy(hit);
     pts.frustumCulled = false;
@@ -294,9 +304,9 @@ function Seed({ calm, night }: { calm: boolean; night: boolean }) {
   return (
     <group>
       <Leaf position={leafPos} rotation={new THREE.Euler(-1.25, 0.2, -0.95)} size={[2.0, 4.2]} bend={0.32} calm={calm} night={night} />
-      <mesh ref={drop} scale={[0.028, 0.04, 0.028]}>
+      <mesh ref={drop} scale={[0.04, 0.058, 0.04]}>
         <sphereGeometry args={[1, 16, 12]} />
-        <meshBasicMaterial color="#FFD98C" toneMapped={false} />
+        <meshBasicMaterial color="#FFE6A8" toneMapped={false} />
       </mesh>
       <primitive object={splash.pts} />
     </group>

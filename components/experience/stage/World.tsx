@@ -22,7 +22,7 @@ type Props = {
 
 /** The one light per chapter: the sun's colour and strength, and the sky fill. */
 const LIGHT: { sun: string; k: number; sky: string; ground: string; fill: number }[] = [
-  { sun: "#FFE2A6", k: 0.9, sky: "#A9BC93", ground: "#10180C", fill: 0.55 }, // The Seed (under the canopy)
+  { sun: "#FFD58C", k: 2.0, sky: "#C8C79A", ground: "#1C2410", fill: 0.85 }, // The Seed (under the canopy)
   { sun: "#FFE9BC", k: 1.6, sky: "#C2D6B8", ground: "#1A2614", fill: 0.75 }, // The Climb
   { sun: "#FFD49A", k: 2.6, sky: "#F2D8B0", ground: "#3B4A2A", fill: 1.0 }, // Above the Canopy
   { sun: "#FFC98A", k: 2.6, sky: "#F2D2AC", ground: "#3A3A30", fill: 1.0 }, // The Five Peaks

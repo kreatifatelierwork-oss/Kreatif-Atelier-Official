@@ -7,6 +7,7 @@ import { onFrame } from "@/components/film/loop";
 import type { FilmState } from "@/components/film/state";
 import type { Runtime } from "../journey";
 import { CameraRig } from "./CameraRig";
+import { Effects } from "./Effects";
 import { FOV, stageView } from "./layout";
 import { World } from "./World";
 
@@ -53,6 +54,7 @@ export default function Stage({ rtRef, theme, mobile, calm, riseAtRef, onReady }
       <SharedLoop onReady={onReady} />
       <CameraRig rtRef={rtRef} theme={theme} />
       <World rtRef={rtRef} theme={theme} mobile={mobile} calm={calm} riseAtRef={riseAtRef} />
+      <Effects rtRef={rtRef} mobile={mobile} calm={calm} />
     </Canvas>
   );
 }

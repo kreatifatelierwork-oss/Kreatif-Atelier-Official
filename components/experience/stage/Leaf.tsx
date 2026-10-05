@@ -46,13 +46,13 @@ void main() {
   float veins = max(mid, lat * 0.7) + net * 0.12;
   vec3 V = normalize(vView), N = normalize(vN);
   // Light through the blade: brighter toward the middle, darker toward the rim; a little mottling.
-  float through = 0.55 + 0.45 * (1.0 - rel * rel) + 0.15 * (noise(vUv * 6.0) - 0.5);
+  float through = 0.12 + 0.4 * (1.0 - rel * rel) + 0.15 * (noise(vUv * 6.0) - 0.5);
   vec3 col = mix(uLeaf, uBack, through);
   col = mix(col, uBack * 1.35, veins * 0.45 * (1.0 - uMap));
   // Wet sheen.
   vec3 L = normalize(vec3(0.3, 0.8, 0.5));
   float spec = pow(max(dot(reflect(-L, N), V), 0.0), 28.0) * (0.4 + 0.6 * noise(vUv * 14.0));
-  col += uLight * spec * 0.5;
+  col += uLight * spec * 1.4 + uLight * pow(max(dot(N, V), 0.0), 6.0) * 0.06;
   // Rain beads: a few round drops per cell, lit from above with a dark rim.
   vec2 g = vUv * vec2(26.0, 44.0);
   vec2 cell = floor(g), f = fract(g);
@@ -95,7 +95,7 @@ export function Leaf({ position, rotation, size, bend = 0.25, map = 0, calm, nig
   const mat = useMemo(() => new THREE.ShaderMaterial({
     vertexShader: vert, fragmentShader: frag, side: THREE.DoubleSide, transparent: true, fog: true,
     uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
-      uLeaf: { value: new THREE.Color("#132A0B") }, uBack: { value: new THREE.Color("#4A7A1C") }, uGold: { value: new THREE.Color("#F2C25E") },
+      uLeaf: { value: new THREE.Color("#040B03") }, uBack: { value: new THREE.Color("#18300D") }, uGold: { value: new THREE.Color("#F2C25E") },
       uLight: { value: new THREE.Color("#FFE7A8") }, uBend: { value: bend }, uTime: { value: 0 }, uSway: { value: sway }, uMap: { value: map },
       uWet: { value: 1 }, uNight: { value: 0 },
     }]),

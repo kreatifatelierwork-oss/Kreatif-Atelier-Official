@@ -132,3 +132,6 @@ export function crownForest(spots: { x: number; y: number; z: number; s: number 
   });
   return inst;
 }
+
+/** Shows its children only while the camera is near place `place` (in-world words never leak into other frames). */
+export const nearPlace = (s: number, place: number, range = 1.05) => Math.abs(s - place) < range;
