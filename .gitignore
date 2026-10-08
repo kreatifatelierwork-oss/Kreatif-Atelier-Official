@@ -54,3 +54,7 @@ docs/research/v5-checkpoint/
 
 # Text-dwell captures (third-party frames and text) stay local; the write-up is committed.
 docs/research/*/dwell/
+
+# Audit and checkpoint videos stay local (large); contact sheets are committed.
+docs/audit-v5/*.mp4
+docs/film-checkpoint/*.mp4
