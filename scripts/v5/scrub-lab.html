@@ -1,0 +1,96 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#000">
+<video id="v" muted playsinline preload="auto" style="width:640px;display:block"></video>
+<canvas id="c" width="1280" height="720" style="width:640px;display:block"></canvas>
+<script>
+const FPS = 24, N = 384, DUR = N / FPS;
+// A scroll-like path for the playhead (seconds): eased runs forwards and back, fast flicks, slow drags, jitter.
+function path(t) {
+  const seg = [[0, 0], [3, 16], [4.5, 16], [7.5, 0], [8.5, 0], [9.2, 8], [9.6, 8.6], [10.2, 3], [11.5, 3.4], [13, 12], [14, 11], [15, 15.9], [16, 0.2]];
+  for (let k = 1; k < seg.length; k++) if (t <= seg[k][0]) { const [t0, a] = seg[k - 1], [t1, b] = seg[k]; const u = (t - t0) / (t1 - t0); const e = u * u * (3 - 2 * u); return a + (b - a) * e; }
+  return null;
+}
+async function runVideo(src) {
+  const v = document.getElementById("v"); v.src = src; await new Promise((r) => v.addEventListener("canplaythrough", r, { once: true }));
+  v.currentTime = 0; await new Promise((r) => v.addEventListener("seeked", r, { once: true }));
+  let shown = 0, pending = null;
+  v.requestVideoFrameCallback(function cb(now, m) { shown = Math.round(m.mediaTime * FPS); v.requestVideoFrameCallback(cb); });
+  v.addEventListener("seeked", () => { if (pending != null) { v.currentTime = pending; pending = null; } });
+  return measure((T) => { if (v.seeking) pending = T; else v.currentTime = T; }, () => shown);
+}
+async function runSeq(dir) {
+  const blobs = await Promise.all(Array.from({ length: N }, (_, i) => fetch(`${dir}/f${String(i + 1).padStart(4, "0")}.jpg`).then((r) => r.blob())));
+  const c = document.getElementById("c"), g = c.getContext("2d");
+  const cache = new Map(), inflight = new Set(); let shown = -1, decodeMs = [];
+  const want = (i) => {
+    if (i < 0 || i >= N || cache.has(i) || inflight.has(i)) return;
+    inflight.add(i); const t0 = performance.now();
+    createImageBitmap(blobs[i]).then((b) => { inflight.delete(i); decodeMs.push(performance.now() - t0); cache.set(i, b); if (cache.size > 40) { const k = cache.keys().next().value; cache.get(k).close(); cache.delete(k); } });
+  };
+  let last = 0;
+  const r = await measure((T) => {
+    const i = Math.min(N - 1, Math.round(T * FPS)), dir = Math.sign(i - last) || 1; last = i;
+    want(i); for (let k = 1; k <= 4; k++) want(i + dir * k);
+    let best = -1, bd = 1e9; for (const k of cache.keys()) { const d = Math.abs(k - i); if (d < bd) { bd = d; best = k; } }
+    if (best >= 0 && best !== shown) { g.drawImage(cache.get(best), 0, 0); shown = best; }
+  }, () => shown);
+  decodeMs.sort((a, b) => a - b); r.decodeP50 = +decodeMs[decodeMs.length >> 1].toFixed(1); r.decodeP95 = +decodeMs[Math.floor(decodeMs.length * 0.95)].toFixed(1);
+  return r;
+}
+function measure(request, displayed) {
+  return new Promise((resolve) => {
+    const t0 = performance.now(); const errs = []; let stalls = 0, prevReq = null, prevShown = null, frames = 0, gaps = [], lastNow = t0;
+    function tick(now) {
+      const t = (now - t0) / 1000, T = path(t);
+      if (T == null) { errs.sort((a, b) => a - b); const q = (p) => errs[Math.floor((errs.length - 1) * p)];
+        gaps.sort((a, b) => a - b);
+        resolve({ frames, errP50: q(0.5), errP95: q(0.95), errMax: errs.at(-1), stallFrames: stalls, rafP99: +gaps[Math.floor(gaps.length * 0.99)].toFixed(1) }); return; }
+      request(T); frames++; gaps.push(now - lastNow); lastNow = now;
+      const want = Math.round(T * FPS), d = displayed();
+      errs.push(Math.abs(want - d));
+      if (prevReq != null && want !== prevReq && d === prevShown) stalls++;
+      prevReq = want; prevShown = d;
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+async function runWc() {
+  const [bytes, idx] = await Promise.all([fetch("gop12.h264").then((r) => r.arrayBuffer()), fetch("gop12.json").then((r) => r.json())]);
+  const data = new Uint8Array(bytes);
+  const c = document.getElementById("c"), g = c.getContext("2d");
+  const cache = new Map(); let shown = -1, busy = false, queued = null, decoded = 0;
+  // Decode the GOP that holds frame i (from its keyframe up to i, plus a few beyond in the direction of travel).
+  const kf = (i) => { while (i > 0 && !idx[i][2]) i--; return i; };
+  let pendingOut = [];
+  const dec = new VideoDecoder({ output: (f) => { const n = pendingOut.shift(); createImageBitmap(f).then((b) => { cache.set(n, b); if (cache.size > 96) { let far = -1, fd = -1; for (const k of cache.keys()) { const d = Math.abs(k - last); if (d > fd) { fd = d; far = k; } } cache.get(far).close(); cache.delete(far); } }); f.close(); decoded++; }, error: (e) => console.error(e) });
+  dec.configure({ codec: "avc1.4d0028", optimizeForLatency: true });
+  async function decodeRange(a, b) {
+    busy = true;
+    const k = kf(a);
+    for (let i = k; i <= b; i++) {
+      pendingOut.push(i);
+      dec.decode(new EncodedVideoChunk({ type: idx[i][2] ? "key" : "delta", timestamp: i * 41667, data: data.subarray(idx[i][0], idx[i][0] + idx[i][1]) }));
+    }
+    await dec.flush();
+    busy = false;
+  }
+  let last = 0;
+  const r = await measure((T) => {
+    const i = Math.min(N - 1, Math.round(T * FPS)), dir = Math.sign(i - last) || 1; last = i;
+    if (!busy) {
+      // Keep a window decoded around the playhead, filled first in the direction of travel: the needed frame, then
+      // the GOPs ahead, then the GOP behind. One decode job at a time.
+      const order = [i];
+      for (let k = 1; k <= 36; k++) order.push(i + dir * k);
+      for (let k = 1; k <= 18; k++) order.push(i - dir * k);
+      const miss = order.find((j) => j >= 0 && j < N && !cache.has(j));
+      if (miss != null) { const k = kf(miss); let e = k; while (e + 1 < N && !idx[e + 1][2]) e++; decodeRange(k, e); }
+    }
+    let best = -1, bd = 1e9; for (const k of cache.keys()) { const d = Math.abs(k - i); if (d < bd) { bd = d; best = k; } }
+    if (best >= 0 && best !== shown) { g.drawImage(cache.get(best), 0, 0); shown = best; }
+  }, () => shown);
+  r.decoded = decoded;
+  return r;
+}
+window.run = async (kind) => kind === "wc" ? runWc() : kind === "seq" ? runSeq("seq") : runVideo(kind + ".mp4");
+</script>
