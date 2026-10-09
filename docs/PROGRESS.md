@@ -150,6 +150,11 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
 - Testing with TEMPORARY clips c01–c12 (`scripts/v5/temp-clips.mjs`, from the reference frames with their baked
   text: the live text therefore doubles them; the user's clean clips will not). Seams 0.7/255 (encoding noise).
 - Engine trace IDENTICAL; locked files changed only in their import line since v3.
-- Not yet done for the checkpoint: the portal clip playing on crossing (step 5), phone and reduced-motion passes,
+- Step 5 crossing done: a portal link on the home film plays the page's portal clip in real time on its own canvas
+  (`components/cinema/portal.ts`) while the page changes underneath on the persistent canvas; it lifts once the new
+  page's film has drawn its first keyframe (= the portal's last frame). Tested with a temporary p-aurelius
+  (`scripts/research/portal-check.mjs`): page changed at once, portal ~4 s, handover clean, no errors. Pages without a
+  portal clip, Next and Back to the Atlas keep the haze crossing; reduced motion cuts.
+- Not yet done for the checkpoint: phone and reduced-motion passes,
   and the recorded round trip with frame-time stats ON MAINS POWER (on battery at 23% the harness crawls; in-page
   the loop ran 60 fps with no long tasks). Then the user's c01–c12.

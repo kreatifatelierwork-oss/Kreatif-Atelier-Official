@@ -20,7 +20,8 @@ import { advance, createRuntime, jumpTo, useUi } from "./journey";
 import { FieldGuide } from "./FieldGuide";
 import { filmTimeAt, hashFor, journeyFor, journeyKey, LAST, parseHash, route, setJourney } from "./route";
 import { setThreshold } from "./threshold";
-import { Film } from "../cinema/Film";
+import { Film, filmFiles } from "../cinema/Film";
+import { playPortal } from "../cinema/portal";
 import { TextLayer } from "../cinema/TextLayer";
 import { useInput } from "./useInput";
 
@@ -103,7 +104,13 @@ export function Experience() {
   const stageReadyRef = useRef(false);
   const flags = useRef({ live: false, written: false });
 
-  const onStageReady = useCallback(() => { stageReadyRef.current = true; }, []);
+  /** Counts first frames drawn by each mounted film (a new page's film signals here when it has taken over). */
+  const filmReady = useRef(0);
+  const onStageReady = useCallback(() => { stageReadyRef.current = true; filmReady.current++; }, []);
+  /** The portal clip's canvas (shown only while a portal plays over the page change). */
+  const portalRef = useRef<HTMLCanvasElement>(null);
+  const [portal, setPortal] = useState(false);
+  const viaPortal = useRef(false);
 
   // Deep link: start at the linked place (and room) once the film is live.
   const pending = useRef<{ place: number; thing?: string } | null>(null);
@@ -177,7 +184,9 @@ export function Experience() {
     rt.s = rt.target = Math.min(h?.place ?? 0, LAST);
     rt.holdElapsed = 0;
     useUi.getState().set({ place: Math.round(rt.s), room: null, indexOpen: false, hover: null });
-    setCrossing("in");
+    // Through a portal the clip itself was the crossing; otherwise the haze clears onto the new land.
+    setCrossing(viaPortal.current ? null : "in");
+    viaPortal.current = false;
     const id = setTimeout(() => setCrossing(null), reduced ? 10 : 1100);
     if (useUi.getState().phase === "live") requestAnimationFrame(() => h1Ref.current?.focus({ preventScroll: true }));
     return () => clearTimeout(id);
@@ -190,12 +199,32 @@ export function Experience() {
       const to = journeyFor(path || "/");
       if (to === current) { if (hash) { const h = parseHash(`#${hash}`); if (h) go(h.place, h.thing); } return; }
       arriveHash.current = hash ? `#${hash}` : "";
+      // Into a company page from the home film: its portal clip plays in real time while the page changes under it,
+      // ending on the page's first keyframe; the canvas lifts once the page's own film has drawn that frame.
+      const entry = filmFiles[to.id];
+      const c = portalRef.current;
+      if (!reduced && !still && current.id === "home" && entry?.portal && c) {
+        const r = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
+        c.width = Math.round(window.innerWidth * r);
+        c.height = Math.round(window.innerHeight * r);
+        setPortal(true);
+        viaPortal.current = true;
+        const seen = filmReady.current;
+        const played = playPortal(c, `/v5/film/${to.id}`, entry.portal.id, mobile ? "m" : "d", entry.fps).catch(() => {});
+        router.push(href);
+        played.then(async () => {
+          const t0 = performance.now();
+          while (filmReady.current === seen && performance.now() - t0 < 4000) await new Promise((r) => setTimeout(r, 50));
+          setPortal(false);
+        });
+        return;
+      }
       setCrossColour(to.data.atmosphere[theme === "dark" ? "dark" : "light"][0]);
       setCrossing("out");
       setTimeout(() => router.push(href), reduced ? 10 : 750);
     });
     return () => setThreshold(null);
-  }, [current, go, reduced, router, theme]);
+  }, [current, go, mobile, reduced, router, still, theme]);
 
   // Keep the address bar on the place you have settled at (arrow keys, the wheel and Watch travel without links).
   useEffect(() => onFrame(() => {
@@ -380,6 +409,7 @@ export function Experience() {
       <canvas ref={canvasRef} className="xp-ink" aria-hidden="true" />
 
       <div className="xp-threshold" aria-hidden="true" />
+      <canvas ref={portalRef} className="xp-portal" data-on={portal ? "" : undefined} aria-hidden="true" />
       {room && <FieldGuide room={room} index={here.things.findIndex((t) => t.id === ui.room)} onBack={leave} />}
       {ui.indexOpen && <IndexPlan onJump={(p, t) => go(p, t)} onClose={closeIndex} onWatch={watch} />}
       {ui.phase !== "live" && (

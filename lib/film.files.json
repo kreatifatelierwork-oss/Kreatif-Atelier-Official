@@ -254,7 +254,11 @@
    "a04": true,
    "a06": true
   },
-  "portal": null,
+  "portal": {
+   "id": "p-aurelius",
+   "frames": 144,
+   "from": "h16"
+  },
   "seams": [],
   "tempPosters": [
    "a01",
