@@ -191,4 +191,6 @@ export const home: Journey = {
   defs,
   data: routeData,
   aliases,
+  // One place per keyframe: place i sits on H(i+1).
+  film: { places: defs.map((_, i) => i) },
 };

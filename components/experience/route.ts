@@ -71,6 +71,9 @@ export type Journey = {
   defs: Def[];
   data: RouteData;
   aliases: Record<string, { place: string; thing?: string }>;
+  /** The film (docs/design/FILM-SHOTLIST.md): for each place, the index of the keyframe it sits on. Places that share
+   *  a keyframe hold the film still while their text scrolls. */
+  film: { places: number[] };
 };
 
 const journeys = new Map<string, Journey>();

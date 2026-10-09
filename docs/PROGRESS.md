@@ -129,3 +129,27 @@ Baseline commit: `79d5ed6` (frozen files as of `164e7d2`, plus the ?tune test ho
 - Depth fallback fixes: plate edges dissolve into the sky; the sky above each plate's horizon stays far (no cloud
   ceiling over H11/H12); cloud floor for the peaks; the H08 words no longer leak into H09.
 - Still waiting: design-refs/worlds/w01–w03 (then `node scripts/v5/worlds.mjs`, place, stitch, author, checkpoint).
+
+## 2026-10-09: the film rebuild (user's NEW APPROACH)
+- Step 1 done: `docs/AUDIT-v5.md` (recorded full scrolls of home + all company pages at 1440 wheel and 390 touch;
+  contact sheets in `docs/audit-v5/`, videos local). Must-not-repeat checklist at its end.
+- Shot list saved: `docs/design/FILM-SHOTLIST.md`.
+- Scrub method measured (`docs/research/film-scrub.md`): WebCodecs on short-GOP raw H.264 with look-ahead decoding
+  beats `<video>` seeking and image sequences (lag p95 1 frame, 2 stalls, ~1/5 the size of a sequence).
+- Pipeline `scripts/v5/film.mjs`: encodes each clip (desktop 1440×810, phone 608×1080 centre crop, keyint 12, no
+  B-frames), frame indexes, poster stills of every keyframe, seam check (last frame vs next first frame),
+  `lib/film.files.json`. Film media in `public/v5/film/` is generated and gitignored (upload with the site).
+  ffmpeg comes from `ffmpeg-static` (binary fetched with curl; its install script is blocked by pnpm).
+- Player `components/cinema/engine.ts` + `Film.tsx`: place → keyframe mapping per journey (`journey.film.places`);
+  the locked engine's `s` drives the playhead; nearest decoded frame always drawn (never blank); keyframe-first decode
+  on fast moves; posters where no clip yet, for reduced motion and the still version (no WebCodecs / weak device).
+- Text layer `components/cinema/TextLayer.tsx`: one page of blocks moving over the film at scroll speed, pinned at each
+  place, never overlapping, no fades/blur, no lines; serif headlines + one body style.
+- Retired from the build (in git history): the 3D stage, splats, dioramas, plates, procedural sets, the 3D fonts, the
+  world tools. `stage/CameraRig.tsx` (locked) and `stage/layout.ts` stay in the repo, unmounted.
+- Testing with TEMPORARY clips c01–c12 (`scripts/v5/temp-clips.mjs`, from the reference frames with their baked
+  text: the live text therefore doubles them; the user's clean clips will not). Seams 0.7/255 (encoding noise).
+- Engine trace IDENTICAL; locked files changed only in their import line since v3.
+- Not yet done for the checkpoint: the portal clip playing on crossing (step 5), phone and reduced-motion passes,
+  and the recorded round trip with frame-time stats ON MAINS POWER (on battery at 23% the harness crawls; in-page
+  the loop ran 60 fps with no long tasks). Then the user's c01–c12.

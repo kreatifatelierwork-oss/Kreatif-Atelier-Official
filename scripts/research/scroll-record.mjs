@@ -1,6 +1,8 @@
 // Record a full scroll through a page as video (CDP screencast → MP4 via ffmpeg-static), plus a still every N frames.
 //   node scripts/research/scroll-record.mjs <url> <out.mp4> [--mobile] [--back] [--wheel 120] [--every 60] [--max 120]
-// --back scrolls to the end and records the way back too. Wheel on desktop, touch swipes on phones.
+// --back scrolls to the end and records the way back too; --to N stops the forward run at place N. Prints the frame
+// times of the shared loop and the film player's stats (display frames that showed a frame other than the one asked
+// for, and by how many frames at most). Wheel on desktop, touch swipes on phones.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { chromium } from "playwright-core";
@@ -33,9 +35,12 @@ cdp.on("Page.screencastFrame", async ({ data, sessionId, metadata }) => {
   frames.push(metadata.timestamp - t0);
   await writeFile(`${tmp}/f${String(i).padStart(5, "0")}.jpg`, Buffer.from(data, "base64"));
 });
-await cdp.send("Page.startScreencast", { format: "jpeg", quality: 70, maxWidth: W, maxHeight: H, everyNthFrame: 1 });
+const video = !a.includes("--no-video");
+if (video) await cdp.send("Page.startScreencast", { format: "jpeg", quality: 70, maxWidth: W, maxHeight: H, everyNthFrame: 1 });
 const atEnd = () => page.evaluate(() => { const x = window.__xp; return !x || x.s >= (window.__last ?? 1e9) - 0.01; });
-const last = await page.evaluate(() => document.querySelectorAll("section[data-place]").length - 1);
+const last = Number(opt("--to", 0)) || await page.evaluate(() => document.querySelectorAll("section[data-place]").length - 1);
+// Stats from the shared loop and the film player, counted over the recording only.
+const n0 = await page.evaluate(() => { const f = window.__film; if (f) f.stats = { draws: 0, behind: 0, maxBehind: 0, posterDraws: 0 }; return window.__filmLoop?.n ?? 0; });
 await page.evaluate((l) => { window.__last = l; }, last);
 const start = Date.now();
 const push = async (dir) => {
@@ -57,12 +62,21 @@ if (a.includes("--back")) {
   while (Date.now() - s2 < MAX) { await push(-1); if (await page.evaluate(() => window.__xp?.s ?? 0) <= 0.01) break; }
   await page.waitForTimeout(1500);
 }
-await cdp.send("Page.stopScreencast");
+if (video) await cdp.send("Page.stopScreencast");
 await page.waitForTimeout(500);
 // Rebuild real timing from the frame timestamps (screencast frames arrive irregularly).
 const list = frames.map((t, i) => `file 'f${String(i).padStart(5, "0")}.jpg'\nduration ${((frames[i + 1] ?? t + 0.033) - t).toFixed(4)}`).join("\n");
 await writeFile(`${tmp}/list.txt`, list);
-execFileSync("node_modules/ffmpeg-static/ffmpeg", ["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", `${tmp}/list.txt`, "-vf", "fps=30,scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "24", out]);
-console.log(JSON.stringify({ out, frames: frames.length, seconds: +(frames.at(-1) ?? 0).toFixed(1), reached: await page.evaluate(() => window.__xp?.s) }));
+if (video) execFileSync("node_modules/ffmpeg-static/ffmpeg", ["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", `${tmp}/list.txt`, "-vf", "fps=30,scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "24", out]);
+const stats = await page.evaluate((n0) => {
+  const L = window.__filmLoop, f = window.__film;
+  if (!L) return null;
+  const k = Math.min(L.n - n0, L.interval.length), iv = [], wk = [];
+  for (let j = L.n - k; j < L.n; j++) { iv.push(L.interval[j % L.interval.length]); wk.push(L.work[j % L.work.length]); }
+  const q = (a, p) => { const b = a.slice().sort((x, y) => x - y); return Math.round(b[Math.floor((b.length - 1) * p)] * 10) / 10; };
+  return { displayFrames: k, interval: { p50: q(iv, 0.5), p99: q(iv, 0.99), max: q(iv, 1), over20: iv.filter((v) => v > 20).length, over34: iv.filter((v) => v > 34).length },
+    work: { p50: q(wk, 0.5), p99: q(wk, 0.99), max: q(wk, 1) }, film: f ? f.stats : null };
+}, n0);
+console.log(JSON.stringify({ out, frames: frames.length, seconds: +(frames.at(-1) ?? 0).toFixed(1), reached: await page.evaluate(() => window.__xp?.s), stats }));
 await page.close();
 process.exit(0);

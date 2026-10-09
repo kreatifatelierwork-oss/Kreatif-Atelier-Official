@@ -1,0 +1,371 @@
+{
+ "home": {
+  "fps": 24,
+  "temp": true,
+  "clips": [
+   {
+    "id": "c01",
+    "frames": 192
+   },
+   {
+    "id": "c02",
+    "frames": 192
+   },
+   {
+    "id": "c03",
+    "frames": 192
+   },
+   {
+    "id": "c04",
+    "frames": 192
+   },
+   {
+    "id": "c05",
+    "frames": 192
+   },
+   {
+    "id": "c06",
+    "frames": 192
+   },
+   {
+    "id": "c07",
+    "frames": 192
+   },
+   {
+    "id": "c08",
+    "frames": 192
+   },
+   {
+    "id": "c09",
+    "frames": 192
+   },
+   {
+    "id": "c10",
+    "frames": 192
+   },
+   {
+    "id": "c11",
+    "frames": 192
+   },
+   {
+    "id": "c12",
+    "frames": 192
+   }
+  ],
+  "keys": [
+   "h01",
+   "h02",
+   "h03",
+   "h04",
+   "h05",
+   "h06",
+   "h07",
+   "h08",
+   "h09",
+   "h10",
+   "h11",
+   "h12",
+   "h13",
+   "h14",
+   "h15",
+   "h16",
+   "h17",
+   "h18",
+   "h19",
+   "h20",
+   "h21",
+   "h22",
+   "h23",
+   "h24",
+   "h25",
+   "h26",
+   "h27",
+   "h28",
+   "h29",
+   "h30",
+   "h31",
+   "h32",
+   "h33",
+   "h34",
+   "h35",
+   "h36"
+  ],
+  "posters": {
+   "h01": true,
+   "h02": true,
+   "h03": true,
+   "h04": true,
+   "h05": true,
+   "h06": true,
+   "h07": true,
+   "h08": true,
+   "h09": true,
+   "h10": true,
+   "h11": true,
+   "h12": true,
+   "h13": true,
+   "h14": true,
+   "h15": true,
+   "h16": true,
+   "h17": true,
+   "h18": true,
+   "h19": true,
+   "h20": true,
+   "h21": true,
+   "h22": true,
+   "h23": true,
+   "h24": true,
+   "h25": true,
+   "h26": true,
+   "h27": true,
+   "h28": true,
+   "h29": true,
+   "h30": true,
+   "h31": true,
+   "h32": true,
+   "h33": true,
+   "h34": true,
+   "h35": true,
+   "h36": true
+  },
+  "portal": null,
+  "seams": [
+   {
+    "between": [
+     "c01",
+     "c02"
+    ],
+    "meanDiff": 0.67
+   },
+   {
+    "between": [
+     "c02",
+     "c03"
+    ],
+    "meanDiff": 0.7
+   },
+   {
+    "between": [
+     "c03",
+     "c04"
+    ],
+    "meanDiff": 0.73
+   },
+   {
+    "between": [
+     "c04",
+     "c05"
+    ],
+    "meanDiff": 0.77
+   },
+   {
+    "between": [
+     "c05",
+     "c06"
+    ],
+    "meanDiff": 0.72
+   },
+   {
+    "between": [
+     "c06",
+     "c07"
+    ],
+    "meanDiff": 0.74
+   },
+   {
+    "between": [
+     "c07",
+     "c08"
+    ],
+    "meanDiff": 0.78
+   },
+   {
+    "between": [
+     "c08",
+     "c09"
+    ],
+    "meanDiff": 0.69
+   },
+   {
+    "between": [
+     "c09",
+     "c10"
+    ],
+    "meanDiff": 0.69
+   },
+   {
+    "between": [
+     "c10",
+     "c11"
+    ],
+    "meanDiff": 0.68
+   },
+   {
+    "between": [
+     "c11",
+     "c12"
+    ],
+    "meanDiff": 0.71
+   }
+  ],
+  "tempPosters": [
+   "h14",
+   "h15",
+   "h16",
+   "h17",
+   "h18",
+   "h19",
+   "h20",
+   "h21",
+   "h22",
+   "h23",
+   "h24",
+   "h25",
+   "h26",
+   "h27",
+   "h28",
+   "h29",
+   "h30",
+   "h31",
+   "h32",
+   "h33",
+   "h34",
+   "h35",
+   "h36"
+  ]
+ },
+ "aurelius": {
+  "fps": 24,
+  "temp": true,
+  "clips": [],
+  "keys": [
+   "a01",
+   "a02",
+   "a05",
+   "a03",
+   "a04",
+   "a06"
+  ],
+  "posters": {
+   "a01": true,
+   "a02": true,
+   "a05": true,
+   "a03": true,
+   "a04": true,
+   "a06": true
+  },
+  "portal": null,
+  "seams": [],
+  "tempPosters": [
+   "a01",
+   "a02",
+   "a05",
+   "a03",
+   "a04",
+   "a06"
+  ]
+ },
+ "golden-guardian-productions": {
+  "fps": 24,
+  "temp": true,
+  "clips": [],
+  "keys": [
+   "g01",
+   "g02",
+   "g03",
+   "g04",
+   "g05"
+  ],
+  "posters": {
+   "g01": true,
+   "g02": true,
+   "g03": true,
+   "g04": true,
+   "g05": true
+  },
+  "portal": null,
+  "seams": [],
+  "tempPosters": [
+   "g01",
+   "g02",
+   "g03",
+   "g04",
+   "g05"
+  ]
+ },
+ "valora": {
+  "fps": 24,
+  "temp": true,
+  "clips": [],
+  "keys": [
+   "v01",
+   "v02",
+   "v03",
+   "v04"
+  ],
+  "posters": {
+   "v01": true,
+   "v02": true,
+   "v03": true,
+   "v04": true
+  },
+  "portal": null,
+  "seams": [],
+  "tempPosters": [
+   "v01",
+   "v02",
+   "v03",
+   "v04"
+  ]
+ },
+ "asraya": {
+  "fps": 24,
+  "temp": true,
+  "clips": [],
+  "keys": [
+   "s01",
+   "s02",
+   "s03",
+   "s04"
+  ],
+  "posters": {
+   "s01": true,
+   "s02": true,
+   "s03": true,
+   "s04": true
+  },
+  "portal": null,
+  "seams": [],
+  "tempPosters": [
+   "s01",
+   "s02",
+   "s03",
+   "s04"
+  ]
+ },
+ "rudra-yugen": {
+  "fps": 24,
+  "temp": true,
+  "clips": [],
+  "keys": [
+   "r01",
+   "r02",
+   "r03",
+   "r04"
+  ],
+  "posters": {
+   "r01": true,
+   "r02": true,
+   "r03": true,
+   "r04": true
+  },
+  "portal": null,
+  "seams": [],
+  "tempPosters": [
+   "r01",
+   "r02",
+   "r03",
+   "r04"
+  ]
+ }
+}

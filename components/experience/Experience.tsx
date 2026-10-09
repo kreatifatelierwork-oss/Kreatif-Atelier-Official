@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import "./journeys";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -21,10 +20,10 @@ import { advance, createRuntime, jumpTo, useUi } from "./journey";
 import { FieldGuide } from "./FieldGuide";
 import { filmTimeAt, hashFor, journeyFor, journeyKey, LAST, parseHash, route, setJourney } from "./route";
 import { setThreshold } from "./threshold";
-import { Scenes } from "./Scenes";
+import { Film } from "../cinema/Film";
+import { TextLayer } from "../cinema/TextLayer";
 import { useInput } from "./useInput";
 
-const Stage = dynamic(() => import(/* webpackPrefetch: true */ "./stage/Stage"), { ssr: false });
 
 const MOBILE = "(max-width: 767px)";
 const subscribeMobile = (cb: () => void) => {
@@ -36,22 +35,15 @@ const noop = () => () => {};
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 const inkRatio = () => Math.min(window.devicePixelRatio || 1, 1.5);
 
-/** WebGL 2 with float render targets, and not a clearly weak device (≤ 2 cores and ≤ 2 GB). */
-let render3D: boolean | null = null;
-function canRender3D() {
-  if (render3D !== null) return render3D;
-  // ?still previews the still version on any device.
-  if (new URLSearchParams(window.location.search).has("still")) return (render3D = false);
-  try {
-    const gl = document.createElement("canvas").getContext("webgl2");
-    const nav = navigator as Navigator & { deviceMemory?: number };
-    const weak = (nav.hardwareConcurrency ?? 8) <= 2 && (nav.deviceMemory ?? 8) <= 2;
-    render3D = !!gl && !!gl.getExtension("EXT_color_buffer_float") && !weak;
-    gl?.getExtension("WEBGL_lose_context")?.loseContext();
-  } catch {
-    render3D = false;
-  }
-  return render3D;
+/** The film plays (scrubbed) where WebCodecs can decode it and the device is not clearly weak (≤ 2 cores and ≤ 2 GB);
+ *  elsewhere the still version shows each place's keyframe with the same text. `?still` previews it anywhere. */
+let playable: boolean | null = null;
+function canPlayFilm() {
+  if (playable !== null) return playable;
+  if (new URLSearchParams(window.location.search).has("still")) return (playable = false);
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const weak = (nav.hardwareConcurrency ?? 8) <= 2 && (nav.deviceMemory ?? 8) <= 2;
+  return (playable = "VideoDecoder" in window && !weak);
 }
 
 function inkSettings(mobile: boolean, calm: boolean): InkSettings {
@@ -94,7 +86,7 @@ export function Experience() {
   const [inkReady, setInkReady] = useState(false);
   /** Weak devices and browsers without WebGL 2 get the still version: the same words, places and navigation over
    *  each place's colour field, without the 3D stage. */
-  const still = useSyncExternalStore(noop, canRender3D, () => true) === false;
+  const still = useSyncExternalStore(noop, canPlayFilm, () => true) === false;
 
   const rootRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
@@ -264,8 +256,7 @@ export function Experience() {
         setInkReady(!reduced);
       }
     }
-    if (still) stageReadyRef.current = true;
-    else setStageOn(true);
+    setStageOn(true);
     useUi.getState().set({ phase: "dip" });
     dipEndRef.current = performance.now() + (reduced ? 200 : F.opening.dipMs + F.opening.dipHoldMs);
   };
@@ -369,10 +360,8 @@ export function Experience() {
     >
       <noscript><style>{`.film-gate{display:none}.xp-scene{opacity:1!important;visibility:visible!important}`}</style></noscript>
       <div ref={worldRef} className="xp-world" inert={!live}>
-        {stageOn && (
-          <Stage rtRef={rtRef} filmRef={filmRef} theme={theme} mobile={mobile} calm={reduced} riseAtRef={riseAtRef} onReady={onStageReady} onEnter={enter} />
-        )}
-        <Scenes key={`s${jkey}`} ref={h1Ref} rtRef={rtRef} reduced={reduced} still={still} mobile={mobile} onEnter={enter} onGo={(p) => go(p)} />
+        {stageOn && <Film key={`f${jkey}`} rtRef={rtRef} mobile={mobile} still={still || reduced} onReady={onStageReady} />}
+        <TextLayer key={`t${jkey}`} ref={h1Ref} rtRef={rtRef} reduced={reduced} onEnter={enter} />
       </div>
 
       <header className="xp-topbar" inert={!live}>

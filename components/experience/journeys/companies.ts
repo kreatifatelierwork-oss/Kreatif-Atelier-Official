@@ -135,7 +135,7 @@ const ggpDefs: Def[] = [
   { id: "onward", chapter: 3, items: [card(ggp.name, C.onward), { k: "voice", text: ggp.value, at: [0.32, 0.3], size: 4.4, depth: 30 }, onward(ggp)] },
 ];
 
-const make = (x: Vertical, defs: Def[], chapters: string[], colour: string, light: string, dark: string, origin: V3): Journey => ({
+const make = (x: Vertical, defs: Def[], chapters: string[], colour: string, light: string, dark: string, origin: V3, places: number[]): Journey => ({
   id: x.slug,
   path: `/${x.slug}`,
   chapters,
@@ -143,12 +143,18 @@ const make = (x: Vertical, defs: Def[], chapters: string[], colour: string, ligh
   defs,
   data: data(defs, colour, light, dark, origin),
   aliases: { pricing: { place: "partnerships" }, services: { place: "services" } },
+  film: { places },
 });
 
 export const companies: Journey[] = [
-  make(aur, aureliusDefs, [C.arrival, C.offerings, C.services, C.partnerships, C.process, C.industries, C.onward], "#3D4BFF", "#3A3D82", "#0A0B28", [0, 6, 0]),
-  make(ggp, ggpDefs, [C.arrival, C.offerings, C.showreel, C.onward], "#E8307F", "#4A1036", "#1C0513", [0, 6, 0]),
-  make(v("valora"), offeringsJourney(v("valora")), [C.arrival, C.offerings, C.onward], "#FF6A3D", "#F39A7A", "#200E0A", [0, 6, 0]),
-  make(v("asraya"), offeringsJourney(v("asraya")), [C.arrival, C.offerings, C.onward], "#23C27C", "#D4E7DA", "#081C14", [0, 4, 0]),
-  make(v("rudra-yugen"), offeringsJourney(v("rudra-yugen")), [C.arrival, C.offerings, C.onward], "#0FB5E4", "#9EDCEB", "#051720", [0, 6, 0]),
+  make(aur, aureliusDefs, [C.arrival, C.offerings, C.services, C.partnerships, C.process, C.industries, C.onward], "#3D4BFF", "#3A3D82", "#0A0B28", [0, 6, 0],
+    // a01 arrival · a02 the stair (tagline, value, agency line) · a05 the four chambers · a03 the six alcoves ·
+    // a04 the strata · a06 the city at night (process, industries, onward)
+    [0, 1, 1, 2, 3, 4, 5, 5, 5]),
+  make(ggp, ggpDefs, [C.arrival, C.offerings, C.showreel, C.onward], "#E8307F", "#4A1036", "#1C0513", [0, 6, 0],
+    // g01 arrival · g02 zoetrope (film) · g03 shadow play (branded) · g04 light painting + obscura (live, IP) · g05 gallery
+    [0, 0, 1, 2, 3, 3, 4, 4]),
+  make(v("valora"), offeringsJourney(v("valora")), [C.arrival, C.offerings, C.onward], "#FF6A3D", "#F39A7A", "#200E0A", [0, 6, 0], [0, 0, 1, 1, 2, 2, 3]),
+  make(v("asraya"), offeringsJourney(v("asraya")), [C.arrival, C.offerings, C.onward], "#23C27C", "#D4E7DA", "#081C14", [0, 4, 0], [0, 0, 1, 1, 2, 2, 3]),
+  make(v("rudra-yugen"), offeringsJourney(v("rudra-yugen")), [C.arrival, C.offerings, C.onward], "#0FB5E4", "#9EDCEB", "#051720", [0, 6, 0], [0, 0, 1, 1, 2, 2, 3]),
 ];

@@ -17,7 +17,9 @@ for (let k = first; k <= last; k++) {
   const name = `c${String(k).padStart(2, "0")}.mp4`;
   const filter = [
     `${frame(0)},zoompan=z='1+0.12*on/${n}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${n}:s=1920x1080:fps=${fps}[a]`,
-    `${frame(1)},zoompan=z='1.12-0.12*on/${n}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${n}:s=1920x1080:fps=${fps}[b]`,
+    // The incoming frame starts playing at the dissolve's offset, so its zoom must settle to exactly 1 by the clip's
+    // last frame: (n - offset) frames of travel.
+    `${frame(1)},zoompan=z='max(1,1.12-0.12*on/${Math.round(n * 0.75) - 1})':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${n}:s=1920x1080:fps=${fps}[b]`,
     `[a][b]xfade=transition=fade:duration=${secs * 0.5}:offset=${secs * 0.25},trim=0:${secs},format=yuv420p[v]`,
   ].join(";");
   execFileSync(F, ["-y", "-loglevel", "error", "-loop", "1", "-t", String(secs), "-i", a, "-loop", "1", "-t", String(secs), "-i", b,
