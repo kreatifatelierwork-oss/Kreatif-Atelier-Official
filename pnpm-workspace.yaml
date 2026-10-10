@@ -1,5 +1,7 @@
 allowBuilds:
   # The ffmpeg binary is fetched by scripts/v5/film.mjs's setup note (curl from the same release) instead of the
   # package's install script, which cannot reach the network through the sandbox proxy.
+  # Remotion bundles compositions with esbuild; its install script only sets up the platform binary.
+  esbuild: true
   ffmpeg-static: false
   unrs-resolver: false
